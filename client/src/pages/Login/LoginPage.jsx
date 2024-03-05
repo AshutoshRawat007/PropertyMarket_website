@@ -1,42 +1,51 @@
-import React, { useState } from 'react';
+import {useContext, useState} from "react";
 import './LoginPage.css'
-// import { useNavigate } from 'react-router-dom';
+import {Navigate} from "react-router-dom";
+import {UserContext} from "../../UserContext";
 import {Link } from "react-router-dom";
 
 
 const LoginForm = ({ changestate }) => {
-  const [email, setEmail] = useState('');
+  const [Fname, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState('');
+  const [nameerror, setnameerror] = useState('');
+  // const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [redirect,setRedirect] = useState(false);
   // const [registertion, setregistertion] = useState('false');
+  const {setUserInfo} = useContext(UserContext);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     
     e.preventDefault();
     // Simple validation
-    if (!email) {
-      setEmailError('Email is required');
+    if (!Fname) {
+      setnameerror('name is required');
       return;
     }
     if (!password) {
       setPasswordError('Password is required');
       return;
     }
-    // TODO: Handle login logic (authentication)
-    
+    const response = await fetch('http://localhost:4000/login', {
+      method: 'POST',
+      body: JSON.stringify({Fname, password}),
+      headers: {'Content-Type':'application/json'},
+      credentials: 'include',
+    });
+    if (response.ok) {
+      response.json().then(userInfo => {
+        setUserInfo(userInfo);
+        setRedirect(true);
+      });
+    } else {
+      alert('wrong credentials');
+    }
   };
 
-  
-
-// const navigate = useNavigate();
-const changestate2 = ()=>{  
-  changestate();
-  console.log("registration");
-  // navigate('/');
-
-};
-
+  if (redirect) {
+    return <Navigate to={'/'} />
+  }
   return (
     <article className="flex flex-col items-center justify-start w-[full] h-[100%] gap-[100px] overflow-auto bg-gray-50_01">
       <h2 className="tc">Welcome to the Cryptomania</h2>
@@ -46,12 +55,12 @@ const changestate2 = ()=>{
           <div className="flex flex-col items-center justify-start w-full gap-3">
             <input
               className="w-full gap-3.5 font-semibold border-blue_gray-100_01 border border-solid"
-              placeholder="Email"
-              type="email"
-              value={email}
+              placeholder="name"
+              type="text"
+              value={Fname}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <div className="error pv2 tc">{emailError}</div>
+            <div className="error pv2 tc">{nameerror}</div>
           {/* </div> */}
           {/* <div className="flex flex-col items-center justify-start w-full gap-3"> */}
             <input
@@ -71,7 +80,7 @@ const changestate2 = ()=>{
         <hr className="separator_line"></hr>
         <div>
           <p className="f5 tc ">
-            Don't have an account? <Link to='../signup' className="link dim black db" onClick={changestate2}>Sign Up</Link>
+            Don't have an account? <Link to='../signup' className="link dim black db">Sign Up</Link>
               {/* Sign Up</a> */}
           </p>
         </div>

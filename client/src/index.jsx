@@ -15,12 +15,13 @@ import ListingMapView from "pages/ListingMapView/ListingMapView";
 import AgentProfile from "pages/AgentProfile/AgentProfile";
 import AgentList from "pages/AgentList/AgentList";
 import PropertyDetails from "pages/PropertyDetails/PropertyDetails";
-
 import ContactPage from "pages/ContactPage/ContactPage";
 import Login from "pages/Login/LoginPage";
 import SignUp from "pages/SignUp/SignUp";
 import BlogPage from "pages/BlogPage/BlogPage";
 import BlogDetails from "pages/BlogDetails/BlogDetails";
+
+import {UserContextProvider} from "./UserContext";
 
 const router = createBrowserRouter(createRoutesFromElements(    
     <Route path="/" element={<App />}>        
@@ -42,7 +43,9 @@ const router = createBrowserRouter(createRoutesFromElements(
 )
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
+      <UserContextProvider>
     <RouterProvider router={router} />
+    </UserContextProvider>
     </React.StrictMode>
 )
   

@@ -2,9 +2,30 @@ import React from "react";
 import { CloseSVG } from "../../assets/images";
 import { Button, Input, Img, Heading, Text } from "..";
 import {Link} from 'react-router-dom';
+import {useContext, useEffect, useState} from "react";
+import {UserContext} from "../../UserContext";
 
 export default function Header({ ...props }) {
-  const [searchBarValue1, setSearchBarValue1] = React.useState("");
+  const [searchBarValue1, setSearchBarValue1] = useState("");
+  const {setUserInfo,userInfo} = useContext(UserContext);
+  useEffect(() => {
+    fetch('http://localhost:4000/profile', {
+      credentials: 'include',
+    }).then(response => {
+      response.json().then(userInfo => {
+        setUserInfo(userInfo);
+      });
+    });
+  }, []);
+  function logout() {
+    fetch('http://localhost:4000/logout', {
+      credentials: 'include',
+      method: 'POST',
+    });
+    setUserInfo(null);
+  }
+
+  const username = userInfo?.Fname;
 
   return (
     <header {...props}>
@@ -51,9 +72,19 @@ export default function Header({ ...props }) {
             }
             className="w-[55%] gap-2 text-gray-900 font-bold"
           />
-          <Link to='/login'><Button size="lg" className="font-semibold min-w-[94px]">
-            Log in
-          </Button></Link>
+          <nav>
+          {username && (
+          <>
+            <Link to="/create">hi {username}</Link>
+            <button onClick={logout}>Logout </button>
+          </>
+        )}
+        {!username && (
+          <>
+            <Link to="/login">Login</Link>
+          </>
+        )}
+        </nav>
         </div>
       </div>
     </header>

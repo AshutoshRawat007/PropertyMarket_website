@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
-mongoose.connect('mongodb+srv://blog:RD8paskYC8Ayj09u@cluster0.pflplid.mongodb.net/?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://admin_buysell:HDkjAhxL5l1cJz9B@cluster0.mq8wi2q.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
 app.post('/register', async (req,res) => {
   const {Fname,password} = req.body;
@@ -36,8 +36,13 @@ app.post('/register', async (req,res) => {
 });
 
 app.post('/login', async (req,res) => {
-  const {Fname,password} = req.body;
-  const userDoc = await User.findOne({Fname});
+  try{
+    const {Fname,password} = req.body;
+    const userDoc = await User.findOne({Fname}).select('+password');
+    if (!userDoc) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+  }
+  console.log(userDoc);
   const passOk = bcrypt.compareSync(password, userDoc.password);
   if (passOk) {
     // logged in
@@ -51,6 +56,13 @@ app.post('/login', async (req,res) => {
   } else {
     res.status(400).json('wrong credentials');
   }
+  }catch (error) {
+    console.error('Error during login:', error);
+    res.status(500).json({ error: 'Internal server error' });
+}
+  
+  
+
 });
 
 app.get('/profile', (req,res) => {
@@ -122,7 +134,7 @@ app.post('/logout', (req,res) => {
 // app.get('/post', async (req,res) => {
 //   res.json(
 //     await Post.find()
-//       .populate('author', ['username'])
+//       .populate('author', ['Fname'])
 //       .sort({createdAt: -1})
 //       .limit(20)
 //   );
@@ -130,7 +142,7 @@ app.post('/logout', (req,res) => {
 
 // app.get('/post/:id', async (req, res) => {
 //   const {id} = req.params;
-//   const postDoc = await Post.findById(id).populate('author', ['username']);
+//   const postDoc = await Post.findById(id).populate('author', ['Fname']);
 //   res.json(postDoc);
 // })
 
