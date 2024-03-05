@@ -60,9 +60,6 @@ app.post('/login', async (req,res) => {
     console.error('Error during login:', error);
     res.status(500).json({ error: 'Internal server error' });
 }
-  
-  
-
 });
 
 app.get('/profile', (req,res) => {
