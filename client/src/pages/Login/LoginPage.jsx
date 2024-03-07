@@ -6,7 +6,7 @@ import {Link } from "react-router-dom";
 
 
 const LoginForm = ({ changestate }) => {
-  const [Fname, setEmail] = useState('');
+  const [Username, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [nameerror, setnameerror] = useState('');
   // const [emailError, setEmailError] = useState('');
@@ -19,7 +19,7 @@ const LoginForm = ({ changestate }) => {
     
     e.preventDefault();
     // Simple validation
-    if (!Fname) {
+    if (!Username) {
       setnameerror('name is required');
       return;
     }
@@ -29,7 +29,7 @@ const LoginForm = ({ changestate }) => {
     }
     const response = await fetch('http://localhost:4000/login', {
       method: 'POST',
-      body: JSON.stringify({Fname, password}),
+      body: JSON.stringify({Username, password}),
       headers: {'Content-Type':'application/json'},
       credentials: 'include',
     });
@@ -57,7 +57,7 @@ const LoginForm = ({ changestate }) => {
               className="w-full gap-3.5 font-semibold border-blue_gray-100_01 border border-solid"
               placeholder="name"
               type="text"
-              value={Fname}
+              value={Username}
               onChange={(e) => setEmail(e.target.value)}
             />
             <div className="error pv2 tc">{nameerror}</div>

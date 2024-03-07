@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 const SignUp = () => {
   // const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [Fname, setFname] = useState('');
-  // const [Lname, setLname] = useState('');
+  const [Username, setUsername] = useState('');
+  const [UserRole, setUserRole] = useState('user');
   // const [dob, setDob] = useState('');
   // const [gender, setGender] = useState('');
 
@@ -16,23 +16,21 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Simple validation
-    // if (!email) {
-    //   setEmailError('Email is required');
-    //   return;
-    // }
     if (!password) {
       setPasswordError('Password is required');
       return;
     }
-    if (!Fname ) {
+    if (!Username ) {
       setNameError('First name and last name are required');
       return;
     }
+
+    const userdata={
+      Username, password,UserRole , name:"sample", phone:1234567890, description:" its just a user"
+    }
     const response = await fetch('http://localhost:4000/register', {
       method: 'POST',
-      body: JSON.stringify({Fname,password}),
+      body: JSON.stringify(userdata),
       headers: {'Content-Type':'application/json'},
     });
     if (response.status === 200) {
@@ -51,12 +49,11 @@ const SignUp = () => {
           <legend className="text-lg font-semibold text-center mb-4">Registration Page</legend>
           <div className="my-3 flex">
             <input
-              // className="border border-gray-700 rounded-md p-2 text-gray-700 focus:outline-none focus:border-black"
               className="appearance-none border-b-2 border-gray-700 w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-black"
               placeholder="First Name"
               type="text"
-              value={Fname}
-              onChange={(e) => setFname(e.target.value)}
+              value={Username}
+              onChange={(e) => setUsername(e.target.value)}
             />
             {/* <input
               className="input-reset ba b--black-20 pa2 mb2 w-50 ml3"

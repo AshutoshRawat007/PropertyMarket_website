@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require("mongoose");
 const User = require('./models/User');
+// const Agent = require('./models/Agent');
+const Property = require('./models/Property');
 // const Post = require('./models/Post');
 const bcrypt = require('bcryptjs');
 const app = express();
@@ -22,11 +24,12 @@ app.use('/uploads', express.static(__dirname + '/uploads'));
 mongoose.connect('mongodb+srv://admin_buysell:HDkjAhxL5l1cJz9B@cluster0.mq8wi2q.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
 app.post('/register', async (req,res) => {
-  const {Fname,password} = req.body;
+  const {Username,password,UserRole,name,phone,description} = req.body;
   try{
     const userDoc = await User.create({
-      Fname,
+      Username,
       password:bcrypt.hashSync(password,salt),
+      UserRole,name,phone,description
     });
     res.json(userDoc);
   } catch(e) {
@@ -37,8 +40,8 @@ app.post('/register', async (req,res) => {
 
 app.post('/login', async (req,res) => {
   try{
-    const {Fname,password} = req.body;
-    const userDoc = await User.findOne({Fname}).select('+password');
+    const {Username,password} = req.body;
+    const userDoc = await User.findOne({Username}).select('+password');
     if (!userDoc) {
       return res.status(401).json({ error: 'Invalid credentials' });
   }
@@ -46,11 +49,11 @@ app.post('/login', async (req,res) => {
   const passOk = bcrypt.compareSync(password, userDoc.password);
   if (passOk) {
     // logged in
-    jwt.sign({Fname,id:userDoc._id}, secret, {}, (err,token) => {
+    jwt.sign({Username,id:userDoc._id}, secret, {}, (err,token) => {
       if (err) throw err;
       res.cookie('token', token).json({
         id:userDoc._id,
-        Fname,
+        Username,
       });
     });
   } else {
@@ -67,6 +70,7 @@ app.get('/profile', (req,res) => {
   jwt.verify(token, secret, {}, (err,info) => {
     if (err) throw err;
     res.json(info);
+    console.log(info.id," profile");
   });
 });
 
@@ -74,6 +78,76 @@ app.post('/logout', (req,res) => {
   res.cookie('token', '').json('ok');
 });
 
+
+// Assuming you have an endpoint for fetching property listings
+app.get('/property', async (req, res) => {
+  try {
+    const properties = await Property.find();
+    res.json(properties);
+  } catch (error) {
+    console.error('Error fetching properties:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Update your property creation endpoint
+app.post('/property', async (req, res) => {
+  const {  name, location, amenities, images, roomDetails, price,userId } = req.body;
+  console.log("post porerty ", req.body);
+  try {
+    const propertyDoc = await Property.create({      
+      name,
+      location,
+      amenities,
+      images,
+      roomDetails,
+      price,
+      userId
+    });
+    res.json(propertyDoc);
+  } catch (e) {
+    console.log(e);
+    res.status(400).json(e);
+  }
+});
+// Update property endpoint
+app.put('/properties/:id', async (req, res) => {
+  const { id } = req.params;
+  const { name, location, amenities, images, roomDetails, price } = req.body;
+  try {
+    const propertyDoc = await Property.findByIdAndUpdate(
+      id,
+      {
+        name,
+        location,
+        amenities,
+        images,
+        roomDetails,
+        price,
+      },
+      { new: true }
+    );
+    res.json(propertyDoc);
+  } catch (e) {
+    console.log(e);
+    res.status(400).json(e);
+  }
+});
+
+
+// Fetch agent details endpoint
+app.get('/agents/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const agentDetails = await Agent.findById(id).populate('properties');
+    res.json(agentDetails);
+  } catch (error) {
+    console.error('Error fetching agent details:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.listen(4000);
 // app.post('/post', uploadMiddleware.single('file'), async (req,res) => {
 //   const {originalname,path} = req.file;
 //   const parts = originalname.split('.');
@@ -131,7 +205,7 @@ app.post('/logout', (req,res) => {
 // app.get('/post', async (req,res) => {
 //   res.json(
 //     await Post.find()
-//       .populate('author', ['Fname'])
+//       .populate('author', ['Username'])
 //       .sort({createdAt: -1})
 //       .limit(20)
 //   );
@@ -139,9 +213,8 @@ app.post('/logout', (req,res) => {
 
 // app.get('/post/:id', async (req, res) => {
 //   const {id} = req.params;
-//   const postDoc = await Post.findById(id).populate('author', ['Fname']);
+//   const postDoc = await Post.findById(id).populate('author', ['Username']);
 //   res.json(postDoc);
 // })
-
-app.listen(4000);
+// app.listen(4000);
 //

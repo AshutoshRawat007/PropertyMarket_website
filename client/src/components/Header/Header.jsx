@@ -14,6 +14,8 @@ export default function Header({ ...props }) {
     }).then(response => {
       response.json().then(userInfo => {
         setUserInfo(userInfo);
+        const col = userInfo.id;
+        console.log(userInfo)
       });
     });
   }, []);
@@ -25,7 +27,7 @@ export default function Header({ ...props }) {
     setUserInfo(null);
   }
 
-  const username = userInfo?.Fname;
+  const username = userInfo?.Username;
 
   return (
     <header {...props}>
@@ -43,7 +45,7 @@ export default function Header({ ...props }) {
               <Img src="images/img_arrow_down.svg" alt="home_two" className="h-4 w-4 mt-0.5" />
             </div>
             <div className="flex flex-row justify-start items-start w-1/4 gap-1.5">
-              <Link to="Listing"><Heading as="h6">Listing</Heading></Link>   
+              <Link to="listing"><Heading as="h6">Listing</Heading></Link>   
               <Img src="images/img_arrow_down.svg" alt="arrowdown_one" className="h-4 w-4" />
             </div>
             <div className="flex flex-row justify-start items-start w-1/4 gap-1.5">
@@ -51,9 +53,10 @@ export default function Header({ ...props }) {
               <Img src="images/img_arrow_down.svg" alt="arrowdown_one" className="h-4 w-4" />
             </div>
           </div>
+          <Link to ="property">
           <Heading as="h6" className="text-center">
             Property{" "}
-          </Heading>
+          </Heading></Link>
           <Link to='/blogpage'><Heading as="h6">Blog</Heading></Link>
         </div>
         <div className="flex flex-row justify-start items-center w-[19%] gap-2.5">
