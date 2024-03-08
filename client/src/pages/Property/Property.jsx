@@ -3,11 +3,9 @@ import {UserContext} from "../../UserContext";
 
 const Property = () => {
   const [files, setFiles] = useState([]);
-  const [uploadedFiles, setUploadedFiles] = useState([]);
   const [propertyName, setPropertyName] = useState('');
   const [location, setLocation] = useState('');
   const [amenities, setAmenities] = useState('');
-  const [images, setImages] = useState('');
   const [numberOfRooms, setNumberOfRooms] = useState(0);
   const [kitchen, setKitchen] = useState(false);
   const [guestRoom, setGuestRoom] = useState(false);
@@ -20,26 +18,8 @@ const Property = () => {
   function handleChange(event) {
     setFiles([...event.target.files]);
   }
-
-
-  useEffect(() => {
-    fetch('http://localhost:4000/profile', {
-      method: 'GET',
-      credentials: 'include',
-    }).then(response => {
-      response.json().then(userInfo => {
-        setuserid(userInfo);
-        const col = userInfo.id;
-        console.log("sss",col)
-      });
-    });
-  }, []);
-  const userId = userid.id; // Replace with actual user ID
-  console.log("useringo ", userid.id);
-  const sendProperty = async (e) => {
-    
-    e.preventDefault();
-        
+  const sendProperty = async (e) => {    
+    e.preventDefault();        
     const propertyData = {
       name: propertyName,
       location,
@@ -50,8 +30,7 @@ const Property = () => {
         guestRoom,
         hotWater,
       },
-      price,
-      userId
+      price
     };
     
     const propertyDataJSON = JSON.stringify(propertyData);
@@ -62,27 +41,8 @@ const Property = () => {
     files.forEach((file, index) => {
       formData.append(`images${index}`, file);
     });
-    if (files.length === 0) {
-      alert('Please select at least one image.');
-
-    }
-    else alert('images are rtehre');
-
     // Append property details (JSON string)
     formData.append('propertyData.json', propertyDataJSON);
-
-    
-    // // Check if 'file' is a single image File object
-    // if (Array.isArray(file)) {
-    //   for (const imageFile of file) {
-    //     formData.append('images', imageFile);
-    //   }
-    // } else if (file instanceof File) {
-    //   formData.append('images', file);
-    // } else {
-    //   console.error('Invalid file type for "images"');
-    // }
-    
     const response = await fetch('http://localhost:4000/property', {
       method: 'POST',
       body: formData,
@@ -95,14 +55,9 @@ const Property = () => {
     } else {
       alert('Property upload failed. Check the server response for details.');
     }
-    
-
-    console.log(propertyData);
+      console.log(propertyData);
   
     }
-
-   
-
   return (
     <form enctype="multipart/form-data" onSubmit={sendProperty} className="max-w-xl mx-auto p-4 bg-gradient-to-b from-custom-2 to-transparent border-3 border-dark-gray shadow-2xl rounded-md">
       <h2 className="text-center">Create Property</h2>

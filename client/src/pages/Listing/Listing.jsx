@@ -138,14 +138,15 @@ export default function ListingPage() {
           </div>
 
 
-          
+
           <div className="flex flex-col items-center justify-start w-full">
             <div className="flex flex-row justify-start items-start w-full gap-6 max-w-[1200px]">
               <GoogleMap showMarker={false} className="h-[511px] w-[32%]" />
               <div className="flex flex-col items-center justify-start w-[66%] gap-[60px]">
                 <div className="flex flex-col items-center justify-start w-full">
                   <div className="justify-center w-full gap-6 grid-cols-2 grid min-h-[auto]">
-                    <LandingPageCard className="flex flex-col items-center justify-start w-full" />
+                    <LandingPageCard 
+                      className="flex flex-col items-center justify-start w-full" />
                     <LandingPageCard
                       imageOne="images/img_image_1.png"
                       className="flex flex-col items-center justify-start w-full"

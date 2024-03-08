@@ -91,7 +91,6 @@ app.post('/logout', (req, res) => {
 app.post('/property', uploadMiddleware.any(), async (req, res) => {
   // console.log("Request Body:", req.body);
   // console.log("Request Files:", req.files);
-  // console.log("---------------------------");
   const files = req.files;
   var images_arrray=[];
 
@@ -119,7 +118,6 @@ app.post('/property', uploadMiddleware.any(), async (req, res) => {
     const newPath = path + '.' + ext;
     images_arrray.push(newPath);
     fs.renameSync(path, newPath);
-    // console.log('ddd:: ',images_arrray[index]);
   });
 
 
@@ -130,8 +128,8 @@ app.post('/property', uploadMiddleware.any(), async (req, res) => {
   const {token} = req.cookies;
   jwt.verify(token, secret, {}, async (err,info) => {
     if (err) throw err;
-    const {  name, location, amenities, roomDetails, price,userId } = propertyData;
-  // console.log("name ", name,"location", location, 'amenities,',amenities, "rdd", roomDetails, price,userId);
+    // console.log(info.id,"<--------");
+    const {  name, location, amenities, roomDetails, price } = propertyData;
       const propertyDoc = await Property.create({      
       name,
       location,
@@ -139,7 +137,7 @@ app.post('/property', uploadMiddleware.any(), async (req, res) => {
       images:images_arrray,
       roomDetails,
       price,
-      userId
+      userId:info.id,
     });
     res.json(propertyDoc);
   });
