@@ -14,6 +14,31 @@ const dropDownOptions = [
 
 export default function ListingPage() {
   const [searchBarValue7, setSearchBarValue7] = React.useState("");
+  const[data,setData] = React.useState();
+
+  
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/property');
+        const jsonData = await response.json();
+        setData(jsonData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+
+     
+    };
+
+    fetchData();
+    
+  }, []);
+  React.useEffect(()=>{
+    console.log(data);
+
+  },[data]);
+ 
+
 
   return (
     <>

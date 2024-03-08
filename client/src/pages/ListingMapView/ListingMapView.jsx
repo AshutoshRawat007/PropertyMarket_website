@@ -1,9 +1,7 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Helmet } from "react-helmet";
 import { CloseSVG } from "../../assets/images";
 import { Button, Img, GoogleMap, SelectBox, Input, Heading } from "../../components";
-import Footer from "../../components/Footer/Footer";
-import Header1 from "../../components/Header1";
 import LandingPageCard from "../../components/LandingPageCard";
 
 const dropDownOptions = [
@@ -14,6 +12,7 @@ const dropDownOptions = [
 
 export default function ListingMapViewPage() {
   const [searchBarValue8, setSearchBarValue8] = React.useState("");
+  
 
   return (
     <>
@@ -23,7 +22,7 @@ export default function ListingMapViewPage() {
       </Helmet>
       <div className="flex flex-col items-center justify-start w-full gap-[100px] overflow-auto bg-gray-50_01">
         <div className="flex flex-col items-center justify-start w-full gap-[60px]">
-          <Header1 className="flex justify-center items-center w-full p-[19px] bg-white-A700" />
+          {/* <Header1 className="flex justify-center items-center w-full p-[19px] bg-white-A700" /> */}
           <div className="flex flex-row justify-center w-full">
             <div className="flex flex-col items-start justify-start w-full pt-[5px] gap-[18px] max-w-[1200px]">
               <Heading size="3xl" as="h1" className="tracking-[-0.72px]">
@@ -208,7 +207,7 @@ export default function ListingMapViewPage() {
             </div>
           </div>
         </div>
-        <Footer className="flex justify-center items-center w-full pl-[74px] pr-14 gap-[115px] py-[74px] bg-white-A700" />
+        {/* <Footer className="flex justify-center items-center w-full pl-[74px] pr-14 gap-[115px] py-[74px] bg-white-A700" /> */}
       </div>
     </>
   );

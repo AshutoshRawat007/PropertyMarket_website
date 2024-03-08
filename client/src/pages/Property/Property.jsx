@@ -1,5 +1,5 @@
 import React, { useState,useContext,useEffect } from 'react';
-import {UserContext} from "../../UserContext";
+// import {UserContext} from "../../UserContext";
 
 const Property = () => {
   const [files, setFiles] = useState([]);
@@ -11,8 +11,6 @@ const Property = () => {
   const [guestRoom, setGuestRoom] = useState(false);
   const [hotWater, setHotWater] = useState(false);
   const [price, setPrice] = useState(100);
-  const[userid , setuserid] = useState('');
-  const {UserInfo} = useContext(UserContext);
 
   
   function handleChange(event) {

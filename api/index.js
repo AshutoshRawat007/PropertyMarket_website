@@ -28,17 +28,19 @@ const secret = 'asdfe45we45w345wegw345werjktjwertkj';
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(express.json());
 app.use(cookieParser());
-// app.use('/uploads', express.static(__dirname + '/uploads'));
 
 mongoose.connect('mongodb+srv://admin_buysell:HDkjAhxL5l1cJz9B@cluster0.mq8wi2q.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
 app.post('/register', async (req, res) => {
-  const { Username, password, UserRole, name, phone, description } = req.body;
+  const { Username, password } = req.body;
   try {
     const userDoc = await User.create({
       Username,
       password: bcrypt.hashSync(password, salt),
-      UserRole, name, phone, description
+      role:"agent", 
+      name:"so many names here", 
+      phone:1234567890, 
+      description:"slowly slowly",
     });
     res.json(userDoc);
   } catch (e) {
@@ -167,8 +169,32 @@ app.put('/properties/:id', async (req, res) => {
   }
 });
 
+app.get('/property',async(req,res)=>{
+  try{
+    const data = await Property.find().populate('userId' ,['name','phone']); // Retrieve all data from MongoDB
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 
+  //  populating methods-------------->]]]
+  // const data = await Property.find().populate({
+  //   path: 'user',
+  //   select: 'username password' // Include the fields you need, even if select: false in schema
+  // });
+  
+});
 // Fetch agent details endpoint
+app.get('/agents', async (req, res) => {
+  try {
+    const agentDetails = await User.find({ role: 'agent' });
+    res.json(agentDetails);
+  } catch (error) {
+    console.error('Error fetching agent details:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 app.get('/agents/:id', async (req, res) => {
   const { id } = req.params;
   try {

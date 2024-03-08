@@ -6,10 +6,8 @@ const SignUp = () => {
   // const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [Username, setUsername] = useState('');
-  const [UserRole, setUserRole] = useState('user');
   // const [dob, setDob] = useState('');
   // const [gender, setGender] = useState('');
-
   // const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [NameError, setNameError] = useState('');
@@ -26,8 +24,9 @@ const SignUp = () => {
     }
 
     const userdata={
-      Username, password,UserRole , name:"sample", phone:1234567890, description:" its just a user"
+      Username, password
     }
+    console.log(userdata);
     const response = await fetch('http://localhost:4000/register', {
       method: 'POST',
       body: JSON.stringify(userdata),
