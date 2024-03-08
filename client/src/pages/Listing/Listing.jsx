@@ -136,6 +136,9 @@ export default function ListingPage() {
               </div>
             </div>
           </div>
+
+
+          
           <div className="flex flex-col items-center justify-start w-full">
             <div className="flex flex-row justify-start items-start w-full gap-6 max-w-[1200px]">
               <GoogleMap showMarker={false} className="h-[511px] w-[32%]" />

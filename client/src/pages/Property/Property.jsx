@@ -2,6 +2,8 @@ import React, { useState,useContext,useEffect } from 'react';
 import {UserContext} from "../../UserContext";
 
 const Property = () => {
+  const [files, setFiles] = useState([]);
+  const [uploadedFiles, setUploadedFiles] = useState([]);
   const [propertyName, setPropertyName] = useState('');
   const [location, setLocation] = useState('');
   const [amenities, setAmenities] = useState('');
@@ -13,6 +15,13 @@ const Property = () => {
   const [price, setPrice] = useState(100);
   const[userid , setuserid] = useState('');
   const {UserInfo} = useContext(UserContext);
+
+  
+  function handleChange(event) {
+    setFiles([...event.target.files]);
+  }
+
+
   useEffect(() => {
     fetch('http://localhost:4000/profile', {
       method: 'GET',
@@ -26,19 +35,15 @@ const Property = () => {
     });
   }, []);
   const userId = userid.id; // Replace with actual user ID
-
   console.log("useringo ", userid.id);
   const sendProperty = async (e) => {
     
     e.preventDefault();
-
-    // Create property object
+        
     const propertyData = {
-      
       name: propertyName,
       location,
       amenities: amenities.split(',').map((item) => item.trim()),
-      images: images.split(',').map((item) => item.trim()),
       roomDetails: {
         numberOfRooms,
         kitchen,
@@ -46,20 +51,51 @@ const Property = () => {
         hotWater,
       },
       price,
-      userId}
+      userId
+    };
+    
+    const propertyDataJSON = JSON.stringify(propertyData);
+    
+    // Create FormData object
 
-      
-
-      const response = await fetch('http://localhost:4000/property', {
-      method: 'POST',
-      body: JSON.stringify(propertyData),
-      headers: {'Content-Type':'application/json'},
+    const formData = new FormData();
+    files.forEach((file, index) => {
+      formData.append(`images${index}`, file);
     });
-    if (response.status === 200) {
-      alert('property successful');
-    } else {
-      alert('property failed');
+    if (files.length === 0) {
+      alert('Please select at least one image.');
+
     }
+    else alert('images are rtehre');
+
+    // Append property details (JSON string)
+    formData.append('propertyData.json', propertyDataJSON);
+
+    
+    // // Check if 'file' is a single image File object
+    // if (Array.isArray(file)) {
+    //   for (const imageFile of file) {
+    //     formData.append('images', imageFile);
+    //   }
+    // } else if (file instanceof File) {
+    //   formData.append('images', file);
+    // } else {
+    //   console.error('Invalid file type for "images"');
+    // }
+    
+    const response = await fetch('http://localhost:4000/property', {
+      method: 'POST',
+      body: formData,
+      credentials: 'include' // Send FormData object for image and JSON data
+      // headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    
+    if (response.status === 200) {
+      alert('Property uploaded successfully!');
+    } else {
+      alert('Property upload failed. Check the server response for details.');
+    }
+    
 
     console.log(propertyData);
   
@@ -68,7 +104,7 @@ const Property = () => {
    
 
   return (
-    <form onSubmit={sendProperty} className="max-w-xl mx-auto p-4 bg-gradient-to-b from-custom-2 to-transparent border-3 border-dark-gray shadow-2xl rounded-md">
+    <form enctype="multipart/form-data" onSubmit={sendProperty} className="max-w-xl mx-auto p-4 bg-gradient-to-b from-custom-2 to-transparent border-3 border-dark-gray shadow-2xl rounded-md">
       <h2 className="text-center">Create Property</h2>
 
       {/* Your form inputs go here */}
@@ -86,7 +122,7 @@ const Property = () => {
       </div>
       <div className="my-4">
         <label htmlFor="images">images Name:</label>
-        <input type="text" id="images" name="images" value={images} onChange={(e) => setImages(e.target.value)} required className="border-b-2 border-gray-700 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-black" />
+        <input type="file" id="images" name="images" multiple  onChange={handleChange} required className="border-b-2 border-gray-700 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-black" />
       </div>
 
       {/* Add other form inputs based on your schema */}

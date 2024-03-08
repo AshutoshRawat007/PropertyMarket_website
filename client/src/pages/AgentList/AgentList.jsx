@@ -64,7 +64,11 @@ export default function AgentListPage() {
             </div>
           </div>
           <div className="flex flex-col items-center justify-start w-full gap-[60px]">
+
+            {/* below div is for anegt profile now i have to make it dynamic */}
             <div className="justify-center w-full gap-6 grid-cols-4 grid min-h-[auto] max-w-[1200px]">
+
+{/* the single agent card si below  */}
               <div className="flex flex-col items-center justify-start w-full">
                 <Img
                   src="images/img_rectangle_5615.png"
@@ -86,6 +90,11 @@ export default function AgentListPage() {
                   </div>
                 </div>
               </div>
+{/* the single agentcard above rest copies of it  */}
+
+
+
+
               <div className="flex flex-col items-center justify-start w-full">
                 <Img
                   src="images/img_rectangle_5616.png"
@@ -318,6 +327,9 @@ export default function AgentListPage() {
                 </div>
               </div>
             </div>
+{/* above div is for anegt profile now i have to make it dynamic */}
+
+{/* below are new page buttons */}
             <div className="flex flex-row justify-between w-full max-w-[1200px]">
               <div className="flex flex-row justify-start gap-[5px]">
                 <Button color="gray_700" variant="outline" className="font-semibold min-w-[48px]">
