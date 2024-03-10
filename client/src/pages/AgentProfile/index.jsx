@@ -1,53 +1,11 @@
-import React,{useState, useEffect} from "react";
+import React from "react";
 import { Helmet } from "react-helmet";
 import { Button, Img, Heading, RatingBar, Text } from "../../components";
-import { useParams } from "react-router-dom";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
 import LandingPageCard from "../../components/LandingPageCard";
 
 export default function AgentProfilePage() {
-  const { id } = useParams(); 
-  const [agentdata , setAgentdata] = useState([]);
-  const [propertdata, setPropertdata] =useState([]);
-  useEffect(()=>{
-    const fetchData = async () => {
-      try {
-        const AgentDetails = await fetch('http://localhost:4000/agents/'+id);
-        const { user, properties } = await AgentDetails.json();
-        setAgentdata(user);
-        setPropertdata(properties);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }    
-    };
-    fetchData();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  },[id]);
-  React.useEffect(() => {
-    console.log(agentdata);
- 
-  }, [agentdata]);
-  React.useEffect(() => {
-    console.log("propertdata:", propertdata);
-  
-    if (Array.isArray(propertdata) && propertdata.length > 0) {
-      propertdata.map((property) => {
-        console.log("id", property._id);
-        console.log(property.images[0], "img");
-        console.log(property.name, "name");
-        return null;
-      });
-    }
-  }, [propertdata]);
-  // React.useEffect(() => {
-  //   if (propertdata && propertdata.length > 0) {
-  //     propertdata.map((property) => {
-  //       console.log("id", property._id);
-  //       console.log(property.images[0], "img");
-  //       console.log(property.name, "name");
-  //       return null; // Make sure to return a value when using map
-  //     });
-  //   }
-  // }, [propertdata]);
   return (
     <>
       <Helmet>
@@ -56,16 +14,16 @@ export default function AgentProfilePage() {
       </Helmet>
       <div className="flex flex-col items-center justify-start w-full gap-[100px] overflow-auto bg-gray-50_01">
         <div className="flex flex-col items-center justify-start w-full">
-          {/* <Header className="flex justify-center items-center w-full p-[19px] bg-white-A700" /> */}
+          <Header className="flex justify-center items-center w-full p-[19px] bg-white-A700" />
           <div className="flex flex-col items-center justify-start w-full">
             <div className="flex flex-col items-center justify-start w-full">
               <div className="flex flex-row justify-center w-full">
-                <Img src="/images/img_cover_image.png" alt="coverimage_one" className="w-full object-cover" />
+                <Img src="images/img_cover_image.png" alt="coverimage_one" className="w-full object-cover" />
               </div>
               <div className="flex flex-col items-center justify-start w-full mt-[-46px] gap-[58px]">
                 <div className="flex flex-row justify-start items-center w-full gap-[30px] max-w-[1160px]">
                   <Img
-                    src="/images/img_rectangle_5599_150x150.png"
+                    src="images/img_rectangle_5599_150x150.png"
                     alt="image"
                     className="w-[150px] object-cover rounded-[10px]"
                   />
@@ -73,7 +31,7 @@ export default function AgentProfilePage() {
                     <div className="flex flex-row justify-start items-center w-[83%] gap-8">
                       <div className="flex flex-col items-start justify-start w-[49%] gap-1.5">
                         <Heading size="xl" as="h1" className="tracking-[-0.48px]">
-                          {agentdata.name}
+                          Bruno Fernandes
                         </Heading>
                         <div className="flex flex-row justify-start items-center gap-3.5 py-0.5">
                           <RatingBar value={1} isEditable={true} size={16} className="flex justify-between w-24" />
@@ -82,15 +40,15 @@ export default function AgentProfilePage() {
                       </div>
                       <div className="flex flex-col items-center justify-start w-[49%] gap-2">
                         <div className="flex flex-row justify-start items-center w-full gap-[13px] py-0.5">
-                          <Img src="/images/img_icon_24px_call.svg" alt="icon24pxcall" className="h-6 w-6" />
+                          <Img src="images/img_icon_24px_call.svg" alt="icon24pxcall" className="h-6 w-6" />
                           <Heading size="md" as="h3" className="!font-semibold">
-                          {agentdata.phone}
+                            (123) 456-7890
                           </Heading>
                         </div>
                         <div className="flex flex-row justify-start items-center w-full gap-3 py-0.5">
-                          <Img src="/images/img_icon_24px_email_gray_900.svg" alt="icon24pxemail" className="h-6 w-6" />
+                          <Img src="images/img_icon_24px_email_gray_900.svg" alt="icon24pxemail" className="h-6 w-6" />
                           <Heading size="md" as="h4" className="mt-0.5 !font-semibold">
-                          {agentdata.Username}
+                            bruno@relasto .com
                           </Heading>
                         </div>
                       </div>
@@ -115,16 +73,25 @@ export default function AgentProfilePage() {
                       </Button>
                     </div>
                     <div className="justify-center w-full gap-6 grid-cols-3 grid min-h-[auto]">
-                    {propertdata.map((propertdata) => (
-                <LandingPageCard
-                  key={propertdata._id} // Make sure each card has a unique key
-                  image={`http://localhost:4000/uploads/${propertdata.images[0]}`}
-                  title={propertdata.location}
-                  price={propertdata.price}
-                />
-              ))}
+                      <LandingPageCard className="flex flex-col items-center justify-start w-full" />
                       <LandingPageCard
-                        imageOne="/images/img_image_1.png"
+                        imageOne="images/img_image_1.png"
+                        className="flex flex-col items-center justify-start w-full"
+                      />
+                      <LandingPageCard
+                        imageOne="images/img_image_2.png"
+                        className="flex flex-col items-center justify-start w-full"
+                      />
+                      <LandingPageCard
+                        imageOne="images/img_image_3.png"
+                        className="flex flex-col items-center justify-start w-full"
+                      />
+                      <LandingPageCard
+                        imageOne="images/img_image_4.png"
+                        className="flex flex-col items-center justify-start w-full"
+                      />
+                      <LandingPageCard
+                        imageOne="images/img_image_5.png"
                         className="flex flex-col items-center justify-start w-full"
                       />
                     </div>
@@ -166,13 +133,13 @@ export default function AgentProfilePage() {
             <div className="flex flex-col items-center justify-start w-full gap-6">
               <div className="flex flex-row justify-start items-center w-full gap-[30px]">
                 <Img
-                  src="/images/img_rectangle_5599.png"
+                  src="images/img_rectangle_5599.png"
                   alt="image_one"
                   className="w-[182px] object-cover rounded-[10px]"
                 />
                 <div className="flex flex-col items-start justify-start w-3/5 gap-1.5">
                   <Heading size="xl" as="h2" className="tracking-[-0.48px]">
-                  {agentdata.Username}
+                    Bruno Fernandes
                   </Heading>
                   <div className="flex flex-row justify-start items-center gap-3.5 py-0.5">
                     <RatingBar value={1} isEditable={true} size={16} className="flex justify-between w-24" />
@@ -181,23 +148,24 @@ export default function AgentProfilePage() {
                   <div className="flex flex-row justify-start items-center gap-[13px] py-0.5">
                     <Img src="images/img_icon_24px_call.svg" alt="icon24pxcall" className="h-6 w-6" />
                     <Heading size="md" as="h4" className="!font-semibold">
-                    {agentdata.phone}
+                      (123) 456-7890
                     </Heading>
                   </div>
                   <div className="flex flex-row justify-start items-center gap-3 py-0.5">
                     <Img src="images/img_icon_24px_email_gray_900.svg" alt="icon24pxemail" className="h-6 w-6" />
                     <Heading size="md" as="h5" className="mt-0.5 !font-semibold">
-                    {agentdata.Username}
+                      bruno@relasto .com
                     </Heading>
                   </div>
                 </div>
               </div>
               <Text size="xs" as="p" className="!text-gray-600_02">
-                description of agent 
+                A slider is great way to display a slideshow featuring images or videos, usually on your homepage.
                 <br />
-                {agentdata.description}
+                Adding sliders to your site is no longer difficult. You don’t have to know coding anymore. Just use a
+                slider widget and it will automatically insert the slider on your web page.
                 <br />
-                {/* One of the best ways to add beautiful sliders with excellent responsiveness and advanced options. */}
+                One of the best ways to add beautiful sliders with excellent responsiveness and advanced options.{" "}
               </Text>
             </div>
             <Button className="w-full font-semibold">Contact</Button>
@@ -260,11 +228,11 @@ export default function AgentProfilePage() {
                 Social
               </Heading>
               <div className="flex flex-row justify-start gap-4">
-                <Img src="/images/img_social_icon_facebook.svg" alt="socialicon_one" className="h-[30px] w-[30px]" />
-                <Img src="/images/img_social_icon_linkedin.svg" alt="socialicon" className="h-[30px] w-[30px]" />
-                <Img src="/images/img_social_icon_twitter.svg" alt="socialicon_five" className="h-[30px] w-[30px]" />
-                <Img src="/images/img_social_icon_youtube.svg" alt="socialicon" className="h-[30px] w-[30px]" />
-                <Img src="/images/img_social_icon_rss.svg" alt="socialiconrss" className="h-[30px] w-[30px]" />
+                <Img src="images/img_social_icon_facebook.svg" alt="socialicon_one" className="h-[30px] w-[30px]" />
+                <Img src="images/img_social_icon_linkedin.svg" alt="socialicon" className="h-[30px] w-[30px]" />
+                <Img src="images/img_social_icon_twitter.svg" alt="socialicon_five" className="h-[30px] w-[30px]" />
+                <Img src="images/img_social_icon_youtube.svg" alt="socialicon" className="h-[30px] w-[30px]" />
+                <Img src="images/img_social_icon_rss.svg" alt="socialiconrss" className="h-[30px] w-[30px]" />
               </div>
             </div>
           </div>
@@ -399,13 +367,14 @@ export default function AgentProfilePage() {
             <Button
               color="gray_600_02"
               variant="outline"
-              rightIcon={<Img src="/images/img_arrowdown_gray_900.svg" alt="arrow_down" />}
+              rightIcon={<Img src="images/img_arrowdown_gray_900.svg" alt="arrow_down" />}
               className="gap-1 font-semibold min-w-[128px]"
             >
               See more
             </Button>
           </div>
         </div>
+        <Footer className="flex justify-center items-center w-full pl-[74px] pr-14 gap-[115px] py-[74px] bg-white-A700" />
       </div>
     </>
   );

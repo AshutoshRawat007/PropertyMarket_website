@@ -26,9 +26,15 @@ const salt = bcrypt.genSaltSync(10);
 const secret = 'asdfe45we45w345wegw345werjktjwertkj';
 
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+// Example CORS configuration in Express.js
+// app.use((req, res, next) => {
+//   res.setHeader('Access-Control-Allow-Origin', '*');
+//   next();
+// });
+
 app.use(express.json());
 app.use(cookieParser());
-
+app.use('/uploads', express.static(__dirname + '/uploads'));
 mongoose.connect('mongodb+srv://admin_buysell:HDkjAhxL5l1cJz9B@cluster0.mq8wi2q.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
 app.post('/register', async (req, res) => {
@@ -107,19 +113,28 @@ app.post('/property', uploadMiddleware.any(), async (req, res) => {
     
 
     // Access the properties as needed
-    // console.log(`File ${index + 1}:`);
-    // console.log('Field Name:', fieldName);
-    // console.log('Original Name:', originalName);
-    // console.log('File Name:', fileName);
-    // console.log('MIME Type:', mimeType);
-    // console.log('Size:', size);
-    // console.log('path:', path);
+    console.log(`File ${index + 1}:`);
+    console.log('Field Name:', fieldName);
+    console.log('Original Name:', originalName);
+    console.log('File Name:', fileName);
+    console.log('MIME Type:', mimeType);
+    console.log('Size:', size);
+    console.log('path:', path);
+
+    //     File 1:
+    // Field Name: images0
+    // Original Name: team .jpg
+    // File Name: images0_1710065403482_395850492
+    // MIME Type: image/jpeg
+    // Size: 295932
+    // path: D:\REACT PROJECT\PropertyBuySellRent\api\uploads\images0_1710065403482_395850492
 
     const parts = originalName.split('.');
     const ext = parts[parts.length - 1];
     const newPath = path + '.' + ext;
-    images_arrray.push(newPath);
     fs.renameSync(path, newPath);
+    images_arrray.push((fileName + '.' + ext));
+    console.log('new path:', newPath);
   });
 
 
@@ -141,6 +156,13 @@ app.post('/property', uploadMiddleware.any(), async (req, res) => {
       price,
       userId:info.id,
     });
+
+    await User.findByIdAndUpdate(
+      info.id,
+      { $push: { properties: propertyDoc._id } },
+      { new: true }
+    );
+
     res.json(propertyDoc);
   });
 
@@ -188,7 +210,7 @@ app.get('/property',async(req,res)=>{
 // Fetch agent details endpoint
 app.get('/agents', async (req, res) => {
   try {
-    const agentDetails = await User.find({ role: 'agent' });
+    const agentDetails = await User.find();
     res.json(agentDetails);
   } catch (error) {
     console.error('Error fetching agent details:', error);
@@ -196,14 +218,41 @@ app.get('/agents', async (req, res) => {
   }
 });
 app.get('/agents/:id', async (req, res) => {
+  console.log(" camne to agent id ", req.params);
   const { id } = req.params;
-  try {
-    const agentDetails = await Agent.findById(id).populate('properties');
-    res.json(agentDetails);
-  } catch (error) {
-    console.error('Error fetching agent details:', error);
-    res.status(500).json({ error: 'Internal server error' });
+ // Find the user by ID below is the method if user do no contain properties refrence
+User.findById(id)
+.then(user => {
+  if (!user) {
+    // Handle the case where the user is not found
+    return res.status(404).json({ message: 'User not found' });
   }
+  // Use the user's ID to find all properties associated with the user
+  Property.find({ userId: id })
+    .then(properties => {
+      // 'properties' now contains an array of properties associated with the user
+      console.log(properties);
+      // You can do further processing with the properties here
+      res.status(200).json({ user, properties });
+    })
+    .catch(error => {
+      // Handle any errors that occur during the Property.find operation
+      console.error('Error finding properties:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    });
+})
+.catch(error => {
+  // Handle any errors that occur during the User.findById operation
+  console.error('Error finding user:', error);
+  res.status(500).json({ message: 'Internal Server Error' });
+});
+//   try {
+//     const agentDetails = await User.findById(id).populate('properties');
+//     res.json(agentDetails);
+//   } catch (error) {
+//     console.error('Error fetching agent details:', error);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
 });
 
 app.listen(4000);

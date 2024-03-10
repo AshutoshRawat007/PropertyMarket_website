@@ -31,7 +31,7 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path="SignUp" element={<SignUp/>}/>
       <Route path="listing" element={<Listing />} />
       <Route path="listingmapview" element={<ListingMapView />} />
-      <Route path="agentprofile" element={ <AgentProfile />} /> 
+      <Route path="agentprofile/:id" element={ <AgentProfile />} /> 
       <Route path="agentlist" element={<AgentList />} />
       <Route path="blogdetails" element={<BlogDetails />} />
       <Route path="blogpage" element={<BlogPage />} />      

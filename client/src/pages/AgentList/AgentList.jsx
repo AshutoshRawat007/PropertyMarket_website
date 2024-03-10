@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import { CloseSVG } from "../../assets/images";
 import { Button, Img, Heading, RatingBar, SelectBox, Input } from "../../components";
 
-
+import AgentInfoCard from "../../components/AgentInfoCard";
 const dropDownOptions = [
   { label: "Option1", value: "option1" },
   { label: "Option2", value: "option2" },
@@ -12,14 +12,15 @@ const dropDownOptions = [
 
 export default function AgentListPage() {
   const [searchBarValue3, setSearchBarValue3] = React.useState("");
-  const[data,setData] = React.useState();
+  const [searchResults, setSearchResults] = React.useState([]);
+  const[data,setData] = React.useState([]);
 
   
   React.useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch('http://localhost:4000/agents');
-        const jsonData = await response.json();
+        const jsonData = await response.json();      
         setData(jsonData);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -30,11 +31,16 @@ export default function AgentListPage() {
 
     fetchData();
     
-  }, []);
+  },[]);
   React.useEffect(()=>{
-    console.log(data);
+    console.log("data");
+    const filteredData = data.filter((item) =>
+        item.Username.toLowerCase().includes(searchBarValue3.toLowerCase())
+      );
+      setSearchResults(filteredData);
+    
 
-  },[data]);
+  },[data , searchBarValue3]);
 
   return (
     <>
@@ -61,7 +67,7 @@ export default function AgentListPage() {
                       <CloseSVG onClick={() => setSearchBarValue3("")} height={24} width={24} fillColor="#6e6e6eff" />
                     ) : (
                       <Img
-                        src="images/img_icon_24px_search_gray_600_02.svg"
+                        src="/images/img_icon_24px_search_gray_600_02.svg"
                         alt="icon / 24px / search"
                         className="cursor-pointer"
                       />
@@ -113,242 +119,16 @@ export default function AgentListPage() {
                   </div>
                 </div>
               </div>
+              {searchResults.map((data) => (
+                <AgentInfoCard
+                  key={data._id} // Make sure each card has a unique key
+                  name={data.Username}
+                  userid={data._id}
+                />
+              ))}
 {/* the single agentcard above rest copies of it  */}
 
 
-
-
-              <div className="flex flex-col items-center justify-start w-full">
-                <Img
-                  src="images/img_rectangle_5616.png"
-                  alt="image"
-                  className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
-                />
-                <div className="flex flex-row justify-center w-full p-[13px] rounded-bl-[10px] rounded-br-[10px] border-blue_gray-100_01 border border-solid bg-white-A700">
-                  <div className="flex flex-col items-start justify-start w-[95%] gap-[7px] mx-1.5">
-                    <Heading size="lg" as="h4" className="tracking-[-0.40px]">
-                      Bruno Fernandes
-                    </Heading>
-                    <div className="flex flex-row justify-start items-center gap-3.5 py-0.5">
-                      <RatingBar value={1} isEditable={true} size={16} className="flex justify-between w-24" />
-                      <Heading as="h5">4.5 review</Heading>
-                    </div>
-                    <Button color="blue_gray_100_01" variant="outline" className="w-full font-semibold">
-                      View Profile
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-start w-full">
-                <Img
-                  src="images/img_rectangle_5614.png"
-                  alt="image"
-                  className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
-                />
-                <div className="flex flex-row justify-center w-full p-[13px] rounded-bl-[10px] rounded-br-[10px] border-blue_gray-100_01 border border-solid bg-white-A700">
-                  <div className="flex flex-col items-start justify-start w-[95%] gap-[7px] mx-1.5">
-                    <Heading size="lg" as="h6" className="tracking-[-0.40px]">
-                      Bruno Fernandes
-                    </Heading>
-                    <div className="flex flex-row justify-start items-center gap-3.5 py-0.5">
-                      <RatingBar value={1} isEditable={true} size={16} className="flex justify-between w-24" />
-                      <Heading as="h6">4.5 review</Heading>
-                    </div>
-                    <Button color="blue_gray_100_01" variant="outline" className="w-full font-semibold">
-                      View Profile
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-start w-full">
-                <Img
-                  src="images/img_rectangle_5614_282x282.png"
-                  alt="image"
-                  className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
-                />
-                <div className="flex flex-row justify-center w-full p-[13px] rounded-bl-[10px] rounded-br-[10px] border-blue_gray-100_01 border border-solid bg-white-A700">
-                  <div className="flex flex-col items-start justify-start w-[95%] gap-[7px] mx-1.5">
-                    <Heading size="lg" as="h5" className="tracking-[-0.40px]">
-                      Bruno Fernandes
-                    </Heading>
-                    <div className="flex flex-row justify-start items-center gap-3.5 py-0.5">
-                      <RatingBar value={1} isEditable={true} size={16} className="flex justify-between w-24" />
-                      <Heading as="h6">4.5 review</Heading>
-                    </div>
-                    <Button color="blue_gray_100_01" variant="outline" className="w-full font-semibold">
-                      View Profile
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-start w-full">
-                <Img
-                  src="images/img_rectangle_5617.png"
-                  alt="image"
-                  className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
-                />
-                <div className="flex flex-row justify-center w-full p-[13px] rounded-bl-[10px] rounded-br-[10px] border-blue_gray-100_01 border border-solid bg-white-A700">
-                  <div className="flex flex-col items-start justify-start w-[95%] gap-[7px] mx-1.5">
-                    <Heading size="lg" as="h5" className="tracking-[-0.40px]">
-                      Bruno Fernandes
-                    </Heading>
-                    <div className="flex flex-row justify-start items-center gap-3.5 py-0.5">
-                      <RatingBar value={1} isEditable={true} size={16} className="flex justify-between w-24" />
-                      <Heading as="h6">4.5 review</Heading>
-                    </div>
-                    <Button color="blue_gray_100_01" variant="outline" className="w-full font-semibold">
-                      View Profile
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-start w-full">
-                <Img
-                  src="images/img_rectangle_5618.png"
-                  alt="image"
-                  className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
-                />
-                <div className="flex flex-row justify-center w-full p-[13px] rounded-bl-[10px] rounded-br-[10px] border-blue_gray-100_01 border border-solid bg-white-A700">
-                  <div className="flex flex-col items-start justify-start w-[95%] gap-[7px] mx-1.5">
-                    <Heading size="lg" as="h5" className="tracking-[-0.40px]">
-                      Bruno Fernandes
-                    </Heading>
-                    <div className="flex flex-row justify-start items-center gap-3.5 py-0.5">
-                      <RatingBar value={1} isEditable={true} size={16} className="flex justify-between w-24" />
-                      <Heading as="h6">4.5 review</Heading>
-                    </div>
-                    <Button color="blue_gray_100_01" variant="outline" className="w-full font-semibold">
-                      View Profile
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-start w-full">
-                <Img
-                  src="images/img_rectangle_5619.png"
-                  alt="image"
-                  className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
-                />
-                <div className="flex flex-row justify-center w-full p-[13px] rounded-bl-[10px] rounded-br-[10px] border-blue_gray-100_01 border border-solid bg-white-A700">
-                  <div className="flex flex-col items-start justify-start w-[95%] gap-[7px] mx-1.5">
-                    <Heading size="lg" as="h5" className="tracking-[-0.40px]">
-                      Bruno Fernandes
-                    </Heading>
-                    <div className="flex flex-row justify-start items-center gap-3.5 py-0.5">
-                      <RatingBar value={1} isEditable={true} size={16} className="flex justify-between w-24" />
-                      <Heading as="h6">4.5 review</Heading>
-                    </div>
-                    <Button color="blue_gray_100_01" variant="outline" className="w-full font-semibold">
-                      View Profile
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-start w-full">
-                <Img
-                  src="images/img_rectangle_5620.png"
-                  alt="image"
-                  className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
-                />
-                <div className="flex flex-row justify-center w-full p-[13px] rounded-bl-[10px] rounded-br-[10px] border-blue_gray-100_01 border border-solid bg-white-A700">
-                  <div className="flex flex-col items-start justify-start w-[95%] gap-[7px] mx-1.5">
-                    <Heading size="lg" as="h5" className="tracking-[-0.40px]">
-                      Bruno Fernandes
-                    </Heading>
-                    <div className="flex flex-row justify-start items-center gap-3.5 py-0.5">
-                      <RatingBar value={1} isEditable={true} size={16} className="flex justify-between w-24" />
-                      <Heading as="h6">4.5 review</Heading>
-                    </div>
-                    <Button color="blue_gray_100_01" variant="outline" className="w-full font-semibold">
-                      View Profile
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-start w-full">
-                <Img
-                  src="images/img_rectangle_5621.png"
-                  alt="image"
-                  className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
-                />
-                <div className="flex flex-row justify-center w-full p-[13px] rounded-bl-[10px] rounded-br-[10px] border-blue_gray-100_01 border border-solid bg-white-A700">
-                  <div className="flex flex-col items-start justify-start w-[95%] gap-[7px] mx-1.5">
-                    <Heading size="lg" as="h5" className="tracking-[-0.40px]">
-                      Bruno Fernandes
-                    </Heading>
-                    <div className="flex flex-row justify-start items-center gap-3.5 py-0.5">
-                      <RatingBar value={1} isEditable={true} size={16} className="flex justify-between w-24" />
-                      <Heading as="h6">4.5 review</Heading>
-                    </div>
-                    <Button color="blue_gray_100_01" variant="outline" className="w-full font-semibold">
-                      View Profile
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-start w-full">
-                <Img
-                  src="images/img_rectangle_5622.png"
-                  alt="image"
-                  className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
-                />
-                <div className="flex flex-row justify-center w-full p-[13px] rounded-bl-[10px] rounded-br-[10px] border-blue_gray-100_01 border border-solid bg-white-A700">
-                  <div className="flex flex-col items-start justify-start w-[95%] gap-[7px] mx-1.5">
-                    <Heading size="lg" as="h5" className="tracking-[-0.40px]">
-                      Bruno Fernandes
-                    </Heading>
-                    <div className="flex flex-row justify-start items-center gap-3.5 py-0.5">
-                      <RatingBar value={1} isEditable={true} size={16} className="flex justify-between w-24" />
-                      <Heading as="h6">4.5 review</Heading>
-                    </div>
-                    <Button color="blue_gray_100_01" variant="outline" className="w-full font-semibold">
-                      View Profile
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-start w-full">
-                <Img
-                  src="images/img_rectangle_5623.png"
-                  alt="image"
-                  className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
-                />
-                <div className="flex flex-row justify-center w-full p-[13px] rounded-bl-[10px] rounded-br-[10px] border-blue_gray-100_01 border border-solid bg-white-A700">
-                  <div className="flex flex-col items-start justify-start w-[95%] gap-[7px] mx-1.5">
-                    <Heading size="lg" as="h5" className="tracking-[-0.40px]">
-                      Bruno Fernandes
-                    </Heading>
-                    <div className="flex flex-row justify-start items-center gap-3.5 py-0.5">
-                      <RatingBar value={1} isEditable={true} size={16} className="flex justify-between w-24" />
-                      <Heading as="h6">4.5 review</Heading>
-                    </div>
-                    <Button color="blue_gray_100_01" variant="outline" className="w-full font-semibold">
-                      View Profile
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-start w-full">
-                <Img
-                  src="images/img_rectangle_5615_282x282.png"
-                  alt="image"
-                  className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
-                />
-                <div className="flex flex-row justify-center w-full p-[13px] rounded-bl-[10px] rounded-br-[10px] border-blue_gray-100_01 border border-solid bg-white-A700">
-                  <div className="flex flex-col items-start justify-start w-[95%] gap-[7px] mx-1.5">
-                    <Heading size="lg" as="h5" className="tracking-[-0.40px]">
-                      Bruno Fernandes
-                    </Heading>
-                    <div className="flex flex-row justify-start items-center gap-3.5 py-0.5">
-                      <RatingBar value={1} isEditable={true} size={16} className="flex justify-between w-24" />
-                      <Heading as="h6">4.5 review</Heading>
-                    </div>
-                    <Button color="blue_gray_100_01" variant="outline" className="w-full font-semibold">
-                      View Profile
-                    </Button>
-                  </div>
-                </div>
-              </div>
             </div>
 {/* above div is for anegt profile now i have to make it dynamic */}
 

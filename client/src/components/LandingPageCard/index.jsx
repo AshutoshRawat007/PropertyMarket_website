@@ -2,24 +2,24 @@ import React from "react";
 import { Heading, Button, Img } from "./..";
 
 export default function LandingPageCard({
-  imageOne = "images/img_image_260x384.png",
-  p286162ndave = "2861 62nd Ave, Oakland, CA 94605",
+  image ,
+  title ,
   p3bedroom = "3 Bed Room",
   bathcounter = "1 Bath",
   sqftcounter = "1,032 sqft",
   p1bath = "Family",
   viewDetails = "View Details",
-  price = "$649,900",
+  price,
   ...props
 }) {
   return (
     <div {...props}>
-      <Img src={imageOne} alt="image_one" className="w-full rounded-tr-[10px] rounded-tl-[10px] object-cover" />
+      <Img src={image} alt="image_one" className="w-full rounded-tr-[10px] rounded-tl-[10px] object-cover" />
       <div className="flex flex-row justify-center w-full p-[19px] rounded-bl-[10px] rounded-br-[10px] border-red-100_01 border border-solid bg-gray-50_01">
         <div className="flex flex-col items-center justify-start w-full gap-[25px] my-2.5 max-w-[344px]">
           <div className="flex flex-row justify-start items-center w-full gap-3">
             <Img src="images/img_icon_map_2.svg" alt="image_two" className="h-6 w-6" />
-            <Heading as="h1">{p286162ndave}</Heading>
+            <Heading as="h1">{title}</Heading>
           </div>
           <div className="flex flex-col items-center justify-start w-full gap-[19px]">
             <div className="flex flex-row justify-between w-full">

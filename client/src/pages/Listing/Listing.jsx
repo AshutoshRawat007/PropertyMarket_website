@@ -3,8 +3,9 @@ import { Helmet } from "react-helmet";
 import { CloseSVG } from "../../assets/images";
 import { Button, Img, GoogleMap, SelectBox, Input, Heading } from "../../components";
 // import Footer from "../../components/Footer/Footer";
-// import Header1 from "../../components/Header1";
+import Header2 from "../../components/Header2";
 import LandingPageCard from "../../components/LandingPageCard";
+import PropertyCard from "../../components/AgentInfoCard";
 
 const dropDownOptions = [
   { label: "Option1", value: "option1" },
@@ -14,7 +15,7 @@ const dropDownOptions = [
 
 export default function ListingPage() {
   const [searchBarValue7, setSearchBarValue7] = React.useState("");
-  const[data,setData] = React.useState();
+  const[data,setData] = React.useState([]);
 
   
   React.useEffect(() => {
@@ -25,18 +26,24 @@ export default function ListingPage() {
         setData(jsonData);
       } catch (error) {
         console.error('Error fetching data:', error);
-      }
-
-     
+      }     
     };
 
     fetchData();
     
   }, []);
-  React.useEffect(()=>{
+  React.useEffect(()=>
+  {
     console.log(data);
+    data.map((data) => (
+      console.log(" id ",data._id),
+      console.log(data.images[0]," img"),
+      console.log(data.name," name")
 
+    ))
   },[data]);
+
+ 
  
 
 
@@ -48,7 +55,7 @@ export default function ListingPage() {
       </Helmet>
       <div className="flex flex-col items-center justify-start w-full gap-[100px] overflow-auto bg-gray-50_01">
         <div className="flex flex-col items-center justify-start w-full gap-[60px]">
-          {/* <Header1 className="flex justify-center items-center w-full p-[19px] bg-white-A700" /> */}
+          {/* <Header2 className="flex justify-center items-center w-full p-[19px] bg-white-A700" /> */}
           <div className="flex flex-row justify-center w-full">
             <div className="flex flex-col items-start justify-start w-full pt-[5px] gap-[18px] max-w-[1200px]">
               <Heading size="3xl" as="h1" className="tracking-[-0.72px]">
@@ -170,36 +177,18 @@ export default function ListingPage() {
               <div className="flex flex-col items-center justify-start w-[66%] gap-[60px]">
                 <div className="flex flex-col items-center justify-start w-full">
                   <div className="justify-center w-full gap-6 grid-cols-2 grid min-h-[auto]">
-                    <LandingPageCard 
-                      className="flex flex-col items-center justify-start w-full" />
-                    <LandingPageCard
-                      imageOne="images/img_image_1.png"
-                      className="flex flex-col items-center justify-start w-full"
-                    />
-                    <LandingPageCard
-                      imageOne="images/img_image_3.png"
-                      className="flex flex-col items-center justify-start w-full"
-                    />
-                    <LandingPageCard
-                      imageOne="images/img_image_4.png"
-                      className="flex flex-col items-center justify-start w-full"
-                    />
-                    <LandingPageCard
-                      imageOne="images/img_image_5.png"
-                      className="flex flex-col items-center justify-start w-full"
-                    />
-                    <LandingPageCard
-                      imageOne="images/img_image_2.png"
-                      className="flex flex-col items-center justify-start w-full"
-                    />
-                    <LandingPageCard
-                      imageOne="images/img_image_1.png"
-                      className="flex flex-col items-center justify-start w-full"
-                    />
-                    <LandingPageCard
-                      imageOne="images/img_image_3.png"
-                      className="flex flex-col items-center justify-start w-full"
-                    />
+                  <LandingPageCard
+                  key={"1258"}
+                   image={"images/img_image_260x384.png"}
+                   title={"2861 62nd Ave, Oakland, CA 94605"}/>
+                  {data.map((data) => (
+                <LandingPageCard
+                  key={data._id} // Make sure each card has a unique key
+                  image={`http://localhost:4000/uploads/${data.images[0]}`}
+                  title={data.location}
+                  price={data.price}
+                />
+              ))}
                   </div>
                 </div>
                 <div className="flex flex-row justify-between w-full">
@@ -237,4 +226,5 @@ export default function ListingPage() {
       </div>
     </>
   );
+
 }

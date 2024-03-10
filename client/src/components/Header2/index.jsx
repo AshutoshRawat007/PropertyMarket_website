@@ -44,7 +44,7 @@ export default function Header2({ ...props }) {
             placeholder="Search"
             value={searchBarValue}
             onChange={(e) => setSearchBarValue(e)}
-            prefix={<Img src="images/img_icon_24px_search.svg" alt="icon / 24px / search" className="cursor-pointer" />}
+            prefix={<Img src="/images/img_icon_24px_search.svg" alt="icon / 24px / search" className="cursor-pointer" />}
             suffix={
               searchBarValue?.length > 0 ? (
                 <CloseSVG onClick={() => setSearchBarValue("")} height={24} width={24} fillColor="#191919ff" />

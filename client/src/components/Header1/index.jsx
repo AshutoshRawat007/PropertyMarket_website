@@ -11,7 +11,7 @@ export default function Header1({ ...props }) {
         <div className="flex flex-row justify-start items-start gap-[11px]">
           <Img src="images/img_real_estate_1.svg" alt="realestateone" className="h-10 w-10" />
           <Text as="p" className="mt-[5px]">
-            Relasto
+            PropertySpot
           </Text>
         </div>
         <div className="flex flex-row justify-center w-[41%]">

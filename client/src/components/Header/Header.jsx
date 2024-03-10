@@ -35,7 +35,7 @@ export default function Header({ ...props }) {
         <div className="flex flex-row justify-start items-start gap-[11px]">
           <Img src="images/img_real_estate_1.svg" alt="realestateone" className="h-10 w-10" />
           <Text as="p" className="mt-[5px]">
-            Relasto
+            H&H
           </Text>
         </div>
         <div className="flex flex-row justify-between items-center w-[41%]">
@@ -60,14 +60,14 @@ export default function Header({ ...props }) {
           <Link to='/blogpage'><Heading as="h6">Blog</Heading></Link>
         </div>
         <div className="flex flex-row justify-start items-center w-[19%] gap-2.5">
-          <Input
+        <Input
             size="xs"
             shape="square"
             name="search"
             placeholder="Search"
             value={searchBarValue1}
             onChange={(e) => setSearchBarValue1(e)}
-            prefix={<Img src="images/img_icon_24px_search.svg" alt="icon / 24px / search" className="cursor-pointer" />}
+            prefix={<Img src="/images/img_icon_24px_search.svg" alt="icon / 24px / search" className="cursor-pointer" />}
             suffix={
               searchBarValue1?.length > 0 ? (
                 <CloseSVG onClick={() => setSearchBarValue1("")} height={24} width={24} fillColor="#191919ff" />
@@ -79,12 +79,12 @@ export default function Header({ ...props }) {
           {username && (
           <>
             <Link to="/create">hi {username}</Link>
-            <button onClick={logout}>Logout </button>
+            <Button size="lg" className="font-semibold min-w-[94px]" onClick={logout}>Logout</Button>
           </>
         )}
         {!username && (
           <>
-            <Link to="/login">Login</Link>
+            <Link to="/login"> <Button size="lg" className="font-semibold min-w-[94px]">Login</Button></Link>
           </>
         )}
         </nav>
