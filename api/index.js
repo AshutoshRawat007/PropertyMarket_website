@@ -32,7 +32,7 @@ app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 //   res.setHeader('Access-Control-Allow-Origin', '*');
 //   next();
 // });
-
+//console.log
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
@@ -51,7 +51,7 @@ app.post('/register', async (req, res) => {
     });
     res.json(userDoc);
   } catch (e) {
-    console.log(e);
+    //console.log(e);
     res.status(400).json(e);
   }
 });
@@ -63,7 +63,7 @@ app.post('/login', async (req, res) => {
     if (!userDoc) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
-    console.log(userDoc);
+    //console.log(userDoc);
     const passOk = bcrypt.compareSync(password, userDoc.password);
     if (passOk) {
       // logged in
@@ -88,7 +88,7 @@ app.get('/profile', (req, res) => {
   jwt.verify(token, secret, {}, (err, info) => {
     if (err) throw err;
     res.json(info);
-    console.log(info.id, " profile");
+    //console.log(info.id, " profile");
   });
 });
 
@@ -98,8 +98,8 @@ app.post('/logout', (req, res) => {
 
 
 app.post('/property', uploadMiddleware.any(), async (req, res) => {
-  // console.log("Request Body:", req.body);
-  // console.log("Request Files:", req.files);
+  // //console.log("Request Body:", req.body);
+  // //console.log("Request Files:", req.files);
   const files = req.files;
   var images_arrray=[];
 
@@ -114,12 +114,12 @@ app.post('/property', uploadMiddleware.any(), async (req, res) => {
     
 
     // Access the properties as needed
-    console.log(`File ${index + 1}:`);
-    console.log('Field Name:', fieldName);
-    console.log('Original Name:', originalName);
-    console.log('File Name:', fileName);
-    console.log('MIME Type:', mimeType);
-    console.log('Size:', size);
+    //console.log(`File ${index + 1}:`);
+    //console.log('Field Name:', fieldName);
+    //console.log('Original Name:', originalName);
+    //console.log('File Name:', fileName);
+    //console.log('MIME Type:', mimeType);
+    //console.log('Size:', size);
     console.log('path:', path);
 
     //     File 1:
@@ -135,13 +135,13 @@ app.post('/property', uploadMiddleware.any(), async (req, res) => {
     const newPath = path + '.' + ext;
     fs.renameSync(path, newPath);
     images_arrray.push((fileName + '.' + ext));
-    console.log('new path:', newPath);
+    //console.log('new path:', newPath);
   });
 
 
   const propertyDataJSON = req.body['propertyData.json'];
   const propertyData = JSON.parse(propertyDataJSON);
-    // console.log("Property Data:", propertyData);
+    // //console.log("Property Data:", propertyData);
 
   const {token} = req.cookies;
   jwt.verify(token, secret, {}, async (err,info) => {
@@ -187,7 +187,7 @@ app.put('/properties/:id', async (req, res) => {
     );
     res.json(propertyDoc);
   } catch (e) {
-    console.log(e);
+    //console.log(e);
     res.status(400).json(e);
   }
 });
@@ -219,7 +219,7 @@ app.get('/agents', async (req, res) => {
   }
 });
 app.get('/agents/:id', async (req, res) => {
-  console.log(" camne to agent id ", req.params);
+  //console.log(" camne to agent id ", req.params);
   const { id } = req.params;
  // Find the user by ID below is the method if user do no contain properties refrence
 User.findById(id)
@@ -232,7 +232,7 @@ User.findById(id)
   Property.find({ userId: id })
     .then(properties => {
       // 'properties' now contains an array of properties associated with the user
-      console.log(properties);
+      //console.log(properties);
       // You can do further processing with the properties here
       res.status(200).json({ user, properties });
     })
