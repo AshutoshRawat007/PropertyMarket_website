@@ -1,6 +1,6 @@
 import React from "react";
 import { CloseSVG } from "../../assets/images";
-import { Button, Input, Img, Heading, Text } from "..";
+import {  Input, Img, Heading, Text } from "..";
 import { Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../UserContext";
@@ -15,11 +15,11 @@ export default function Header({ ...props }) {
     }).then(response => {
       response.json().then(userInfo => {
         setUserInfo(userInfo);
-        const col = userInfo.id;
+        // const col = userInfo.id;
         console.log(userInfo)
       });
     });
-  }, []);
+  }, [setUserInfo]);
   function logout() {
     fetch('http://localhost:4000/logout', {
       credentials: 'include',

@@ -53,13 +53,15 @@ export default function LoginPage() {
                  value={Username}
                  onChange={ev => setEmail(ev.target.value)} 
                  />
+                 <div className="error pv2 tc">{nameerror}</div>
           <input type="password"
                  placeholder="password"
                  value={password}
                  onChange={ev => setPassword(ev.target.value)} />
+                 <div className="error pv2 tc">{passwordError}</div>
           <button className="primary">Login</button>
           <div className="text-center py-2 text-gray-500">
-            Don't have an account yet? <Link className="underline text-black" to={'/register'}>Register now</Link>
+            Don't have an account yet? <Link className="underline text-black" to={'/signup'}>Register now</Link>
           </div>
         </form>
       </div>
