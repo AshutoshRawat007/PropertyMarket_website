@@ -1,65 +1,69 @@
-import React from "react";
-import { Helmet } from "react-helmet";
-import { Img, Heading, Button,  Input, Text } from "../../components";
+import {Link, Navigate} from "react-router-dom";
+import {useContext, useState} from "react";
+import {UserContext} from "../../UserContext";
 
-import { useState } from 'react';
-// import { TextArea } from '../../components/TextArea';  
-
-export default function Login() {
-  const [email, setEmail] = useState('');
+export default function LoginPage() {
+  const [Username, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [nameerror, setnameerror] = useState('');
+  // const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [redirect,setRedirect] = useState(false);
+  // const [registertion, setregistertion] = useState('false');
+  const {setUserInfo} = useContext(UserContext);
 
-  const changestate = ()=>{  
-     console.log(password,"pssss");
-    // navigate('/');
-  
+  const handleSubmit = async(e) => {
+    
+    e.preventDefault();
+    // Simple validation
+    if (!Username) {
+      setnameerror('name is required');
+      return;
+    }
+    if (!password) {
+      setPasswordError('Password is required');
+      return;
+    }
+    const response = await fetch('http://localhost:4000/login', {
+      method: 'POST',
+      body: JSON.stringify({Username, password}),
+      headers: {'Content-Type':'application/json'},
+      credentials: 'include',
+    });
+    if (response.ok) {
+      response.json().then(userInfo => {
+        setUserInfo(userInfo);
+        setRedirect(true);
+      });
+    } else {
+      alert('wrong credentials');
+    }
   };
+
+  if (redirect) {
+    return <Navigate to={'/'} />
+  }
   return (
-    <>
-      <Helmet>
-        <title>Ashutosh's Application1</title>
-        <meta name="description" content="Web site created using create-react-app" />
-      </Helmet>
-      <div className="flex flex-col items-center justify-start w-[full] h-[100%] gap-[100px] overflow-auto bg-gray-50_01">
-            <div className="flex flex-col items-center justify-start w-full gap-11 max-w-[1200px]">
-              <div className="flex flex-col items-center justify-start w-full pt-0.5 gap-[15px]">
-                <h1> hellooooo</h1>
-              </div>
-              <div className="flex flex-row justify-start items-center w-[40%] gap-[50px] h-[100%] p-[23px] border-blue_gray-100_01 border border-solid bg-white-A700 rounded-[20px]">
-                {/* jthe login card */}
-                <div className="flex flex-col items-center justify-start w-full ml-[25px] gap-10">
-                    <Heading size="2xl" as="h2" className="tracking-[-0.56px]">
-                      Login
-                    </Heading>
-                    {/* email and passsword down here  */}
-                    <div className="flex flex-col items-center justify-start w-full gap-3">
-                      <Input
-                        type="email"
-                        name="email"
-                        placeholder="username / Email Address"
-                        prefix={<Img src="images/img_icon_24px_email.svg" alt="icon / 24px / email" />}
-                        className="w-full gap-3.5 font-semibold border-blue_gray-100_01 border border-solid"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
-                      <Input
-                        type="password"
-                        name="Password"
-                        placeholder="Password"
-                        prefix={<Img src="images/img_icon_20px_call.svg" alt="icon / 24px / call" />}
-                        className="w-full gap-3.5 font-semibold border-blue_gray-100_01 border border-solid"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                    </div>                  
-                  <Button onClick={changestate} size="2xl" className="w-full font-semibold">
-                    Login
-                  </Button>
-                </div>
-                {/* <div className="h-[534px] w-px my-[25px] bg-blue_gray-100_01" /> */}
-              </div>
-            </div>
+    <div className="mt-4 grow flex items-center justify-around">
+      <div className="mb-64">
+        <h1 className="text-4xl text-center mb-4">Login</h1>
+        <form className="max-w-md mx-auto" onSubmit={handleSubmit}>
+          <input type="text"
+                 placeholder="your@email.com"
+                 value={Username}
+                 onChange={ev => setEmail(ev.target.value)} 
+                 />
+          <input type="password"
+                 placeholder="password"
+                 value={password}
+                 onChange={ev => setPassword(ev.target.value)} />
+          <button className="primary">Login</button>
+          <div className="text-center py-2 text-gray-500">
+            Don't have an account yet? <Link className="underline text-black" to={'/register'}>Register now</Link>
+          </div>
+        </form>
       </div>
-    </>
+    </div>
   );
 }
+

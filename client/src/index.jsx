@@ -16,7 +16,7 @@ import AgentProfile from "pages/AgentProfile/AgentProfile";
 import AgentList from "pages/AgentList/AgentList";
 import PropertyDetails from "pages/PropertyDetails/PropertyDetails";
 import ContactPage from "pages/ContactPage/ContactPage";
-import Login from "pages/Login/LoginPage";
+import Login from "pages/Login/Login";
 import SignUp from "pages/SignUp/SignUp";
 import BlogPage from "pages/BlogPage/BlogPage";
 import BlogDetails from "pages/BlogDetails/BlogDetails";

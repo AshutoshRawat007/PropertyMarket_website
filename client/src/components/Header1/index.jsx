@@ -1,62 +1,26 @@
-import React from "react";
-import { CloseSVG } from "../../assets/images";
-import { Button, Input, Img, Heading, Text } from "./..";
+import {Link} from "react-router-dom";
 
-export default function Header1({ ...props }) {
-  const [searchBarValue2, setSearchBarValue2] = React.useState("");
-
+export default function Header() {
+  const {user} = ["apple,catdog"];
   return (
-    <header {...props}>
-      <div className="flex flex-row justify-between items-center w-full mx-auto max-w-[1200px]">
-        <div className="flex flex-row justify-start items-start gap-[11px]">
-          <Img src="images/img_real_estate_1.svg" alt="realestateone" className="h-10 w-10" />
-          <Text as="p" className="mt-[5px]">
-            PropertySpot
-          </Text>
+    <header className="flex justify-between">
+
+
+      <Link to={user?'/account':'/login'} className="flex items-center gap-2 border border-gray-300 rounded-full py-2 px-4 ">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+        <div className="bg-gray-500 text-white rounded-full border border-gray-500 overflow-hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 relative top-1">
+            <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clipRule="evenodd" />
+          </svg>
         </div>
-        <div className="flex flex-row justify-center w-[41%]">
-          <div className="flex flex-row justify-start items-start w-[14%] gap-1.5">
-            <Heading as="h6">Home</Heading>
-            <Img src="images/img_arrow_down.svg" alt="arrowdown_one" className="h-4 w-4 mt-0.5" />
+        {!!user && (
+          <div>
+            {user.name}
           </div>
-          <div className="flex flex-row w-2/5 ml-[50px] gap-10">
-            <div className="flex flex-row justify-start items-start w-2/5 gap-1.5">
-              <Heading as="h6">Listing</Heading>
-              <Img src="images/img_arrow_down.svg" alt="listing_two" className="h-4 w-4" />
-            </div>
-            <div className="flex flex-row justify-start items-start w-2/5 gap-1.5">
-              <Heading as="h6">Agents</Heading>
-              <Img src="images/img_arrow_down.svg" alt="arrowdown_one" className="h-4 w-4" />
-            </div>
-          </div>
-          <Heading as="h6" className="ml-10 text-center">
-            Property{" "}
-          </Heading>
-          <Heading as="h6" className="ml-10">
-            Blog
-          </Heading>
-        </div>
-        <div className="flex flex-row justify-start items-center w-[19%] gap-2.5">
-          <Input
-            size="xs"
-            shape="square"
-            name="search"
-            placeholder="Search"
-            value={searchBarValue2}
-            onChange={(e) => setSearchBarValue2(e)}
-            prefix={<Img src="images/img_icon_24px_search.svg" alt="icon / 24px / search" className="cursor-pointer" />}
-            suffix={
-              searchBarValue2?.length > 0 ? (
-                <CloseSVG onClick={() => setSearchBarValue2("")} height={24} width={24} fillColor="#191919ff" />
-              ) : null
-            }
-            className="w-[55%] gap-2 text-gray-900 font-bold"
-          />
-          <Button size="lg" className="font-semibold min-w-[94px]">
-            Log in
-          </Button>
-        </div>
-      </div>
+        )}
+      </Link>
     </header>
   );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { CloseSVG } from "../../assets/images";
 import { Button, Img, Heading, RatingBar, SelectBox, Input } from "../../components";
-
+import Header1 from "../../components/Header1";
 import AgentInfoCard from "../../components/AgentInfoCard";
 const dropDownOptions = [
   { label: "Option1", value: "option1" },
