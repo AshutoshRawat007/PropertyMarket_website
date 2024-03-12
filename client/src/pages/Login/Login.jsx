@@ -3,18 +3,19 @@ import { useContext, useState } from "react";
 import { UserContext } from "../../UserContext";
 
 export default function LoginPage() {
-  const [username, setUsername] = useState('');
+  const [Username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [nameError, setNameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [redirect, setRedirect] = useState(false);
   const { setUserInfo } = useContext(UserContext);
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     // Simple validation
-    if (!username) {
+    if (!Username) {
       setNameError('Name is required');
       return;
     }
@@ -22,10 +23,11 @@ export default function LoginPage() {
       setPasswordError('Password is required');
       return;
     }
+    console.log('Base URL:', baseUrl);
 
-    const response = await fetch('http://localhost:4000/login', {
+    const response = await fetch(`${baseUrl}/login`, {
       method: 'POST',
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ Username, password }),
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
     });
@@ -52,7 +54,7 @@ export default function LoginPage() {
             <input
               type="text"
               placeholder="Your Email"
-              value={username}
+              value={Username}
               onChange={(ev) => setUsername(ev.target.value)}
               className="input-field"
             />
@@ -68,6 +70,12 @@ export default function LoginPage() {
             />
             <div className="error">{passwordError}</div>
           </div>
+
+
+
+
+
+
           <button className="btn-primary" type="submit">
             Login
           </button>

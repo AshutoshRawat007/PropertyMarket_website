@@ -9,8 +9,9 @@ export default function Header({ ...props }) {
   const [searchBarValue1, setSearchBarValue1] = useState("");
   const { setUserInfo, userInfo } = useContext(UserContext);
   const [menuVisible, setMenuVisible] = useState(false);
+  const baseUrl = process.env.REACT_APP_BASE_URL; //`${baseUrl}/property`
   useEffect(() => {
-    fetch('http://localhost:4000/profile', {
+    fetch(`${baseUrl}/login`, {
       credentials: 'include',
     }).then(response => {
       response.json().then(userInfo => {
@@ -19,9 +20,9 @@ export default function Header({ ...props }) {
         console.log(userInfo)
       });
     });
-  }, [setUserInfo]);
+  }, [setUserInfo,baseUrl]);
   function logout() {
-    fetch('http://localhost:4000/logout', {
+    fetch(`${baseUrl}/logout`, {
       credentials: 'include',
       method: 'POST',
     });

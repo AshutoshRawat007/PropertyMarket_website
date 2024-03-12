@@ -21,7 +21,10 @@ export default function ListingPage() {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/property');
+        
+        const baseUrl = process.env.REACT_APP_BASE_URL;
+        // console.log(baseUrl,"   op");
+        const response = await fetch(`${baseUrl}/property`);
         const jsonData = await response.json();
         setData(jsonData);
       } catch (error) {

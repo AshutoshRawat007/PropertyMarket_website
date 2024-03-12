@@ -162,6 +162,7 @@ const createImageTag = (publicId, ...colors) => {
 
 
 app.post('/register', async (req, res) => {
+  console.log("reached here");
   mongoose.connect(process.env.MONGO_URL);
   const { Username, password } = req.body;
   try {
@@ -175,12 +176,12 @@ app.post('/register', async (req, res) => {
     });
     res.json(userDoc);
   } catch (e) {
-    //console.log(e);
+    console.log(e);
     res.status(400).json(e);
   }
 });
 
-app.post('/login', async (req, res) => {
+app.post('/api/login', async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   try {
     const { Username, password } = req.body;
@@ -208,7 +209,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-app.get('/profile', (req, res) => {
+app.get('/api/profile', (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   const { token } = req.cookies;
   jwt.verify(token, secret, {}, (err, info) => {
@@ -218,12 +219,12 @@ app.get('/profile', (req, res) => {
   });
 });
 
-app.post('/logout', (req, res) => {
+app.post('/api/logout', (req, res) => {
   res.cookie('token', '').json('ok');
 });
 
 
-app.post('/property', uploadMiddleware.any(), async (req, res) => {
+app.post('/api/property', uploadMiddleware.any(), async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   // //console.log("Request Body:", req.body);
   console.log("Request Files:", req.files);
@@ -301,7 +302,7 @@ app.post('/property', uploadMiddleware.any(), async (req, res) => {
 
 });
 // Update property endpoint
-app.put('/properties/:id', async (req, res) => {
+app.put('/api/properties/:id', async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   const { id } = req.params;
   const { name, location, amenities, images, roomDetails, price } = req.body;
@@ -325,7 +326,7 @@ app.put('/properties/:id', async (req, res) => {
   }
 });
 
-app.get('/property',async(req,res)=>{
+app.get('/api/property',async(req,res)=>{
   mongoose.connect(process.env.MONGO_URL);
   try{
     const data = await Property.find().populate('userId' ,['name','phone']); // Retrieve all data from MongoDB
@@ -343,7 +344,7 @@ app.get('/property',async(req,res)=>{
   
 });
 // Fetch agent details endpoint
-app.get('/agents', async (req, res) => {
+app.get('/api/agents', async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   try {
     const agentDetails = await User.find();
@@ -353,7 +354,7 @@ app.get('/agents', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-app.get('/agents/:id', async (req, res) => {
+app.get('/api/agents/:id', async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   //console.log(" camne to agent id ", req.params);
   const { id } = req.params;

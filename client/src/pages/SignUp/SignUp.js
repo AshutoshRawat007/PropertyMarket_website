@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const SignUp = () => {
-  const [username, setUsername] = useState('');
+  const [Username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [nameError, setNameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -11,7 +11,7 @@ const SignUp = () => {
     e.preventDefault();
 
     // Simple validation
-    if (!username) {
+    if (!Username) {
       setNameError('Name is required');
       return;
     }
@@ -21,11 +21,13 @@ const SignUp = () => {
     }
 
     const userData = {
-      username,
+      Username,
       password,
     };
+    console.log(userData);
+    const baseUrl = process.env.REACT_APP_BASE_URL;
 
-    const response = await fetch('http://localhost:4000/register', {
+    const response = await fetch(`${baseUrl}/register`, {
       method: 'POST',
       body: JSON.stringify(userData),
       headers: { 'Content-Type': 'application/json' },
@@ -47,7 +49,7 @@ const SignUp = () => {
             <input
               type="text"
               placeholder="Your Name"
-              value={username}
+              value={Username}
               onChange={(e) => setUsername(e.target.value)}
               className="input-field"
             />

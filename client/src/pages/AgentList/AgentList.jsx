@@ -19,7 +19,8 @@ export default function AgentListPage() {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/agents');
+        const baseUrl = process.env.REACT_APP_BASE_URL; //`${baseUrl}/property`
+        const response = await fetch(`${baseUrl}/agents`);
         const jsonData = await response.json();      
         setData(jsonData);
       } catch (error) {

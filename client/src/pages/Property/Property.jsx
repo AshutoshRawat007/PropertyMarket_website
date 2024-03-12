@@ -46,7 +46,9 @@ const Property = () => {
     });
     // Append property details (JSON string)
     formData.append('propertyData.json', propertyDataJSON);
-    const response = await fetch('http://localhost:4000/property', {
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+    
+    const response = await fetch(`${baseUrl}/property`, {
       method: 'POST',
       body: formData,
       credentials: 'include' // Send FormData object for image and JSON data

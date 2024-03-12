@@ -11,7 +11,8 @@ export default function AgentProfilePage() {
   useEffect(()=>{
     const fetchData = async () => {
       try {
-        const AgentDetails = await fetch('http://localhost:4000/agents/'+id);
+        const baseUrl = process.env.REACT_APP_BASE_URL; //`${baseUrl}/property`
+        const AgentDetails = await fetch(`${baseUrl}/agents/`+id);
         const { user, properties } = await AgentDetails.json();
         setAgentdata(user);
         setPropertdata(properties);
