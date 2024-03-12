@@ -184,7 +184,7 @@ export default function ListingPage() {
                   {data.map((data) => (
                 <LandingPageCard
                   key={data._id} // Make sure each card has a unique key
-                  image={`http://localhost:4000/uploads/${data.images[0]}`}
+                  image={data.images[0]}
                   title={data.location}
                   price={data.price}
                 />
