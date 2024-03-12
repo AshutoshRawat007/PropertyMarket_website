@@ -118,7 +118,7 @@ export default function AgentProfilePage() {
                     {propertdata.map((propertdata) => (
                 <LandingPageCard
                   key={propertdata._id} // Make sure each card has a unique key
-                  image={`http://localhost:4000/uploads/${propertdata.images[0]}`}
+                  image={propertdata.images[0]}
                   title={propertdata.location}
                   price={propertdata.price}
                 />

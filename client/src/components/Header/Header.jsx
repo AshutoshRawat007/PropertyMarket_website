@@ -30,11 +30,12 @@ export default function Header({ ...props }) {
 
   const username = userInfo?.Username;
 
+
   return (
     <header {...props}>
       <div className="flex flex-row justify-between items-center w-full mx-auto h-20 max-w-[1200px]">
         <div className="flex flex-row justify-start items-start gap-[11px]">
-          <Img src="images/img_real_estate_1.svg" alt="realestateone" className="h-10 w-10" />
+          <Img src="/images/img_real_estate_1.svg" alt="realestateone" className="h-10 w-10" />
           <Text as="p" className="mt-[5px]">
             H&H
           </Text>
@@ -43,15 +44,15 @@ export default function Header({ ...props }) {
           <div className="flex flex-row w-[64%] gap-10">
             <div className="flex flex-row justify-start items-start w-1/4 gap-1.5">
               <Link to="/"><Heading as="h6">Home</Heading></Link>
-              <Img src="images/img_arrow_down.svg" alt="home_two" className="h-4 w-4 mt-0.5" />
+              <Img src="/images/img_arrow_down.svg" alt="home_two" className="h-4 w-4 mt-0.5" />
             </div>
             <div className="flex flex-row justify-start items-start w-1/4 gap-1.5">
               <Link to="listing"><Heading as="h6">Listing</Heading></Link>
-              <Img src="images/img_arrow_down.svg" alt="arrowdown_one" className="h-4 w-4" />
+              <Img src="/images/img_arrow_down.svg" alt="arrowdown_one" className="h-4 w-4" />
             </div>
             <div className="flex flex-row justify-start items-start w-1/4 gap-1.5">
               <Link to="/agentlist"><Heading as="h6">Agents</Heading></Link>
-              <Img src="images/img_arrow_down.svg" alt="arrowdown_one" className="h-4 w-4" />
+              <Img src="/images/img_arrow_down.svg" alt="arrowdown_one" className="h-4 w-4" />
             </div>
           </div>
           <Link to="property">
