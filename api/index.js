@@ -158,10 +158,10 @@ const createImageTag = (publicId, ...colors) => {
 
 // })();
 
-
+mongoose.connect(process.env.MONGO_URL);
 app.post('/api/register', async (req, res) => {
-  console.log("reached here");
-  mongoose.connect(process.env.MONGO_URL);
+  // console.log("reached here");
+  //mongoose.connect(process.env.MONGO_URL);
   const { Username, password } = req.body;
   try {
     const userDoc = await User.create({
@@ -174,13 +174,13 @@ app.post('/api/register', async (req, res) => {
     });
     res.json(userDoc);
   } catch (e) {
-    console.log(e);
+    // console.log(e);
     res.status(400).json(e);
   }
 });
 
 app.post('/api/login', async (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
+  //mongoose.connect(process.env.MONGO_URL);
   try {
     const { Username, password } = req.body;
     const userDoc = await User.findOne({ Username }).select('+password');
@@ -208,7 +208,7 @@ app.post('/api/login', async (req, res) => {
 });
 
 app.get('/api/profile', (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
+  //mongoose.connect(process.env.MONGO_URL);
   const { token } = req.cookies;
   jwt.verify(token, secret, {}, (err, info) => {
     if (err) throw err;
@@ -223,7 +223,7 @@ app.post('/api/logout', (req, res) => {
 
 
 app.post('/api/property', uploadMiddleware.any(), async (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
+  //mongoose.connect(process.env.MONGO_URL);
   // //console.log("Request Body:", req.body);
   console.log("Request Files:", req.files);
   const files = req.files;
@@ -301,7 +301,7 @@ app.post('/api/property', uploadMiddleware.any(), async (req, res) => {
 });
 // Update property endpoint
 app.put('/api/properties/:id', async (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
+  //mongoose.connect(process.env.MONGO_URL);
   const { id } = req.params;
   const { name, location, amenities, images, roomDetails, price } = req.body;
   try {
@@ -325,7 +325,7 @@ app.put('/api/properties/:id', async (req, res) => {
 });
 
 app.get('/api/property',async(req,res)=>{
-  mongoose.connect(process.env.MONGO_URL);
+  //mongoose.connect(process.env.MONGO_URL);
   try{
     const data = await Property.find().populate('userId' ,['name','phone']); // Retrieve all data from MongoDB
     res.json(data);
@@ -343,7 +343,7 @@ app.get('/api/property',async(req,res)=>{
 });
 // Fetch agent details endpoint
 app.get('/api/agents', async (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
+  //mongoose.connect(process.env.MONGO_URL);
   try {
     const agentDetails = await User.find();
     res.json(agentDetails);
@@ -353,7 +353,7 @@ app.get('/api/agents', async (req, res) => {
   }
 });
 app.get('/api/agents/:id', async (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
+  //mongoose.connect(process.env.MONGO_URL);
   //console.log(" camne to agent id ", req.params);
   const { id } = req.params;
  // Find the user by ID below is the method if user do no contain properties refrence

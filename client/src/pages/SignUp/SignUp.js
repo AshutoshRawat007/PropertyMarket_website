@@ -26,7 +26,6 @@ const SignUp = () => {
     };
     console.log(userData);
     const baseUrl = process.env.REACT_APP_BASE_URL;
-
     const response = await fetch(`${baseUrl}/register`, {
       method: 'POST',
       body: JSON.stringify(userData),
