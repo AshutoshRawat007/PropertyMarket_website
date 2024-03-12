@@ -1,4 +1,4 @@
-import React, { useState,useContext,useEffect } from 'react';
+import React, { useState } from 'react';
 // import {UserContext} from "../../UserContext";
 
 const Property = () => {
@@ -15,6 +15,11 @@ const Property = () => {
   
   function handleChange(event) {
     setFiles([...event.target.files]);
+    setHotWater(false);
+    setKitchen(false);
+    setPrice(200);
+    setGuestRoom(true);
+    setNumberOfRooms(2);
   }
   const sendProperty = async (e) => {    
     e.preventDefault();        

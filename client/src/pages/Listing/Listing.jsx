@@ -3,9 +3,9 @@ import { Helmet } from "react-helmet";
 import { CloseSVG } from "../../assets/images";
 import { Button, Img, GoogleMap, SelectBox, Input, Heading } from "../../components";
 // import Footer from "../../components/Footer/Footer";
-import Header2 from "../../components/Header2";
+// import Header2 from "../../components/Header2";
 import LandingPageCard from "../../components/LandingPageCard";
-import PropertyCard from "../../components/AgentInfoCard";
+// import PropertyCard from "../../components/AgentInfoCard";
 
 const dropDownOptions = [
   { label: "Option1", value: "option1" },
@@ -36,8 +36,8 @@ export default function ListingPage() {
   {
     console.log(data);
     data.map((data) => (
-      console.log(" id ",data._id),
-      console.log(data.images[0]," img"),
+      // console.log(" id ",data._id);
+      // console.log(data.images[0]," img"),
       console.log(data.name," name")
 
     ))

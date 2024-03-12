@@ -1,8 +1,8 @@
 // AgentInfoCard.js
 
 import React from 'react';
-import { Button, Img, Heading, RatingBar, SelectBox, Input } from "..";
-import {Link,Navigate  } from "react-router-dom";
+import { Button, Img, Heading, RatingBar,  } from "..";
+import {Link  } from "react-router-dom";
 
 const AgentInfoCard = ({ name,userid }) => {
 

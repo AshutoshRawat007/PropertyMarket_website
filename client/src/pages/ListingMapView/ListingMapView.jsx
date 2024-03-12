@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React from "react";
 import { Helmet } from "react-helmet";
 import { CloseSVG } from "../../assets/images";
 import { Button, Img, GoogleMap, SelectBox, Input, Heading } from "../../components";
