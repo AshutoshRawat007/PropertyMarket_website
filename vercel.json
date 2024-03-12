@@ -21,7 +21,11 @@
     },
     {
       "src": "/(.*)",
+<<<<<<< HEAD
       "dest": "/client/index.jsx"
+=======
+      "dest": "/client/src/index.jsx"
+>>>>>>> beefddd3a9279dad2c46eea57546fd54f838a630
     }
   ]
 }
