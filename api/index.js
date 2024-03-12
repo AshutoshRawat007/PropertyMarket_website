@@ -29,7 +29,7 @@ const cloudinary = require('cloudinary').v2;
 const salt = bcrypt.genSaltSync(10);
 const secret = 'asdfe45we45w345wegw345werjktjwertkj';
 
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(cors({ credentials: true, origin: 'https://property-market-website-sage.vercel.app' }));
 // Example CORS configuration in Express.js
 // app.use((req, res, next) => {
 //   res.setHeader('Access-Control-Allow-Origin', '*');
