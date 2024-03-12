@@ -38,7 +38,7 @@ app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 //console.log
 app.use(express.json());
 app.use(cookieParser());
-app.use('/uploads', express.static(__dirname + '/uploads'));
+// app.use('/uploads', express.static(__dirname + '/uploads'));
 
 
 // Return "https" URLs by setting secure: true
@@ -49,9 +49,7 @@ cloudinary.config({
 // Log the configuration
 console.log(cloudinary.config());
 
-/////////////////////////
 // Uploads an image file
-/////////////////////////
 const uploadImage = async (imagePath) => {
 
   // Use the uploaded file's name as the asset's public ID and 
@@ -161,7 +159,7 @@ const createImageTag = (publicId, ...colors) => {
 // })();
 
 
-app.post('/register', async (req, res) => {
+app.post('/api/register', async (req, res) => {
   console.log("reached here");
   mongoose.connect(process.env.MONGO_URL);
   const { Username, password } = req.body;
