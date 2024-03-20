@@ -21,6 +21,7 @@ import SignUp from "pages/SignUp/SignUp";
 import BlogPage from "pages/BlogPage/BlogPage";
 import BlogDetails from "pages/BlogDetails/BlogDetails";
 import Property from "pages/Property/Property";
+import CreateBlog from "pages/CreateBlog/CreateBlog";
 
 import {UserContextProvider} from "./UserContext";
 
@@ -35,9 +36,10 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path="agentlist" element={<AgentList />} />
       <Route path="blogdetails" element={<BlogDetails />} />
       <Route path="blogpage" element={<BlogPage />} />      
-      <Route path="propertydetails" element={<PropertyDetails />} />
+      <Route path="propertydetails/:id" element={<PropertyDetails />} />
       <Route path="contactpage" element={<ContactPage />} />  
       <Route path="property" element={<Property />} />
+      <Route path="createblog" element={<CreateBlog />} />
       <Route path="*" element={<Home />} />
     </Route>
 

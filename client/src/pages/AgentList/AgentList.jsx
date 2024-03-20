@@ -19,20 +19,17 @@ export default function AgentListPage() {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const baseUrl = process.env.REACT_APP_BASE_URL; //`${baseUrl}/property`
+        const baseUrl = process.env.REACT_APP_BASE_URL;
         const response = await fetch(`${baseUrl}/agents`);
         const jsonData = await response.json();      
         setData(jsonData);
       } catch (error) {
         console.error('Error fetching data:', error);
-      }
-
-     
+      }     
     };
-
-    fetchData();
-    
+    fetchData();    
   },[]);
+
   React.useEffect(()=>{
     console.log("data");
     const filteredData = data.filter((item) =>

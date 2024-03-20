@@ -1,15 +1,19 @@
 import React from "react";
 import { Heading, Button, Img } from "./..";
+import {Link} from "react-router-dom";
 
 export default function LandingPageCard({
+ 
   image ,
   title ,
+  price,
+  propertyid,
   p3bedroom = "3 Bed Room",
   bathcounter = "1 Bath",
   sqftcounter = "1,032 sqft",
   p1bath = "Family",
   viewDetails = "View Details",
-  price,
+
   ...props
 }) {
   return (
@@ -52,9 +56,11 @@ export default function LandingPageCard({
             </div>
           </div>
           <div className="flex flex-row justify-between items-center w-full pr-[47px]">
+            
+          <Link to ={'/propertydetails/'+propertyid}>
             <Button className="h-12 px-[31px] text-white-A700 text-base font-semibold bg-gray-900 min-w-[156px] rounded-[10px]">
-              {viewDetails}
-            </Button>
+             {propertyid}
+            </Button></Link>
             <Heading size="xl" as="h6" className="tracking-[-0.48px]">
               {price}
             </Heading>

@@ -9,6 +9,7 @@ export default function AgentProfilePage() {
   const [agentdata , setAgentdata] = useState([]);
   const [propertdata, setPropertdata] =useState([]);
   useEffect(()=>{
+    console.log("inside useeffct for Id change");
     const fetchData = async () => {
       try {
         const baseUrl = process.env.REACT_APP_BASE_URL; //`${baseUrl}/property`
@@ -30,14 +31,14 @@ export default function AgentProfilePage() {
   React.useEffect(() => {
     console.log("propertdata:", propertdata);
   
-    if (Array.isArray(propertdata) && propertdata.length > 0) {
-      propertdata.map((property) => {
-        console.log("id", property._id);
-        console.log(property.images[0], "img");
-        console.log(property.name, "name");
-        return null;
-      });
-    }
+    // if (Array.isArray(propertdata) && propertdata.length > 0) {
+    //   propertdata.map((property) => {
+    //     console.log("id", property._id);
+    //     console.log(property.images[0], "img");
+    //     console.log(property.name, "name");
+    //     return null;
+    //   });
+    // }
   }, [propertdata]);
   // React.useEffect(() => {
   //   if (propertdata && propertdata.length > 0) {

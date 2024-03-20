@@ -7,6 +7,7 @@ import { Button, Img, GoogleMap, SelectBox, Input, Heading } from "../../compone
 import LandingPageCard from "../../components/LandingPageCard";
 // import PropertyCard from "../../components/AgentInfoCard";
 
+
 const dropDownOptions = [
   { label: "Option1", value: "option1" },
   { label: "Option2", value: "option2" },
@@ -20,10 +21,8 @@ export default function ListingPage() {
   
   React.useEffect(() => {
     const fetchData = async () => {
-      try {
-        
+      try {        
         const baseUrl = process.env.REACT_APP_BASE_URL;
-        // console.log(baseUrl,"   op");
         const response = await fetch(`${baseUrl}/property`);
         const jsonData = await response.json();
         setData(jsonData);
@@ -38,18 +37,13 @@ export default function ListingPage() {
   React.useEffect(()=>
   {
     console.log(data);
-    data.map((data) => (
-      // console.log(" id ",data._id);
-      // console.log(data.images[0]," img"),
-      console.log(data.name," name")
+    // data.map((data) => (
+    //   // console.log(" id ",data._id);
+    //   // console.log(data.images[0]," img"),
+    //   console.log(data.name," name")
 
-    ))
+    // ))
   },[data]);
-
- 
- 
-
-
   return (
     <>
       <Helmet>
@@ -190,6 +184,7 @@ export default function ListingPage() {
                   image={data.images[0]}
                   title={data.location}
                   price={data.price}
+                  propertyid={data._id}
                 />
               ))}
                   </div>

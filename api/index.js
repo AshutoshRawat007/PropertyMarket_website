@@ -4,6 +4,9 @@ const cors = require('cors');
 const mongoose = require("mongoose");
 const User = require('./models/User');
 const Property = require('./models/Property');
+const Likes = require('./models/Likes');
+const Comments = require('./models/Comments');
+const BlogPost = require('./models/BlogPost');
 const bcrypt = require('bcryptjs');
 const app = express();
 const jwt = require('jsonwebtoken');
@@ -29,13 +32,19 @@ const cloudinary = require('cloudinary').v2;
 const salt = bcrypt.genSaltSync(10);
 const secret = 'asdfe45we45w345wegw345werjktjwertkj';
 
-app.use(cors({ credentials: true, origin: 'https://property-market-website-sage.vercel.app' }));
-// Example CORS configuration in Express.js
-// app.use((req, res, next) => {
-//   res.setHeader('Access-Control-Allow-Origin', '*');
-//   next();
-// });
-//console.log
+const allowedOrigins = [
+  'https://property-market-website-sage.vercel.app',
+  'http://localhost:3000'
+];
+
+app.use(cors({
+  credentials: true,
+  origin: allowedOrigins
+}));
+
+// app.use(cors({ credentials: true, origin: 'https://property-market-website-sage.vercel.app' }));
+// app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+
 app.use(express.json());
 app.use(cookieParser());
 // app.use('/uploads', express.static(__dirname + '/uploads'));
@@ -47,7 +56,7 @@ cloudinary.config({
 });
 
 // Log the configuration
-console.log(cloudinary.config());
+// console.log(cloudinary.config());
 
 // Uploads an image file
 const uploadImage = async (imagePath) => {
@@ -158,10 +167,10 @@ const createImageTag = (publicId, ...colors) => {
 
 // })();
 
-mongoose.connect(process.env.MONGO_URL);
+// mongoose.connect(process.env.MONGO_URL);
 app.post('/api/register', async (req, res) => {
   // console.log("reached here");
-  //mongoose.connect(process.env.MONGO_URL);
+  mongoose.connect(process.env.MONGO_URL);
   const { Username, password } = req.body;
   try {
     const userDoc = await User.create({
@@ -180,7 +189,7 @@ app.post('/api/register', async (req, res) => {
 });
 
 app.post('/api/login', async (req, res) => {
-  //mongoose.connect(process.env.MONGO_URL);
+  mongoose.connect(process.env.MONGO_URL);
   try {
     const { Username, password } = req.body;
     const userDoc = await User.findOne({ Username }).select('+password');
@@ -208,7 +217,7 @@ app.post('/api/login', async (req, res) => {
 });
 
 app.get('/api/profile', (req, res) => {
-  //mongoose.connect(process.env.MONGO_URL);
+  mongoose.connect(process.env.MONGO_URL);
   const { token } = req.cookies;
   jwt.verify(token, secret, {}, (err, info) => {
     if (err) throw err;
@@ -223,7 +232,7 @@ app.post('/api/logout', (req, res) => {
 
 
 app.post('/api/property', uploadMiddleware.any(), async (req, res) => {
-  //mongoose.connect(process.env.MONGO_URL);
+  mongoose.connect(process.env.MONGO_URL);
   // //console.log("Request Body:", req.body);
   console.log("Request Files:", req.files);
   const files = req.files;
@@ -301,7 +310,7 @@ app.post('/api/property', uploadMiddleware.any(), async (req, res) => {
 });
 // Update property endpoint
 app.put('/api/properties/:id', async (req, res) => {
-  //mongoose.connect(process.env.MONGO_URL);
+  mongoose.connect(process.env.MONGO_URL);
   const { id } = req.params;
   const { name, location, amenities, images, roomDetails, price } = req.body;
   try {
@@ -325,7 +334,7 @@ app.put('/api/properties/:id', async (req, res) => {
 });
 
 app.get('/api/property',async(req,res)=>{
-  //mongoose.connect(process.env.MONGO_URL);
+  mongoose.connect(process.env.MONGO_URL);
   try{
     const data = await Property.find().populate('userId' ,['name','phone']); // Retrieve all data from MongoDB
     res.json(data);
@@ -341,9 +350,36 @@ app.get('/api/property',async(req,res)=>{
   // });
   
 });
+
+app.get('/api/property/:id',async(req,res)=>{
+  mongoose.connect(process.env.MONGO_URL);
+  // console.log("enterd into propertyid");
+  const { id } = req.params;
+  Property.findById(id)
+  .then(property => {
+    if (!property) {
+      console.log("*******************property*******************",property);
+      return res.status(404).json({ message: 'property not found' });
+    }
+    console.log(property);
+    User.findOne({ properties: id })
+      .then(agent => {
+        console.log("agebnt*******************",agent);
+        res.status(200).json({ property, agent });
+      })
+      .catch(error => {
+        console.error('Error finding agent:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+      });
+  })
+  .catch(error => {
+    console.error('------------The Errotrss----------', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  });  
+});
 // Fetch agent details endpoint
 app.get('/api/agents', async (req, res) => {
-  //mongoose.connect(process.env.MONGO_URL);
+  mongoose.connect(process.env.MONGO_URL);
   try {
     const agentDetails = await User.find();
     res.json(agentDetails);
@@ -353,8 +389,8 @@ app.get('/api/agents', async (req, res) => {
   }
 });
 app.get('/api/agents/:id', async (req, res) => {
-  //mongoose.connect(process.env.MONGO_URL);
-  //console.log(" camne to agent id ", req.params);
+  mongoose.connect(process.env.MONGO_URL);
+  console.log(" camne to agent id ", req.params);
   const { id } = req.params;
  // Find the user by ID below is the method if user do no contain properties refrence
 User.findById(id)
@@ -390,5 +426,7 @@ User.findById(id)
 //     res.status(500).json({ error: 'Internal server error' });
 //   }
 });
+
+app.post
 
 app.listen(4000);

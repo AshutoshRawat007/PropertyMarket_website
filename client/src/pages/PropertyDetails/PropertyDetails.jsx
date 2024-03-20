@@ -1,13 +1,66 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import { Helmet } from "react-helmet";
 import { Img, Heading, Button, Text, RatingBar, GoogleMap } from "../../components";
 import { TextArea } from '../../components/TextArea';  
 import { Radio } from '../../components/Radio';  
 import { RadioGroup } from '../../components/RadioGroup';  
+import { useParams } from "react-router-dom";
 
 import LandingPageCard from "../../components/LandingPageCard";
 
 export default function PropertyDetailsPage() {
+  const { id } = useParams(); 
+  console.log(" id from parameter ", id);
+  const[propertydata,setPropertydata] = useState([]);
+  const[agent , setAgent] = useState([]);
+  const[agnetname , setAgentname] = useState('');
+  const[agentUsername,setagentUsername] =useState('');
+  const[agentnumber , setAgentnumber] = useState('');
+  const[propertyname , setpropertyname] = useState('');
+  const[PropertyLocation , setPropertyLocation] = useState('');
+  const[propertyPrice , setpropertyPrice] = useState('');
+  const[PropertyImages , setPropertyImages] = useState([]);
+  const[PropertyRoomDetails , setPropertyRoomDetails] = useState();
+  const[roomss , setroms] = useState();
+  const[PropertyAmmenities,setPropertyAmmenities] = useState([]);
+  useEffect(()=>{
+    const fetchData = async () => {
+      try {
+        const baseUrl = process.env.REACT_APP_BASE_URL; 
+        const propertyDetails = await fetch(`${baseUrl}/property/`+id);
+        const { property, agent } = await propertyDetails.json();
+        await setPropertydata(property);
+        await setAgent(agent);
+        console.log('data is fetched');
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }    
+    };
+    fetchData();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  },[id]);
+  useEffect(()=>{
+    console.log("gonna print the values now bleopw");
+    console.log(agent);
+    console.log(propertydata);
+
+    setagentUsername(agent.Username);
+    setAgentname(agent.name);
+    setAgentnumber(agent.phone);
+    setpropertyname(propertydata.name);
+    setPropertyAmmenities(propertydata.amenities);
+    setPropertyImages(propertydata.images);
+    setpropertyPrice(propertydata.price);
+    setPropertyLocation(propertydata.location);
+    setPropertyRoomDetails(propertydata.roomDetails);
+
+    setroms(22);
+    // const { numberOfRooms, kitchen, guestRoom } = PropertyRoomDetails;
+    // console.log(" below os property room details",numberOfRooms,kitchen,guestRoom);
+    console.log(PropertyRoomDetails);
+
+
+  },[agent,propertydata])
   return (
     <>
       <Helmet>
@@ -18,23 +71,40 @@ export default function PropertyDetailsPage() {
         <div className="flex flex-col items-center justify-start w-full gap-[60px]">
           <div className="flex flex-col items-center justify-start w-full gap-10">
             {/* <Header className="flex justify-center items-center w-full p-[19px] bg-white-A700" /> */}
+{/*  PROPERTY IMAGES */}
             <div className="flex flex-row justify-center w-full">
               <div className="flex flex-row justify-start w-full gap-6 max-w-[1200px]">
                 <div className="flex flex-row justify-start w-[66%]">
-                  <Img src="images/img_rectangle_5610.png" alt="image" className="w-full object-cover rounded-[10px]" />
-                </div>
-                <div className="flex flex-col items-center justify-start w-[32%] gap-6">
+                {PropertyImages && PropertyImages.length > 0 ? (
+                  <Img src={PropertyImages[0]} alt="image" className="w-full object-cover rounded-[10px]" />
+                      ) : (
                   <Img
-                    src="images/img_rectangle_5611.png"
+                    src="/images/img_rectangle_5611.png"
                     alt="image_one"
                     className="w-full object-cover rounded-[10px]"
                   />
+                 )}
+                 </div>
+                <div className="flex flex-col items-center justify-start w-[32%] gap-6">
+                {PropertyImages && PropertyImages.length > 1 ? (
+                  <Img src={PropertyImages[1]} alt="image" className="w-full object-cover rounded-[10px]" />
+                      ) : (
+                  <Img
+                    src="/images/img_rectangle_5611.png"
+                    alt="image_one"
+                    className="w-full object-cover rounded-[10px]"
+                  />
+                 )}
                   <div className="h-[263px] w-full relative">
-                    <Img
-                      src="images/img_rectangle_5612.png"
-                      alt="image_two"
-                      className="justify-center h-[263px] w-full left-0 bottom-0 right-0 top-0 m-auto object-cover absolute rounded-[10px]"
-                    />
+                  {PropertyImages && PropertyImages.length > 2 ? (
+                  <Img src={PropertyImages[2]} alt="image" className="w-full object-cover rounded-[10px]" />
+                      ) : (
+                  <Img
+                    src="/images/img_rectangle_5611.png"
+                    alt="image_one"
+                    className="justify-center h-[263px] w-full left-0 bottom-0 right-0 top-0 m-auto object-cover absolute rounded-[10px]"
+                  />
+                 )}
                     <Button
                       color="white_A700"
                       size="lg"
@@ -47,23 +117,29 @@ export default function PropertyDetailsPage() {
                 </div>
               </div>
             </div>
+{/*  PROPERTY IMAGES */}
+
+
+
+
             <div className="flex flex-col items-center justify-start w-full">
               <div className="flex flex-row justify-start items-start w-full gap-6 max-w-[1200px]">
                 <div className="flex flex-col items-center justify-start w-[66%] gap-6">
+{/* PROPERTY DETAILS */}
                   <div className="flex flex-col items-center justify-start w-full gap-11 p-[39px] border-blue_gray-100_01 border border-solid bg-white-A700 rounded-[10px]">
                     <div className="flex flex-col items-start justify-start w-full gap-[22px]">
                       <div className="flex flex-col items-start justify-start w-full gap-[17px]">
                         <Heading size="2xl" as="h1" className="tracking-[-0.56px]">
-                          Trovilla Plan in Sereno Canyon - Estate Collection by Toll Brothers
+                          {propertyname}
                         </Heading>
                         <Heading size="lg" as="h2" className="tracking-[-0.40px]">
-                          2861 62nd Ave, Oakland, CA 94605
+                          {PropertyLocation}
                         </Heading>
                       </div>
                       <div className="flex flex-row w-3/4 gap-4">
                         <div className="flex flex-col items-start justify-start gap-[5px] p-[5px] border-gray-600_02 border border-solid bg-white-A700 rounded-[10px]">
                           <Heading size="xl" as="h3" className="ml-[17px] tracking-[-0.48px]">
-                            $649,900
+                            {propertyPrice}
                           </Heading>
                           <Heading size="xs" as="h4" className="ml-[17px] !text-gray-600_02">
                             Online / Cash Payment
@@ -127,10 +203,16 @@ export default function PropertyDetailsPage() {
                             Shop & Eat
                           </Button>
                         </div>
-                      </div>
+                   </div>
                       <GoogleMap showMarker={false} className="h-[400px] w-full" />
                     </div>
                   </div>
+{/*  PROPERTY DETAILS */}
+
+
+
+
+ {/* AMMENITIES AND ROOM DETAILS , HOME HIGHLIGHTS */}
                   <div className="flex flex-col items-start justify-center w-full gap-[19px] p-[39px] border-blue_gray-100_01 border border-solid bg-white-A700 rounded-[10px]">
                     <Heading size="2xl" as="h3" className="mt-[3px] tracking-[-0.56px]">
                       Home Highlights
@@ -141,44 +223,44 @@ export default function PropertyDetailsPage() {
                           <div className="flex flex-row justify-start items-center w-[41%] gap-2.5">
                             <div className="h-2 w-2 bg-gray-600_02 rounded-[50%]" />
                             <Text as="p" className="mt-[5px]">
-                              Parking
+                              Rooms
                             </Text>
                           </div>
                           <Heading size="md" as="h6" className="text-right">
-                            No Info
+                           {roomss} rooms
                           </Heading>
                         </div>
                         <div className="flex flex-row justify-between items-center w-full">
                           <div className="flex flex-row justify-start items-center w-[42%] gap-2.5 py-0.5">
                             <div className="h-2 w-2 bg-gray-600_02 rounded-[50%]" />
                             <Text as="p" className="mt-px">
-                              Outdoor
+                              Kitchen
                             </Text>
                           </div>
                           <Heading size="md" as="h6" className="text-right">
-                            No Info
+                          {/* {PropertyRoomDetails.kitchen?"YES":"NO"}  */}
                           </Heading>
                         </div>
                         <div className="flex flex-row justify-between items-center w-full">
                           <div className="flex flex-row justify-start items-center w-[35%] gap-2.5 py-0.5">
                             <div className="h-2 w-2 bg-gray-600_02 rounded-[50%]" />
                             <Text as="p" className="mt-px">
-                              A/C
+                              GuestRoom
                             </Text>
                           </div>
                           <Heading size="md" as="h6" className="text-right">
-                            No Info
+                          {/* {PropertyRoomDetails.guestRoom ? "Yes":"NO"}  */}
                           </Heading>
                         </div>
                         <div className="flex flex-row justify-between items-center w-full">
                           <div className="flex flex-row justify-start items-center w-[43%] gap-2.5 py-0.5">
                             <div className="h-2 w-2 bg-gray-600_02 rounded-[50%]" />
                             <Text as="p" className="mt-px">
-                              Year Built
+                              Hot water
                             </Text>
                           </div>
                           <Heading size="md" as="h6" className="text-right">
-                            2021
+                          {/* {PropertyRoomDetails.hotwater ? "Yes":"NO"}  */}
                           </Heading>
                         </div>
                       </div>
@@ -219,19 +301,23 @@ export default function PropertyDetailsPage() {
                       </div>
                     </div>
                   </div>
+ {/* AMMENITIES AND ROOM DETAILS , HOME HIGHLIGHTS */}
+
+
+{/* Agent Informantion */}
                   <div className="flex flex-col items-start justify-center w-full gap-[21px] p-[39px] border-blue_gray-100_01 border border-solid bg-white-A700 rounded-[10px]">
                     <Heading size="2xl" as="h3" className="mt-[3px] tracking-[-0.56px]">
                       Agent Information
                     </Heading>
                     <div className="flex flex-row justify-start items-center w-full gap-6">
                       <Img
-                        src="images/img_rectangle_5599.png"
+                        src="/images/img_rectangle_5599.png"
                         alt="image_three"
                         className="w-[150px] object-cover rounded-[10px]"
                       />
                       <div className="flex flex-col items-start justify-start w-[26%] gap-0.5">
                         <Heading size="lg" as="h5" className="tracking-[-0.40px]">
-                          Bruno Fernandes
+                          {agnetname}
                         </Heading>
                         <div className="flex flex-row justify-start items-center gap-3.5 py-0.5">
                           <RatingBar value={1} isEditable={true} size={16} className="flex justify-between w-24" />
@@ -240,21 +326,25 @@ export default function PropertyDetailsPage() {
                           </Heading>
                         </div>
                         <div className="flex flex-row justify-start items-center gap-2.5 py-0.5">
-                          <Img src="images/img_icon_20px_email.svg" alt="icon20pxemail" className="h-5 w-5" />
+                          <Img src="/images/img_icon_20px_email.svg" alt="icon20pxemail" className="h-5 w-5" />
                           <Text size="xs" as="p" className="mt-0.5">
-                            bruno@relasto .com
+                          {agentUsername}
                           </Text>
                         </div>
                         <div className="flex flex-row justify-start items-center gap-2.5 py-0.5">
-                          <Img src="images/img_icon_20px_call.svg" alt="icon20pxcall" className="h-5 w-5" />
+                          <Img src="/images/img_icon_20px_call.svg" alt="icon20pxcall" className="h-5 w-5" />
                           <Text size="xs" as="p">
-                            +65 0231 965 965
+                          {agentnumber}
                           </Text>
                         </div>
                       </div>
                     </div>
                   </div>
+{/* Agent Informantion */}
+
                 </div>
+
+{/* request visit form */}
                 <div className="flex flex-col items-center justify-start w-[32%] gap-10 p-[23px] border-blue_gray-100_01 border border-solid bg-white-A700 rounded-[10px]">
                   <div className="flex flex-col items-start justify-start w-full pt-[3px] gap-[19px]">
                     <Heading size="2xl" as="h3" className="tracking-[-0.56px]">
@@ -263,21 +353,25 @@ export default function PropertyDetailsPage() {
                     <div className="flex flex-col items-center justify-start w-full gap-3">
                       <RadioGroup name="requestfor" className="flex flex-col">
                         <Radio
+                          key = "234"
                           value="fullname"
                           label="Full Name"
                           className="pl-3.5 pr-[35px] gap-3.5 py-[17px] text-gray-600_02 font-semibold"
                         />
                         <Radio
+                        key = "44"
                           value="emailaddress"
                           label="Email Address"
                           className="mt-3 pl-3.5 pr-[35px] gap-3.5 py-[17px] text-gray-600_02 font-semibold"
                         />
                         <Radio
+                        key = "888"
                           value="phonenumber"
                           label="Phone Number"
                           className="mt-3 pl-3.5 pr-[35px] gap-3.5 py-[17px] text-gray-600_02 font-semibold"
                         />
                         <Radio
+                        key = "01223"
                           value="date"
                           label="Date"
                           className="mt-3 pl-3.5 pr-[35px] gap-3.5 py-[17px] text-gray-600_02 font-semibold"
@@ -294,9 +388,14 @@ export default function PropertyDetailsPage() {
                     Send Request
                   </Button>
                 </div>
+{/* request visit form */}
+
+
               </div>
             </div>
           </div>
+
+{/* Property Recomendations */}
           <div className="flex flex-row justify-center w-full">
             <div className="flex flex-col items-center justify-start w-full gap-[39px] max-w-[1200px]">
               <div className="flex flex-row justify-between items-start w-full pt-[3px]">
@@ -307,22 +406,25 @@ export default function PropertyDetailsPage() {
                   <Heading size="md" as="h3" className="mt-0.5 !text-orange-A700 !font-bold">
                     Explore All
                   </Heading>
-                  <Img src="images/img_icon_24px_v.svg" alt="iconarrow_one" className="h-6 w-6" />
+                  <Img src="/images/img_icon_24px_v.svg" alt="iconarrow_one" className="h-6 w-6" />
                 </div>
               </div>
               <div className="flex flex-row w-full gap-6">
                 <LandingPageCard className="flex flex-col items-center justify-start w-[32%]" />
                 <LandingPageCard
-                  imageOne="images/img_image_1.png"
+                  image="/images/img_image_1.png"
                   className="flex flex-col items-center justify-start w-[32%]"
                 />
                 <LandingPageCard
-                  imageOne="images/img_image_2.png"
+                  image="/images/img_image_2.png"
                   className="flex flex-col items-center justify-start w-[32%]"
                 />
               </div>
             </div>
           </div>
+{/* Property Recomendations */}
+
+
         </div>
         {/* <Footer className="flex justify-center items-center w-full pl-[74px] pr-14 gap-[115px] py-[74px] bg-white-A700" /> */}
       </div>
