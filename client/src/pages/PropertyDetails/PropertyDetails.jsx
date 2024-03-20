@@ -58,9 +58,10 @@ export default function PropertyDetailsPage() {
     // const { numberOfRooms, kitchen, guestRoom } = PropertyRoomDetails;
     // console.log(" below os property room details",numberOfRooms,kitchen,guestRoom);
     console.log(PropertyRoomDetails);
+    console.log(PropertyAmmenities)
 
 
-  },[agent,propertydata])
+  },[agent,propertydata,PropertyAmmenities,PropertyRoomDetails])
   return (
     <>
       <Helmet>
