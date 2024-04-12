@@ -1,103 +1,36 @@
-import React from "react";
+import React ,{useState,useEffect} from "react";
 import { Helmet } from "react-helmet";
 import { Heading, Img, Text } from "../../components";
 import BlogPageColumnactive from "../../components/BlogPageColumnactive";
-// import Footer from "../../components/Footer";
-// import Header from "../../components/Header";
-import { ReactTable } from "../../components/ReactTable";
+import { useParams } from "react-router-dom";
 import { createColumnHelper } from "@tanstack/react-table";
 
-const tableData = [
-  {
-    fullname: "Zakir Hossen",
-    title: "UI, UX Designer",
-    emailaddress: "uxdesigner@gmail.com",
-    phonenumber: "+88 222 5554 444",
-  },
-  {
-    fullname: "Zakir Hossen",
-    title: "UI, UX Designer",
-    emailaddress: "uxdesigner@gmail.com",
-    phonenumber: "+88 222 5554 444",
-  },
-  {
-    fullname: "Zakir Hossen",
-    title: "UI, UX Designer",
-    emailaddress: "uxdesigner@gmail.com",
-    phonenumber: "+88 222 5554 444",
-  },
-  {
-    fullname: "Zakir Hossen",
-    title: "UI, UX Designer",
-    emailaddress: "uxdesigner@gmail.com",
-    phonenumber: "+88 222 5554 444",
-  },
-  {
-    fullname: "Zakir Hossen",
-    title: "UI, UX Designer",
-    emailaddress: "uxdesigner@gmail.com",
-    phonenumber: "+88 222 5554 444",
-  },
-];
 
 export default function BlogDetailsPage() {
-  const tableColumns = React.useMemo(() => {
-    const tableColumnHelper = createColumnHelper();
-    return [
-      tableColumnHelper.accessor("fullname", {
-        cell: (info) => (
-          <Heading as="h6" className="!text-gray-600_02">
-            {info?.getValue()}
-          </Heading>
-        ),
-        header: (info) => (
-          <Heading size="xs" as="p" className="py-[11px]">
-            Full Name
-          </Heading>
-        ),
-        meta: { width: "234px" },
-      }),
-      tableColumnHelper.accessor("title", {
-        cell: (info) => (
-          <Heading as="h6" className="!text-gray-600_02">
-            {info?.getValue()}
-          </Heading>
-        ),
-        header: (info) => (
-          <Heading size="xs" as="p" className="py-[11px]">
-            Title
-          </Heading>
-        ),
-        meta: { width: "234px" },
-      }),
-      tableColumnHelper.accessor("emailaddress", {
-        cell: (info) => (
-          <Heading as="h6" className="!text-gray-600_02">
-            {info?.getValue()}
-          </Heading>
-        ),
-        header: (info) => (
-          <Heading size="xs" as="p" className="py-[11px]">
-            Email Address
-          </Heading>
-        ),
-        meta: { width: "234px" },
-      }),
-      tableColumnHelper.accessor("phonenumber", {
-        cell: (info) => (
-          <Heading as="h6" className="!text-gray-600_02">
-            {info?.getValue()}
-          </Heading>
-        ),
-        header: (info) => (
-          <Heading size="xs" as="p" className="py-[11px]">
-            Phone Number
-          </Heading>
-        ),
-        meta: { width: "214px" },
-      }),
-    ];
-  }, []);
+
+  const { id } = useParams(); 
+  const [blog, setBlog] =useState('');
+  useEffect(()=>{
+    console.log("inside useeffct for Id change");
+    const fetchData = async () => {
+      try {
+        const baseUrl = process.env.REACT_APP_BASE_URL;
+        const response = await fetch(`${baseUrl}/blog/${id}`);
+        const blogdata = await response.json();
+        setBlog(blogdata);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }    
+    };
+    fetchData();
+    // window.scrollTo({ top: 0, behavior: 'smooth' });
+  },[id]);
+
+  useEffect(()=>{
+    console.log("silogiiii   ",blog[0].title)
+  },[blog])
+  
+
 
   return (
     <>
@@ -111,7 +44,7 @@ export default function BlogDetailsPage() {
           <div className="flex flex-col items-start justify-start w-full pl-[120px] pr-14">
             <div className="flex flex-col items-start justify-start w-full pt-[5px] gap-[34px] mx-auto max-w-[1135px]">
               <Heading size="3xl" as="h1" className="tracking-[-0.72px]">
-                10 Delightful Dining Room Decor Trends for Spring
+              {blog[0].title}
               </Heading>
               <div className="flex flex-col items-start justify-start w-full gap-[84px]">
                 <div className="flex flex-row justify-start items-center w-full gap-4">
@@ -122,16 +55,7 @@ export default function BlogDetailsPage() {
                       className="w-full object-cover rounded-[10px]"
                     />
                     <Text as="p">
-                      What a time we are living in! A lot of things are coming back, bringing back nostalgia. Wondering
-                      why I am talking about nostalgia and all? Especially when it is supposed to be an article on
-                      websites! Well, because some old famous website technology is coming back too. Yes, I am talking
-                      about static websites.
-                      <br />
-                      Long ago, almost all websites were used to be static sites during the early days of the internet.
-                      Then dynamic sites came and blew the space. A lot of websites shifted to it. Obviously dynamic
-                      sites have their advantages. But static sites are making a comeback. And it’s coming stronger than
-                      before. In this article, you will cover the basics of static websites like what is a static
-                      website, what are the advantages, and when you should use a static website. Let’s kick things off.
+                      {blog[0].content}
                     </Text>
                   </div>
                   <div className="flex flex-col items-center justify-start w-[11%]">
@@ -373,15 +297,7 @@ export default function BlogDetailsPage() {
                     </Text>
                   </div>
                   <div className="flex flex-row justify-center w-full p-[39px] border-blue_gray-100_01 border border-solid bg-white-A700 rounded-[10px]">
-                    <ReactTable
-                      size="xs"
-                      bodyProps={{ className: "" }}
-                      headerProps={{ className: "" }}
-                      rowDataProps={{ className: "border-blue_gray-100_01 border-b border-dashed" }}
-                      className="w-[916px] my-2.5"
-                      columns={tableColumns}
-                      data={tableData}
-                    />
+
                   </div>
                 </div>
                 <div className="flex flex-col items-start justify-start w-[88%] pt-0.5 gap-5">

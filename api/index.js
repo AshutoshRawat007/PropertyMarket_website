@@ -230,7 +230,6 @@ app.post('/api/logout', (req, res) => {
   res.cookie('token', '').json('ok');
 });
 
-
 app.post('/api/property', uploadMiddleware.any(), async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   // //console.log("Request Body:", req.body);
@@ -277,8 +276,6 @@ app.post('/api/property', uploadMiddleware.any(), async (req, res) => {
     images_arrray.push(url);
     //console.log('new path:', newPath);
   };
-
-
   const propertyDataJSON = req.body['propertyData.json'];
   const propertyData = JSON.parse(propertyDataJSON);
     // //console.log("Property Data:", propertyData);
@@ -308,7 +305,30 @@ app.post('/api/property', uploadMiddleware.any(), async (req, res) => {
   });
 
 });
-// Update property endpoint
+
+app.post('/api/createblog', uploadMiddleware.any(),async (req, res) => {  
+  mongoose.connect(process.env.MONGO_URL);
+  const files = req.files;
+  console.log("reached here into files : ", files);
+  const { title, content } = req.body;
+  console.log("body is  ", req.body);
+  console.log("title and contest is  ", title, content);
+  const url = await uploadImage(files[0].path);
+  console.log("url: ",url);
+  try {
+    const userDoc = await BlogPost.create({
+      title,
+      coverimage:url,
+      content,
+    });
+    res.json(userDoc);
+  } catch (e) {
+    // console.log(e);
+    res.status(400).json(e);
+  }
+});
+
+
 app.put('/api/properties/:id', async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   const { id } = req.params;
@@ -351,6 +371,29 @@ app.get('/api/property',async(req,res)=>{
   
 });
 
+app.get('/api/blog',async(req,res)=>{
+  mongoose.connect(process.env.MONGO_URL);
+  try{
+    const data = await BlogPost.find(); // Retrieve all data from MongoDB
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } 
+});
+
+app.get('/api/blog/:id',async(req,res)=>{
+  mongoose.connect(process.env.MONGO_URL);
+  const { id } = req.params;
+  try{
+    const data = await BlogPost.find({ _id: id }); // Retrieve all data from MongoDB
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } 
+});
+
 app.get('/api/property/:id',async(req,res)=>{
   mongoose.connect(process.env.MONGO_URL);
   // console.log("enterd into propertyid");
@@ -377,7 +420,7 @@ app.get('/api/property/:id',async(req,res)=>{
     res.status(500).json({ message: 'Internal Server Error' });
   });  
 });
-// Fetch agent details endpoint
+
 app.get('/api/agents', async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   try {
@@ -426,7 +469,5 @@ User.findById(id)
 //     res.status(500).json({ error: 'Internal server error' });
 //   }
 });
-
-app.post
 
 app.listen(4000);

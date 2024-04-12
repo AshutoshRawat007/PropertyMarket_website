@@ -34,7 +34,7 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path="listingmapview" element={<ListingMapView />} />
       <Route path="agentprofile/:id" element={ <AgentProfile />} /> 
       <Route path="agentlist" element={<AgentList />} />
-      <Route path="blogdetails" element={<BlogDetails />} />
+      <Route path="blogdetails/:id" element={<BlogDetails />} />
       <Route path="blogpage" element={<BlogPage />} />      
       <Route path="propertydetails/:id" element={<PropertyDetails />} />
       <Route path="contactpage" element={<ContactPage />} />  

@@ -1,20 +1,33 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { Heading, Img, Text, Button, Input } from "../../components";
-// import Header from "../../components/Header/Header";
 import LandingPageCard from "../../components/LandingPageCard";
-import { TabPanel, TabList, Tab, Tabs } from "react-tabs";
+import { useForm } from "react-hook-form";
+
 
 export default function LandingPagePage() {
+  const {
+    register,
+    handleSubmit,
+  } = useForm()
+
+  const [selectedOption, setSelectedOption] = React.useState('buy');
+
+  const onSubmit = (data) => {
+
+    const formData = { ...data, transactionType: selectedOption };
+    console.log(formData);
+    console.log(data);
+
+  };
   return (
     <>
       <Helmet>
-        <title>Ansum's Application2</title>
+        <title>Property Market</title>
         <meta name="description" content="Web site created using create-react-app" />
       </Helmet>
       <div className="flex flex-col items-center justify-start w-full gap-[99px] overflow-auto bg-white-A700">
         <div className="flex flex-col items-center justify-start w-full">
-          {/* <Header className="flex justify-center items-center w-full p-[19px] bg-white-A700" /> */}
           <div className="flex flex-row justify-end w-full py-[50px] bg-yellow-50">
             <div className="flex flex-row justify-between items-center w-full mx-auto max-w-[1396px]">
               <div className="flex flex-col items-center justify-start w-[44%] gap-10">
@@ -29,52 +42,54 @@ export default function LandingPagePage() {
                   </Text>
                 </div>
                 <div className="flex flex-row justify-center w-full p-6 bg-white-A700 rounded-[16px]">
-                  <Tabs
-                    className="flex flex-col items-center justify-start w-full gap-[38px]"
-                    selectedTabClassName="!text-white-A700 bg-gray-900 rounded-[10px]"
-                    selectedTabPanelClassName="relative tab-panel--selected"
-                  >
-                    <TabList className="flex flex-row justify-between w-full gap-[155px] p-[9px]">
-                      <Tab className="mt-[5px] ml-[62px] text-white-A700 text-lg font-bold">Buy</Tab>
-                      <Tab className="text-gray-900 text-lg font-bold">Sell</Tab>
-                      <Tab className="mr-[57px] text-gray-900 text-lg font-bold">Rent</Tab>
-                    </TabList>
-                    {[...Array(3)].map((_, index) => (
-                      <TabPanel key={`tab-panel${index}`} className="items-center w-full absolute">
-                        <div className="flex flex-col items-center justify-start w-full">
-                          <div className="flex flex-col items-center justify-start w-full gap-6">
-                            <div className="flex flex-col items-center justify-start w-full gap-5">
-                              <Input
-                                name="city"
-                                placeholder="City/Street"
-                                suffix={<Img src="images/img_icon_20px_map.svg" alt="icon / 20px / map" />}
-                                className="w-full gap-[35px] font-semibold border-blue_gray-100_01 border border-solid"
-                              />
-                              <Input
-                                name="icon20pxupdowna"
-                                placeholder="Property Type"
-                                suffix={
-                                  <Img src="images/img_icon_20px_updown_arrow.svg" alt="icon / 20px / up-down arrow" />
-                                }
-                                className="w-full gap-[35px] font-semibold border-blue_gray-100_01 border border-solid"
-                              />
-                              <Input
-                                name="price"
-                                placeholder="Price Range"
-                                suffix={
-                                  <Img src="images/img_icon_20px_updown_arrow.svg" alt="icon / 20px / up-down arrow" />
-                                }
-                                className="w-full gap-[35px] font-semibold border-blue_gray-100_01 border border-solid"
-                              />
-                            </div>
-                            <Button size="4xl" className="w-full font-bold">
-                              Search
-                            </Button>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                          {/* Add the select element for Buy, Sell, Rent option */}
+                          <div className="flex justify-center w-full gap-4">
+                            <button
+                              type="button"
+                              className={`border ${selectedOption === 'buy' ? 'border-black' : 'border-transparent'} px-4 py-2 rounded-lg hover:bg-gray-200 transition duration-300`}
+                              onClick={() => setSelectedOption('buy')}
+                            >
+                              BUY
+                            </button>
+                            <button
+                              type="button"
+                              className={`border ${selectedOption === 'sell' ? 'border-black' : 'border-transparent'} px-4 py-2 rounded-lg hover:bg-gray-200 transition duration-300`}
+                              onClick={() => setSelectedOption('sell')}
+                            >
+                              SELL
+                            </button>
+                            <button
+                              type="button"
+                              className={`border ${selectedOption === 'rent' ? 'border-black' : 'border-transparent'} px-4 py-2 rounded-lg hover:bg-gray-200 transition duration-300`}
+                              onClick={() => setSelectedOption('rent')}
+                            >
+                              RENT
+                            </button>
                           </div>
-                        </div>
-                      </TabPanel>
-                    ))}
-                  </Tabs>
+                          <div className="flex flex-col items-center justify-start w-full">
+                            <div className="flex flex-col items-center justify-start w-full gap-6">
+                              <div className="flex flex-col items-center justify-start w-full gap-5">
+                                <input
+                                  {...register('city')}
+                                  placeholder="City/Street"
+                                  className="w-full gap-[35px] font-semibold border-blue_gray-100_01 border border-solid"
+                                />
+                                <input
+                                  {...register('propertyType')}
+                                  placeholder="Property Type"
+                                  className="w-full gap-[35px] font-semibold border-blue_gray-100_01 border border-solid"
+                                />
+                                <input
+                                  {...register('priceRange')}
+                                  placeholder="Price Range"
+                                  className="w-full gap-[35px] font-semibold border-blue_gray-100_01 border border-solid"
+                                />
+                              </div>
+                              <button type="submit" className="w-full font-bold bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300">Search</button>
+                            </div>
+                          </div>
+                        </form>
                 </div>
               </div>
               <div className="flex flex-row justify-start">

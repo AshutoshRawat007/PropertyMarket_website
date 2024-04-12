@@ -1,9 +1,12 @@
 import React from "react";
 import { Img, Heading, Button } from "./..";
+import {Link}  from "react-router-dom";
 
 export default function BlogPageColumnactive({
-  business = "Business",
-  p10delightful = "10 Delightful Dining Room Decor Trends for Spring",
+  business = "Read Blog",
+  coverimg,
+  blogid,
+  Title,
   july202022 = "July 20, 2022",
   time = "7 min read",
   active = "Continue Reading",
@@ -12,14 +15,14 @@ export default function BlogPageColumnactive({
   return (
     <div {...props}>
       <div className="flex flex-col items-center justify-start w-full gap-3">
-        <Img src="images/defaultNoData.png" alt="image" className="w-full object-cover rounded-lg" />
+        <Img src={coverimg} alt="image" className="w-full object-cover rounded-lg" />
         <div className="flex flex-col items-start justify-start w-full gap-2">
-          <Button className="h-[38px] px-[13px] text-gray-900 text-sm font-semibold border-blue_gray-100_01 border border-solid min-w-[89px] rounded-[10px]">
+          <Link to ={"/blogdetails/"+blogid}> <Button className="h-[38px] px-[13px] text-gray-900 text-sm font-semibold border-blue_gray-100_01 border border-solid min-w-[89px] rounded-[10px]">
             {business}
-          </Button>
+          </Button></Link>
           <div className="flex flex-col items-center justify-start w-full gap-[15px]">
             <Heading size="xl" as="h1" className="tracking-[-0.48px]">
-              {p10delightful}
+              {Title}
             </Heading>
             <div className="flex flex-row justify-start w-full gap-6">
               <div className="flex flex-row justify-start items-start w-[23%] gap-1.5">
@@ -42,7 +45,7 @@ export default function BlogPageColumnactive({
         <Heading size="md" as="h2" className="mt-0.5 !text-gray-600_02">
           {active}
         </Heading>
-        <Img src="images/defaultNoData.png" alt="icon24pxv_one" className="h-6 w-6" />
+        <Img src="/images/defaultNoData.png" alt="icon24pxv_one" className="h-6 w-6" />
       </div>
     </div>
   );

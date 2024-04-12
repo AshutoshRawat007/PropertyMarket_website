@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import { Helmet } from "react-helmet";
 import { CloseSVG } from "../../assets/images";
 import { Button, Img, Heading, SelectBox, Input } from "../../components";
 import BlogPageColumnactive from "../../components/BlogPageColumnactive";
+import { useEffect } from "react";
 
 
 const dropDownOptions = [
@@ -12,7 +13,31 @@ const dropDownOptions = [
 ];
 
 export default function BlogPagePage() {
-  const [searchBarValue7, setSearchBarValue7] = React.useState("");
+  const [searchBarValue7, setSearchBarValue7] = useState("");
+  const[blogData , setBlogData] = useState([]);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const baseUrl = process.env.REACT_APP_BASE_URL;
+        const response = await fetch(`${baseUrl}/blog`);
+        const jsonData = await response.json();      
+        setBlogData(jsonData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }     
+    };
+    fetchData();    
+  },[]);
+
+  useEffect(() => {
+    console.log("***************Blog data***************",blogData)    
+  },[blogData]);
+
+  
+
+
 
   return (
     <>
@@ -40,7 +65,7 @@ export default function BlogPagePage() {
                         <CloseSVG onClick={() => setSearchBarValue7("")} height={24} width={24} fillColor="#6e6e6eff" />
                       ) : (
                         <Img
-                          src="images/img_icon_24px_search_gray_600_02.svg"
+                          src="/images/img_icon_24px_search_gray_600_02.svg"
                           alt="icon / 24px / search"
                           className="cursor-pointer"
                         />
@@ -56,7 +81,7 @@ export default function BlogPagePage() {
                     className="w-[33%] gap-px !text-gray-600_02 font-bold border-blue_gray-100_01 border border-solid"
                   />
                   <SelectBox
-                    indicator={<Img src="images/img_arrowdown_gray_600_02.svg" alt="arrow_down" />}
+                    indicator={<Img src="/images/img_arrowdown_gray_600_02.svg" alt="arrow_down" />}
                     name="active_one"
                     placeholder="Popular"
                     options={dropDownOptions}
@@ -66,50 +91,14 @@ export default function BlogPagePage() {
               </div>
               <div className="flex flex-col items-center justify-start w-full">
                 <div className="justify-center w-full gap-6 grid-cols-3 grid min-h-[auto]">
-                  <div className="flex flex-col items-center justify-start w-full gap-6">
-                    <div className="flex flex-col items-center justify-start w-full gap-3">
-                      <Img
-                        src="images/img_rectangle_5617_350x384.png"
-                        alt="image"
-                        className="w-full object-cover rounded-lg"
-                      />
-                      <div className="flex flex-col items-start justify-start w-full gap-2">
-                        <Button
-                          color="blue_gray_100_01"
-                          size="md"
-                          variant="outline"
-                          className="font-semibold min-w-[89px]"
-                        >
-                          Business
-                        </Button>
-                        <div className="flex flex-col items-center justify-start w-full gap-[15px]">
-                          <Heading size="xl" as="h2" className="tracking-[-0.48px]">
-                            10 Delightful Dining Room Decor Trends for Spring
-                          </Heading>
-                          <div className="flex flex-row justify-start w-full gap-6">
-                            <div className="flex flex-row justify-start items-start w-[23%] gap-1.5">
-                              <div className="h-[5px] w-[5px] mt-[5px] bg-blue_gray-100_01 rounded-sm" />
-                              <Heading size="xs" as="h3" className="!text-gray-600_02">
-                                July 20, 2022
-                              </Heading>
-                            </div>
-                            <div className="flex flex-row justify-start items-center w-[23%] gap-1.5">
-                              <div className="h-[5px] w-[5px] bg-blue_gray-100_01 rounded-sm" />
-                              <Heading size="xs" as="h4" className="!text-gray-600_02">
-                                7 min read
-                              </Heading>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex-row justify-start items-center w-full gap-2">
-                      <Heading size="md" as="h5" className="mt-0.5 !text-gray-600_02 !font-bold">
-                        Continue Reading
-                      </Heading>
-                      <Img src="images/img_icon_24px_v_gray_600_02.svg" alt="continue" className="h-6 w-6" />
-                    </div>
-                  </div>
+                {blogData.map((data) => (
+                <BlogPageColumnactive className="flex flex-col items-center justify-start w-full gap-6" 
+                  key={data._id} // Make sure each card has a unique key
+                  Title={data.title}
+                  coverimg={data.coverimage}
+                  blogid={data._id}
+                />
+              ))}
                   <BlogPageColumnactive className="flex flex-col items-center justify-start w-full gap-6" />
                   <BlogPageColumnactive className="flex flex-col items-center justify-start w-full gap-6" />
                   <BlogPageColumnactive className="flex flex-col items-center justify-start w-full gap-6" />

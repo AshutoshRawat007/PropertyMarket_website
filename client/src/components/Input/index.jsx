@@ -24,22 +24,18 @@ const Input = React.forwardRef(
       name = "",
       placeholder = "",
       type = "text",
-      children,
       label = "",
       prefix,
-      value="",
       suffix,
-      onChange,
       shape = "round",
       variant = "fill",
       size = "md",
       color = "white_A700",
+      onChange, // Remove onChange from restProps
       ...restProps
-    },    ref,  ) => {
-    const handleChange = (e) => {
-      if (onChange) onChange(e?.target?.value);
-    };
-
+    },
+    ref
+  ) => {
     return (
       <>
         <div
@@ -47,17 +43,23 @@ const Input = React.forwardRef(
         >
           {!!label && label}
           {!!prefix && prefix}
-          <input ref={ref} type={type} name={name} onChange={handleChange} placeholder={placeholder} {...restProps} />
+          <input
+            ref={ref}
+            type={type}
+            name={name}
+            placeholder={placeholder}
+            {...restProps} // Pass the restProps directly to the input
+          />
           {!!suffix && suffix}
         </div>
       </>
     );
-  },
+  }
 );
 
 Input.propTypes = {
   className: PropTypes.string,
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired, // Make name required for React Hook Form
   placeholder: PropTypes.string,
   type: PropTypes.string,
   label: PropTypes.string,

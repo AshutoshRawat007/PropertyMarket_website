@@ -30,10 +30,13 @@ const BlogEditor = () => {
       formData.append('title', title);
       formData.append('coverImage', coverImage);
       formData.append('content', content);
+
+      const baseUrl = process.env.REACT_APP_BASE_URL;
   
-      const response = await fetch('/api/blog', {
+      const response = await fetch(`${baseUrl}/createblog`, {
         method: 'POST',
         body: formData,
+        credentials:'include'
       });
   
       if (response.ok) {
@@ -67,7 +70,6 @@ const BlogEditor = () => {
       <input
         type="file"
         id="coverImage"
-        accept="image/*"
         onChange={handleCoverImageChange}
         className="w-full border border-green-300 rounded-md p-2 mb-4"
       />
