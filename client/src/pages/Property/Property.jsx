@@ -50,7 +50,7 @@ const Property = () => {
   }, [perks]);
   const sendProperty = async (e) => {
     e.preventDefault();
-    console.log(perks);
+    // console.log(perks);
 
 
     const propertyData = {
@@ -79,7 +79,7 @@ const Property = () => {
     });
     formData.append('propertyData.json', propertyDataJSON);
     const baseUrl = process.env.REACT_APP_BASE_URL;
-    console.log(formData);
+    // console.log(formData);
 
     const response = await fetch(`${baseUrl}/property`, {
       method: 'POST',
@@ -93,7 +93,7 @@ const Property = () => {
     } else {
       alert('Property upload failed. Check the server response for details.');
     }
-    console.log(propertyData);
+    // console.log(propertyData);
   }
 
   function inputheader(text) {
@@ -114,7 +114,7 @@ const Property = () => {
             value={propertyName}
             onChange={(e) => setPropertyName(e.target.value)}
             required
-            className="border-b-2 border-gray-700 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-black"
+            className="input-field border-b-2 border-gray-700 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-black"
           />
         </div>
         <div className="my-4">
@@ -128,7 +128,7 @@ const Property = () => {
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             required
-            className="border-b-2 border-gray-700 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-black"
+            className="input-field border-b-2 border-gray-700 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-black"
           />
         </div>
 
@@ -143,7 +143,7 @@ const Property = () => {
             value={roomnumber}
             onChange={(e) => setroomnumber(e.target.value)}
             required
-            className="border-b-2 border-gray-700 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-black"
+            className="input-field border-b-2 border-gray-700 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-black"
           />
         </div>
 
@@ -158,7 +158,7 @@ const Property = () => {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             required
-            className="border-b-2 border-gray-700 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-black"
+            className="input-field border-b-2 border-gray-700 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-black"
           />
         </div>
 
@@ -182,7 +182,7 @@ const Property = () => {
               value={amenities}
               onChange={(e) => setAmenities(e.target.value)}
               required
-              className="border-b-2 border-gray-700 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-black"
+              className="input-field border-b-2 border-gray-700 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-black"
             />
           </div>
 
@@ -202,7 +202,7 @@ const Property = () => {
               multiple
               onChange={handleChange}
               required
-              className="border bg-transparent rounded-2xl p-8 text-2xl text-gray-600"
+              className="input-field border bg-transparent rounded-2xl p-8 text-2xl text-gray-600"
             />
           </div>
         </div>
@@ -216,13 +216,13 @@ const Property = () => {
             placeholder="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full h-32 pl-2 py-[12px] text-gray-600_02 font-semibold rounded border border-solid border-gray-700 focus:outline-none"
+            className="input-field w-full h-32 pl-2 py-[12px] text-gray-600_02 font-semibold rounded border border-solid border-gray-700 focus:outline-none"
           />
         </div>
         <div className="mv3">
           <button
             type="submit"
-            className="font-bold mb-5 rounded-md py-2 px-4 bg-transparent border border-black cursor-pointer hover:bg-light-gray w-full"
+            className="input-field font-bold mb-5 rounded-md py-2 px-4 bg-transparent border border-black cursor-pointer hover:bg-light-gray w-full"
           >
             Create Property
           </button>

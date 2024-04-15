@@ -11,7 +11,7 @@ export default function Header({ ...props }) {
   const [menuVisible, setMenuVisible] = useState(false);
   const baseUrl = process.env.REACT_APP_BASE_URL;
   useEffect(() => {
-    fetch(`${baseUrl}/login`, {
+    fetch(`${baseUrl}/profile`, {
       credentials: 'include',
     }).then(response => {
       response.json().then(userInfo => {
@@ -71,19 +71,19 @@ export default function Header({ ...props }) {
             {menuVisible && (
               <div className="absolute top-full mt-1 w-48 bg-white text-gray-800 border border-gray-300 rounded-md shadow-lg">
                 <button onClick={logout} className="block px-4 py-2 text-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-100">Logout</button>
-                <Link to="/create" className="block px-4 py-2 text-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-100">Write Blog</Link>
+                <Link to="/createblog" className="block px-4 py-2 text-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-100">Write Blog</Link>
                 <Link to="/property" className="block px-4 py-2 text-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-100">add property</Link>
               </div>
             )}
           </div>
 
           {/* Profile link */}
-          <Link to={username ? '/account' : '/login'} className="flex items-center gap-2 py-2 px-4 text-white rounded-full hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+          {/* <Link to={username ? '/account' : '/login'} className="flex items-center gap-2 py-2 px-4 text-white rounded-full hover:bg-gray-600 focus:outline-none focus:bg-gray-600"> */}
             <div className="overflow-hidden rounded-full">
               <img src="/images/profile-round-1342-svgrepo-com.svg" alt="User" width="24" height="24" />
             </div>
             {!!username && <div>{username}</div>}
-          </Link>
+          {/* </Link> */}
         </div>
 
       </div>

@@ -24,9 +24,9 @@ export default function BlogPagePage() {
     fetchData();    
   },[]);
 
-  useEffect(() => {
-    console.log("***************Blog data***************",blogData)    
-  },[blogData]);
+  // useEffect(() => {
+  //   console.log("***************Blog data***************",blogData)    
+  // },[blogData]);
 
   
 

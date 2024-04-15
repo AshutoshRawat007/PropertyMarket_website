@@ -23,7 +23,7 @@ export default function LoginPage() {
       setPasswordError('Password is required');
       return;
     }
-    console.log('Base URL:', baseUrl);
+    // console.log('Base URL:', baseUrl);
 
     const response = await fetch(`${baseUrl}/login`, {
       method: 'POST',

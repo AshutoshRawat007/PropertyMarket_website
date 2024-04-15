@@ -6,7 +6,7 @@ const User = require('./models/User');
 const Property = require('./models/Property');
 const Likes = require('./models/Likes');
 const Comments = require('./models/Comments');
-const BlogPost = require('./models/BlogPost');
+const BlogPost = require('./models/BlogPosts');
 const bcrypt = require('bcryptjs');
 const app = express();
 const jwt = require('jsonwebtoken');
@@ -95,10 +95,16 @@ const uploadImage = async (imagePath) => {
 //   original_filename: 'vlcsnap-2023-09-12-17h02m45s799',
 //   api_key: '882532315875241'
 // }
-app.post('/api/register', async (req, res) => {
-  // console.log("reached here");
+
+
+app.post('/api/register', uploadMiddleware.any(),async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
-  const { Username, password, name, phone, description } = req.body;
+  const Userdatajson = req.body['userData.json'];
+  const userdata = JSON.parse(Userdatajson);
+  const file = req.files;
+  const path = file[0].path;
+  const url = await uploadImage(path);
+  const { Username, password, name, phone, description } = userdata;
   try {
     const userDoc = await User.create({
       Username,
@@ -106,6 +112,7 @@ app.post('/api/register', async (req, res) => {
       role: "agent",
       name: name,
       phone: phone,
+      profileimg:url,
       description: description,
     });
     res.json(userDoc);
@@ -313,8 +320,9 @@ app.get('/api/blog', async (req, res) => {
 app.get('/api/blog/:id', async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   const { id } = req.params;
+  // console.log("here")
   try {
-    const data = await BlogPost.find({ _id: id }); // Retrieve all data from MongoDB
+    const data = await BlogPost.findById({ _id: id });
     res.json(data);
   } catch (error) {
     console.error(error);

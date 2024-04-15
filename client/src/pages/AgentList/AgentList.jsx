@@ -24,7 +24,7 @@ export default function AgentListPage() {
   }, []);
 
   React.useEffect(() => {
-    // console.log("data");
+    // console.log(data);
     const filteredData = data.filter((item) =>
       item.Username.toLowerCase().includes(searchBarValue3.toLowerCase())
     );
@@ -78,6 +78,7 @@ export default function AgentListPage() {
                   key={data._id} // Make sure each card has a unique key
                   name={data.Username}
                   userid={data._id}
+                  image={data.profileimg}
                 />
               ))}
               {/* the single agentcard above rest copies of it  */}

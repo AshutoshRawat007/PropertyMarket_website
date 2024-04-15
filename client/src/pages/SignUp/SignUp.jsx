@@ -3,17 +3,15 @@ import { Link } from 'react-router-dom';
 
 const SignUp = () => {
   const [Username, setUsername] = useState('');
-
-  const [name , setname] = useState('');
-  const [nameError , setnameError] = useState('');
-
+  const [name, setname] = useState('');
+  const [nameError, setnameError] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setphone] = useState('');
   const [phoneerror, setphoneer] = useState('');
   const [description, setdescription] = useState('');
   const [descerror, setdeserr] = useState('');
   const [UsernameError, setNUsernameError] = useState('');
-  
+  const [image, setImage] = useState(null);
   const [passwordError, setPasswordError] = useState('');
 
   const handleSubmit = async (e) => {
@@ -32,14 +30,19 @@ const SignUp = () => {
       setPasswordError('Password is required');
       return;
     }
-      if (!phone) {
-        setphoneer('phone is required');
-        return;
-      }
-      if (!description) {
-        setdeserr('description is required');
-        return;
+    if (!phone) {
+      setphoneer('phone is required');
+      return;
     }
+    if (!description) {
+      setdeserr('description is required');
+      return;
+    }
+
+    const formData = new FormData(); // Create a new FormData object
+    formData.append('image', image);
+    
+
 
     const userData = {
       Username,
@@ -48,12 +51,14 @@ const SignUp = () => {
       phone,
       description,
     };
-    console.log(userData);
+    const jsondata=JSON.stringify(userData);
+    formData.append("userData.json",jsondata );
+
     const baseUrl = process.env.REACT_APP_BASE_URL;
     const response = await fetch(`${baseUrl}/register`, {
       method: 'POST',
-      body: JSON.stringify(userData),
-      headers: { 'Content-Type': 'application/json' },
+      body: formData,
+      // headers: { 'Content-Type': 'application/json' },
     });
 
     if (response.status === 200) {
@@ -63,11 +68,19 @@ const SignUp = () => {
     }
   };
 
+
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h1 className="text-4xl text-center mb-4">Sign Up</h1>
         <form className="space-y-4" onSubmit={handleSubmit}>
+          <div>
+            <input
+              type="file"
+              onChange={(e) => setImage(e.target.files[0])} // Capture the selected image file
+              className="input-field"
+            />
+          </div>
           <div>
             <input
               type="text"

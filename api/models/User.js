@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
   role: { type: String, enum: ['user', 'agent'], default: 'user' },
   name: String,
   phone: String,
+  profileimg:String,
   description: String,
   properties: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Property' }],
 });

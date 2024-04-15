@@ -1,5 +1,9 @@
+// BlogPost.js
+
 const mongoose = require('mongoose');
-const BlogPostSchema = new mongoose.Schema({  
+
+const BlogPostSchema = new mongoose.Schema({
+  
   title: String,
   coverimage: String,
   content: String,

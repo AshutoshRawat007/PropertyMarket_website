@@ -56,11 +56,19 @@ export default function AgentProfilePage() {
               </div>
               <div className="flex flex-col items-center justify-start w-full mt-[-46px] gap-[58px]">
                 <div className="flex flex-row justify-start items-center w-full gap-[30px] max-w-[1160px]">
-                  <Img
-                    src="/images/img_rectangle_5599_150x150.png"
-                    alt="image"
-                    className="w-[150px] object-cover rounded-[10px]"
-                  />
+                {agentdata.profileimg ? (
+        <Img
+          src={agentdata.profileimg}
+          alt="image"
+          className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
+        />
+      ) : (
+        <Img
+          src="images/img_icon_24px_user.svg"
+          alt="image"
+          className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
+        />
+      )}
                   <div className="flex flex-row justify-between items-center w-[85%]">
                     <div className="flex flex-row justify-start items-center w-[83%] gap-8">
                       <div className="flex flex-col items-start justify-start w-[49%] gap-1.5">
@@ -132,11 +140,19 @@ export default function AgentProfilePage() {
           <div className="flex flex-col items-center justify-start w-[47%] gap-[57px]">
             <div className="flex flex-col items-center justify-start w-full gap-6">
               <div className="flex flex-row justify-start items-center w-full gap-[30px]">
-                <Img
-                  src="/images/img_rectangle_5599.png"
-                  alt="image_one"
-                  className="w-[182px] object-cover rounded-[10px]"
-                />
+              {agentdata.profileimg ? (
+        <Img
+          src={agentdata.profileimg}
+          alt="image"
+          className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
+        />
+      ) : (
+        <Img
+          src="images/img_icon_24px_user.svg"
+          alt="image"
+          className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
+        />
+      )}
                 <div className="flex flex-col items-start justify-start w-3/5 gap-1.5">
                   <Heading size="xl" as="h2" className="tracking-[-0.48px]">
                     {agentdata.Username}
@@ -146,13 +162,13 @@ export default function AgentProfilePage() {
                     <Heading as="h3">0 review till now</Heading>
                   </div>
                   <div className="flex flex-row justify-start items-center gap-[13px] py-0.5">
-                    <Img src="images/img_icon_24px_call.svg" alt="icon24pxcall" className="h-6 w-6" />
+                    <Img src="/images/img_icon_24px_call.svg" alt="icon24pxcall" className="h-6 w-6" />
                     <Heading size="md" as="h4" className="!font-semibold">
                       {agentdata.phone}
                     </Heading>
                   </div>
                   <div className="flex flex-row justify-start items-center gap-3 py-0.5">
-                    <Img src="images/img_icon_24px_email_gray_900.svg" alt="icon24pxemail" className="h-6 w-6" />
+                    <Img src="/images/img_icon_24px_email_gray_900.svg" alt="icon24pxemail" className="h-6 w-6" />
                     <Heading size="md" as="h5" className="mt-0.5 !font-semibold">
                       {agentdata.Username}
                     </Heading>
@@ -208,9 +224,9 @@ export default function AgentProfilePage() {
                 <Heading size="lg" as="h5" className="tracking-[-0.40px]">
                   Website
                 </Heading>
-                <a href="www.google.com" target="_blank" rel="noreferrer" className="mb-px">
+                <a href="https://www.w3schools.com/" className="mb-px">
                   <h3 size="md" as="h6" className="!text-gray-600_02 !font-semibold underline">
-                    www.google.com
+                    checkout website
                   </h3>
                 </a>
               </div>
