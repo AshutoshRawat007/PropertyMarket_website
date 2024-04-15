@@ -1,5 +1,6 @@
 import React from "react";
 import { Heading, Img, Text } from "..";
+import {Link} from "react-router-dom";
 
 export default function Footer({ ...props }) {
   return (
@@ -7,16 +8,16 @@ export default function Footer({ ...props }) {
       <div className="flex flex-row justify-start items-center w-full mt-[5px] gap-px mx-auto max-w-[1200px]">
         <div className="flex flex-col items-center justify-start w-[29%] gap-[43px]">
           <div className="flex flex-row justify-start items-start w-full gap-[11px]">
-            <Img src="images/img_real_estate_1.svg" alt="realestateone" className="h-10 w-10" />
+            <Img src="/images/img_real_estate_1.svg" alt="realestateone" className="h-10 w-10" />
             <Text as="p" className="mt-[5px]">
-              Relasto
+              H&H
             </Text>
           </div>
           <div className="flex flex-col items-start justify-start w-full gap-7">
             <Heading as="h6" className="!leading-[160%]">
-              59 Bervely Hill Ave, Brooklyn Town,
+              Lane 6, city
               <br />
-              New York, NY 5630, CA, US
+              state, country
             </Heading>
             <div className="flex flex-col items-start justify-center gap-2">
               <Heading as="h6" className="mt-px">
@@ -25,16 +26,9 @@ export default function Footer({ ...props }) {
               <Heading as="h6">info@mail.com</Heading>
             </div>
             <div className="flex flex-row justify-start w-full gap-3">
+              <a href="https://www.linkedin.com/in/ashutosh-rawat-897b89216"><Img src="/images/img_icon_linked_in.svg" alt="iconlinkedin" className="h-[30px] w-[30px]" /></a>
               <div className="flex flex-col items-center justify-start h-[30px] w-[30px]">
-                <Img src="images/img_icon_facebook.svg" alt="iconfacebook" className="h-[30px] w-[30px]" />
-              </div>
-              <div className="flex flex-col items-center justify-start h-[30px] w-[30px]">
-                <Img src="images/img_icon_twitter.svg" alt="icontwitter_one" className="h-[30px] w-[30px]" />
-              </div>
-              <Img src="images/img_icon_instragram.svg" alt="iconinstragram" className="h-[30px] w-[30px]" />
-              <Img src="images/img_icon_linked_in.svg" alt="iconlinkedin" className="h-[30px] w-[30px]" />
-              <div className="flex flex-col items-center justify-start h-[30px] w-[30px]">
-                <Img src="images/img_icon_youtube.svg" alt="iconyoutube_one" className="h-[30px] w-[30px]" />
+                <Img src="/images/img_icon_youtube.svg" alt="iconyoutube_one" className="h-[30px] w-[30px]" />
               </div>
             </div>
           </div>
@@ -45,11 +39,8 @@ export default function Footer({ ...props }) {
               Features
             </Heading>
             <div className="flex flex-col items-start justify-start w-full gap-[15px]">
-              <Heading as="h6">Home v1</Heading>
-              <Heading as="h6">Home v2</Heading>
-              <Heading as="h6">About</Heading>
+              <Link to="/home"><Heading as="h6">Home</Heading></Link>
               <Heading as="h6">Contact</Heading>
-              <Heading as="h6">Search</Heading>
             </div>
           </div>
           <div className="flex flex-col items-start justify-start w-[19%] gap-[15px]">
@@ -57,14 +48,8 @@ export default function Footer({ ...props }) {
               Information
             </Heading>
             <div className="flex flex-col items-start justify-start w-full pt-[3px] gap-[15px]">
-              <Heading as="h6">Listing v1</Heading>
-              <Heading as="h6">Listing v2</Heading>
-              <Heading as="h6">Property Details</Heading>
-              <Heading as="h6">
-                Agent List
-                <br />
-              </Heading>
-              <Heading as="h6">Agent Profile</Heading>
+             <Link to="/listing"><Heading as="h6">Listing</Heading></Link> 
+              <Link to="/agentlist"><Heading as="h6"> Agent List  </Heading></Link>
             </div>
           </div>
           <div className="flex flex-col items-start justify-start w-[19%] gap-[15px]">
@@ -72,15 +57,7 @@ export default function Footer({ ...props }) {
               Documentation{" "}
             </Heading>
             <div className="flex flex-col items-start justify-center w-full gap-[15px]">
-              <Heading as="h6" className="mt-0.5">
-                Blog
-              </Heading>
-              <Heading as="h6">FAQ</Heading>
-              <Heading as="h6">
-                Privacy Policy
-                <br />
-              </Heading>
-              <Heading as="h6">License</Heading>
+             <Link to="/blogpage"> <Heading as="h6" className="mt-0.5">   Blog </Heading></Link>
             </div>
           </div>
           <div className="flex flex-col items-start justify-start w-[19%] gap-[15px]">
@@ -88,19 +65,14 @@ export default function Footer({ ...props }) {
               Others
             </Heading>
             <div className="flex flex-col items-start justify-center w-full gap-[15px]">
-              <Heading as="h6" className="mt-0.5">
-                Log in
-              </Heading>
-              <Heading as="h6">Enter OTP</Heading>
-              <Heading as="h6">New Password</Heading>
-              <Heading as="h6">Reset Password</Heading>
+             <Link to="/login"> <Heading as="h6" className="mt-0.5">Log in</Heading></Link>
               <Heading as="h6">Create Account</Heading>
             </div>
           </div>
         </div>
       </div>
       <Heading as="h6" className="ml-[45px]">
-        © 2022. All rights reserved.
+        ©All rights reserved.
       </Heading>
     </footer>
   );

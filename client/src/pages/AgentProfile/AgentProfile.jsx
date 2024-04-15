@@ -1,36 +1,36 @@
-import React,{useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Button, Img, Heading, RatingBar, Text } from "../../components";
 import { useParams } from "react-router-dom";
-import LandingPageCard from "../../components/LandingPageCard";
+import LandingPageCard from "../../components/LandingPageCard/LandingPageCard";
 
 export default function AgentProfilePage() {
-  const { id } = useParams(); 
-  const [agentdata , setAgentdata] = useState([]);
-  const [propertdata, setPropertdata] =useState([]);
-  useEffect(()=>{
-    console.log("inside useeffct for Id change");
+  const { id } = useParams();
+  const [agentdata, setAgentdata] = useState([]);
+  const [propertdata, setPropertdata] = useState([]);
+  useEffect(() => {
+    // console.log("inside useeffct for Id change");
     const fetchData = async () => {
       try {
         const baseUrl = process.env.REACT_APP_BASE_URL; //`${baseUrl}/property`
-        const AgentDetails = await fetch(`${baseUrl}/agents/`+id);
+        const AgentDetails = await fetch(`${baseUrl}/agents/` + id);
         const { user, properties } = await AgentDetails.json();
         setAgentdata(user);
         setPropertdata(properties);
       } catch (error) {
         console.error('Error fetching data:', error);
-      }    
+      }
     };
     fetchData();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  },[id]);
+  }, [id]);
+  // React.useEffect(() => {
+  //   console.log(agentdata);
+
+  // }, [agentdata]);
   React.useEffect(() => {
-    console.log(agentdata);
- 
-  }, [agentdata]);
-  React.useEffect(() => {
-    console.log("propertdata:", propertdata);
-  
+    // console.log("propertdata:", propertdata);
+
     // if (Array.isArray(propertdata) && propertdata.length > 0) {
     //   propertdata.map((property) => {
     //     console.log("id", property._id);
@@ -40,16 +40,6 @@ export default function AgentProfilePage() {
     //   });
     // }
   }, [propertdata]);
-  // React.useEffect(() => {
-  //   if (propertdata && propertdata.length > 0) {
-  //     propertdata.map((property) => {
-  //       console.log("id", property._id);
-  //       console.log(property.images[0], "img");
-  //       console.log(property.name, "name");
-  //       return null; // Make sure to return a value when using map
-  //     });
-  //   }
-  // }, [propertdata]);
   return (
     <>
       <Helmet>
@@ -79,79 +69,54 @@ export default function AgentProfilePage() {
                         </Heading>
                         <div className="flex flex-row justify-start items-center gap-3.5 py-0.5">
                           <RatingBar value={1} isEditable={true} size={16} className="flex justify-between w-24" />
-                          <Heading as="h2">4.5 review</Heading>
+                          <Heading as="h3">0 review till now</Heading>
                         </div>
                       </div>
                       <div className="flex flex-col items-center justify-start w-[49%] gap-2">
                         <div className="flex flex-row justify-start items-center w-full gap-[13px] py-0.5">
                           <Img src="/images/img_icon_24px_call.svg" alt="icon24pxcall" className="h-6 w-6" />
                           <Heading size="md" as="h3" className="!font-semibold">
-                          {agentdata.phone}
+                            {agentdata.phone}
                           </Heading>
                         </div>
                         <div className="flex flex-row justify-start items-center w-full gap-3 py-0.5">
                           <Img src="/images/img_icon_24px_email_gray_900.svg" alt="icon24pxemail" className="h-6 w-6" />
                           <Heading size="md" as="h4" className="mt-0.5 !font-semibold">
-                          {agentdata.Username}
+                            {agentdata.Username}
                           </Heading>
                         </div>
                       </div>
                     </div>
-                    <Button className="font-semibold min-w-[112px]">Contact</Button>
+                    {/* <Button className="font-semibold min-w-[112px]">Contact</Button> */}
                   </div>
                 </div>
                 <div className="flex flex-row justify-center w-full">
                   <div className="flex flex-col items-center justify-start w-full gap-12 max-w-[1200px]">
-                    <div className="flex flex-row justify-start w-full gap-3">
+                    <div className="flex flex-row justify-center w-full gap-3">
                       <Button size="lg" className="font-semibold min-w-[291px]">
-                        For rent
-                      </Button>
-                      <Button color="gray_600_02" size="lg" variant="outline" className="font-semibold min-w-[291px]">
-                        For sale
-                      </Button>
-                      <Button color="gray_600_02" size="lg" variant="outline" className="font-semibold min-w-[291px]">
-                        About
-                      </Button>
-                      <Button color="gray_600_02" size="lg" variant="outline" className="font-semibold min-w-[291px]">
-                        Review
+                        Agent Properties
                       </Button>
                     </div>
                     <div className="justify-center w-full gap-6 grid-cols-3 grid min-h-[auto]">
-                    {propertdata.map((propertdata) => (
-                <LandingPageCard
-                  key={propertdata._id} // Make sure each card has a unique key
-                  image={propertdata.images[0]}
-                  title={propertdata.location}
-                  price={propertdata.price}
-                />
-              ))}
-                      <LandingPageCard
-                        imageOne="/images/img_image_1.png"
-                        className="flex flex-col items-center justify-start w-full"
-                      />
+                      {propertdata.map((propertdata) => (
+                        <LandingPageCard
+                          key={propertdata._id} // Make sure each card has a unique key
+                          image={propertdata.images[0]}
+                          title={propertdata.location}
+                          price={propertdata.price}
+                        />
+                      ))}
                     </div>
                     <div className="flex flex-row justify-between w-full">
                       <div className="flex flex-row justify-start gap-[5px]">
                         <Button color="gray_700" variant="outline" className="font-semibold min-w-[48px]">
                           1
                         </Button>
-                        <Button color="blue_gray_100_02" variant="outline" className="font-semibold min-w-[48px]">
-                          2
-                        </Button>
-                        <Button color="blue_gray_100_02" variant="outline" className="font-semibold min-w-[48px]">
-                          3
-                        </Button>
-                        <Button color="blue_gray_100_02" variant="outline" className="font-semibold min-w-[48px]">
-                          4
-                        </Button>
-                        <Button color="blue_gray_100_02" variant="outline" className="font-semibold min-w-[48px]">
-                          5
-                        </Button>
                       </div>
                       <Button
                         color="blue_gray_100_02"
                         variant="outline"
-                        rightIcon={<Img src="images/img_icon_16px_arrow_right.svg" alt="icon / 16px / arrow - right" />}
+                        rightIcon={<Img src="/images/img_icon_16px_arrow_right.svg" alt="icon / 16px / arrow - right" />}
                         className="gap-1 font-semibold min-w-[134px]"
                       >
                         Next Page
@@ -163,7 +128,7 @@ export default function AgentProfilePage() {
             </div>
           </div>
         </div>
-        <div className="flex flex-row justify-between items-start w-full p-[41px] border-blue_gray-100_01 border border-solid bg-white-A700 max-w-[1200px] rounded-[10px]">
+        <div className="flex mb-5 flex-row justify-between items-start w-full p-[41px] border-blue_gray-100_01 border border-solid bg-white-A700 max-w-[1200px] rounded-[10px]">
           <div className="flex flex-col items-center justify-start w-[47%] gap-[57px]">
             <div className="flex flex-col items-center justify-start w-full gap-6">
               <div className="flex flex-row justify-start items-center w-full gap-[30px]">
@@ -174,44 +139,37 @@ export default function AgentProfilePage() {
                 />
                 <div className="flex flex-col items-start justify-start w-3/5 gap-1.5">
                   <Heading size="xl" as="h2" className="tracking-[-0.48px]">
-                  {agentdata.Username}
+                    {agentdata.Username}
                   </Heading>
                   <div className="flex flex-row justify-start items-center gap-3.5 py-0.5">
                     <RatingBar value={1} isEditable={true} size={16} className="flex justify-between w-24" />
-                    <Heading as="h3">4.5 review</Heading>
+                    <Heading as="h3">0 review till now</Heading>
                   </div>
                   <div className="flex flex-row justify-start items-center gap-[13px] py-0.5">
                     <Img src="images/img_icon_24px_call.svg" alt="icon24pxcall" className="h-6 w-6" />
                     <Heading size="md" as="h4" className="!font-semibold">
-                    {agentdata.phone}
+                      {agentdata.phone}
                     </Heading>
                   </div>
                   <div className="flex flex-row justify-start items-center gap-3 py-0.5">
                     <Img src="images/img_icon_24px_email_gray_900.svg" alt="icon24pxemail" className="h-6 w-6" />
                     <Heading size="md" as="h5" className="mt-0.5 !font-semibold">
-                    {agentdata.Username}
+                      {agentdata.Username}
                     </Heading>
                   </div>
                 </div>
               </div>
               <Text size="xs" as="p" className="!text-gray-600_02">
-                description of agent 
+                description of agent
                 <br />
                 {agentdata.description}
-                <br />
-                {/* One of the best ways to add beautiful sliders with excellent responsiveness and advanced options. */}
-              </Text>
+                </Text>
             </div>
             <Button className="w-full font-semibold">Contact</Button>
           </div>
           <div className="flex flex-col items-center justify-start w-[47%] gap-6">
             <div className="flex flex-col items-start justify-center w-full gap-1.5">
-              <Heading size="lg" as="h2" className="mt-0.5 tracking-[-0.40px]">
-                Experiences
-              </Heading>
-              <Heading size="md" as="h3" className="!text-gray-600_02 !font-semibold">
-                15+ years experience
-              </Heading>
+
             </div>
             <div className="flex flex-col items-start justify-center w-full gap-1.5">
               <Heading size="lg" as="h4" className="mt-0.5 tracking-[-0.40px]">
@@ -226,7 +184,7 @@ export default function AgentProfilePage() {
                 Area
               </Heading>
               <Heading size="md" as="h6" className="mb-px !font-semibold">
-                California, San Jose, Miami
+                some city
               </Heading>
             </div>
             <div className="flex flex-col items-start justify-center w-full gap-2">
@@ -234,7 +192,7 @@ export default function AgentProfilePage() {
                 Address
               </Heading>
               <Heading size="md" as="h6" className="mb-px !text-gray-600_02 !font-semibold">
-                59 Orchard, NY 5005, US
+                999 , 245st
               </Heading>
             </div>
             <div className="flex flex-row justify-between w-full gap-[60px]">
@@ -243,17 +201,17 @@ export default function AgentProfilePage() {
                   License No
                 </Heading>
                 <Heading size="md" as="h6" className="mb-0.5 !text-gray-600_02 !font-semibold">
-                  BF-0535
+                  BF-XXXXXX
                 </Heading>
               </div>
               <div className="flex flex-col items-start justify-center gap-[7px]">
                 <Heading size="lg" as="h5" className="tracking-[-0.40px]">
                   Website
                 </Heading>
-                <a href="www.abc.com" target="_blank" rel="noreferrer" className="mb-px">
-                  <Heading size="md" as="h6" className="!text-gray-600_02 !font-semibold underline">
-                    www.abc.com
-                  </Heading>
+                <a href="www.google.com" target="_blank" rel="noreferrer" className="mb-px">
+                  <h3 size="md" as="h6" className="!text-gray-600_02 !font-semibold underline">
+                    www.google.com
+                  </h3>
                 </a>
               </div>
             </div>
@@ -271,7 +229,7 @@ export default function AgentProfilePage() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-start w-full gap-[39px] py-[29px] border-blue_gray-100_01 border border-solid bg-white-A700 max-w-[1200px] rounded-[10px]">
+        {/* <div className="flex mb-4 flex-col items-center justify-start w-full gap-[39px] py-[29px] border-blue_gray-100_01 border border-solid bg-white-A700 max-w-[1200px] rounded-[10px]">
           <div className="flex flex-col items-center justify-start w-full gap-[22px]">
             <div className="flex flex-row justify-between items-center w-full px-[42px]">
               <Heading size="2xl" as="h2" className="tracking-[-0.56px]">
@@ -279,7 +237,7 @@ export default function AgentProfilePage() {
               </Heading>
               <Button
                 size="4xl"
-                rightIcon={<Img src="images/img_icon_24px_plus_white_a700.svg" alt="icon / 24px / plus" />}
+                rightIcon={<Img src="/images/img_icon_24px_plus_white_a700.svg" alt="icon / 24px / plus" />}
                 className="gap-2.5 font-bold min-w-[190px]"
               >
                 Write a Reveiw
@@ -407,7 +365,7 @@ export default function AgentProfilePage() {
               See more
             </Button>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

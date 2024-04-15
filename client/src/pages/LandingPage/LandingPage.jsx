@@ -1,8 +1,8 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { Heading, Img, Text, Button, Input } from "../../components";
-import LandingPageCard from "../../components/LandingPageCard";
 import { useForm } from "react-hook-form";
+import {Link } from "react-router-dom";
 
 
 export default function LandingPagePage() {
@@ -12,7 +12,6 @@ export default function LandingPagePage() {
   } = useForm()
 
   const [selectedOption, setSelectedOption] = React.useState('buy');
-
   const onSubmit = (data) => {
 
     const formData = { ...data, transactionType: selectedOption };
@@ -30,7 +29,7 @@ export default function LandingPagePage() {
         <div className="flex flex-col items-center justify-start w-full">
           <div className="flex flex-row justify-end w-full py-[50px] bg-yellow-50">
             <div className="flex flex-row justify-between items-center w-full mx-auto max-w-[1396px]">
-              <div className="flex flex-col items-center justify-start w-[44%] gap-10">
+              <div className="flex flex-col items-center justify-start w-[70%] gap-10 pl-5 ml-5">
                 <div className="flex flex-col items-center justify-start w-full gap-[15px]">
                   <Heading size="4xl" as="h1" className="tracking-[-0.92px]">
                     Find a perfect property
@@ -41,75 +40,85 @@ export default function LandingPagePage() {
                     We helps businesses customize, automate and scale up their ad production and delivery.
                   </Text>
                 </div>
-                <div className="flex flex-row justify-center w-full p-6 bg-white-A700 rounded-[16px]">
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                          {/* Add the select element for Buy, Sell, Rent option */}
-                          <div className="flex justify-center w-full gap-4">
-                            <button
-                              type="button"
-                              className={`border ${selectedOption === 'buy' ? 'border-black' : 'border-transparent'} px-4 py-2 rounded-lg hover:bg-gray-200 transition duration-300`}
-                              onClick={() => setSelectedOption('buy')}
-                            >
-                              BUY
-                            </button>
-                            <button
-                              type="button"
-                              className={`border ${selectedOption === 'sell' ? 'border-black' : 'border-transparent'} px-4 py-2 rounded-lg hover:bg-gray-200 transition duration-300`}
-                              onClick={() => setSelectedOption('sell')}
-                            >
-                              SELL
-                            </button>
-                            <button
-                              type="button"
-                              className={`border ${selectedOption === 'rent' ? 'border-black' : 'border-transparent'} px-4 py-2 rounded-lg hover:bg-gray-200 transition duration-300`}
-                              onClick={() => setSelectedOption('rent')}
-                            >
-                              RENT
-                            </button>
-                          </div>
-                          <div className="flex flex-col items-center justify-start w-full">
-                            <div className="flex flex-col items-center justify-start w-full gap-6">
-                              <div className="flex flex-col items-center justify-start w-full gap-5">
-                                <input
-                                  {...register('city')}
-                                  placeholder="City/Street"
-                                  className="w-full gap-[35px] font-semibold border-blue_gray-100_01 border border-solid"
-                                />
-                                <input
-                                  {...register('propertyType')}
-                                  placeholder="Property Type"
-                                  className="w-full gap-[35px] font-semibold border-blue_gray-100_01 border border-solid"
-                                />
-                                <input
-                                  {...register('priceRange')}
-                                  placeholder="Price Range"
-                                  className="w-full gap-[35px] font-semibold border-blue_gray-100_01 border border-solid"
-                                />
-                              </div>
-                              <button type="submit" className="w-full font-bold bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300">Search</button>
-                            </div>
-                          </div>
-                        </form>
+
+{/* property find option card and buy sell rent form   */}
+                <div className="flex justify-center w-[100%]  max-w-3xl p-6 bg-white-A700 rounded-lg">
+                  <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+                    {/* Add the select element for Buy, Sell, Rent option */}
+                    <div className="flex justify-center w-full gap-4">
+                      <button
+                        type="button"
+                        className={`border ${selectedOption === 'buy' ? 'border-black' : 'border-transparent'} px-4 py-2 rounded-lg hover:bg-gray-200 transition duration-300`}
+                        onClick={() => setSelectedOption('buy')}
+                      >
+                        BUY
+                      </button>
+                      <button
+                        type="button"
+                        className={`border ${selectedOption === 'sell' ? 'border-black' : 'border-transparent'} px-4 py-2 rounded-lg hover:bg-gray-200 transition duration-300`}
+                        onClick={() => setSelectedOption('sell')}
+                      >
+                        SELL
+                      </button>
+                      <button
+                        type="button"
+                        className={`border ${selectedOption === 'rent' ? 'border-black' : 'border-transparent'} px-4 py-2 rounded-lg hover:bg-gray-200 transition duration-300`}
+                        onClick={() => setSelectedOption('rent')}
+                      >
+                        RENT
+                      </button>
+                    </div>
+                    <div className="flex flex-col items-center justify-start w-full mt-6">
+                      <div className="flex flex-col items-center justify-start w-full gap-6">
+                        <div className="flex flex-col items-center justify-start w-full gap-5">
+                          <input
+                            {...register('city')}
+                            placeholder="City/Street"
+                            className="w-full px-4 py-2 font-semibold border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                          />
+                          <input
+                            {...register('propertyType')}
+                            placeholder="Property Type"
+                            className="w-full px-4 py-2 font-semibold border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                          />
+                          <input
+                            {...register('priceRange')}
+                            placeholder="Price Range"
+                            className="w-full px-4 py-2 font-semibold border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                          />
+                        </div>
+                        <button type="submit" className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition duration-300">Search</button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
+
               </div>
-              <div className="flex flex-row justify-start">
-                <Img src="images/img_image.png" alt="image_one" className="w-[89%] object-cover" />
+
+
+
+              <div className="flex flex-row justify-end">
+                <Img src="/images/img_image.png" alt="image_one" className="w-[80%] object-cover" />
               </div>
             </div>
           </div>
         </div>
+
+
         <div className="flex flex-row justify-center w-full">
           <div className="flex flex-row justify-start w-full gap-6 max-w-[1200px]">
             <div className="flex flex-col items-start justify-center w-[49%] gap-[49px] p-[50px] bg-red-100 rounded-[20px]">
               <div className="flex flex-col items-center justify-start mt-[23px] gap-[15px]">
                 <Heading size="3xl" as="h2" className="tracking-[-0.72px]">
-                  Simple & easy way to find your dream Appointment
+                Easy way to find the perfect property for you
                 </Heading>
                 <Text size="xs" as="p" className="!text-gray-900">
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.{" "}
+                  Choose property which meets your need{" "}
                 </Text>
               </div>
+              <Link to="/listing">
               <Button className="mb-[23px] font-semibold min-w-[138px]">Get Started</Button>
+              </Link>
             </div>
             <div className="w-[49%] gap-6 grid-cols-2 grid min-h-[auto]">
               <div className="flex flex-col items-start justify-center w-full gap-5 p-[30px] bg-deep_orange-50 rounded-[20px]">
@@ -205,153 +214,14 @@ export default function LandingPagePage() {
           </div>
         </div>
         <div className="flex flex-row justify-center w-full">
-          <div className="flex flex-col items-center justify-start h-[1200px] w-full gap-[53px] max-w-[1200px]">
-            <div className="flex flex-row justify-center w-full pt-[5px]">
-              <div className="flex flex-col items-center justify-start w-full gap-[17px]">
-                <div className="flex flex-row justify-between items-start w-full">
-                  <Heading size="3xl" as="h2" className="tracking-[-0.72px]">
-                    Featured Properties
-                  </Heading>
-                  <div className="flex flex-row justify-start items-center mt-[7px] gap-2">
-                    <Heading size="md" as="h3" className="mt-0.5 !text-orange-A700">
-                      Explore All
-                    </Heading>
-                    <Img src="images/img_icon_24px_v.svg" alt="icon24pxv_one" className="h-6 w-6" />
-                  </div>
-                </div>
-                <div className="flex flex-row justify-start w-full">
-                  <Button size="xs" shape="square" className="text-gray-900 font-bold min-w-[159px]">
-                    Resident Property
-                  </Button>
-                  <Button size="xs" shape="square" className="ml-[143px] text-gray-400 font-bold min-w-[186px]">
-                    Commercial Property
-                  </Button>
-                  <Button size="xs" shape="square" className="ml-[116px] text-gray-400 font-bold min-w-[164px]">
-                    Industrial Property
-                  </Button>
-                  <Button size="xs" shape="square" className="ml-[137px] text-gray-400 font-bold min-w-[180px]">
-                    Agriculture Property
-                  </Button>
-                </div>
-              </div>
-            </div>
-            <div className="justify-center w-full gap-6 grid-cols-3 grid min-h-[auto]">
-              <LandingPageCard className="flex flex-col items-center justify-start w-full" />
-              <LandingPageCard
-                imageOne="images/img_image_1.png"
-                className="flex flex-col items-center justify-start w-full"
-              />
-              <LandingPageCard
-                imageOne="images/img_image_2.png"
-                className="flex flex-col items-center justify-start w-full"
-              />
-              <LandingPageCard
-                imageOne="images/img_image_3.png"
-                className="flex flex-col items-center justify-start w-full"
-              />
-              <LandingPageCard
-                imageOne="images/img_image_4.png"
-                className="flex flex-col items-center justify-start w-full"
-              />
-              <LandingPageCard
-                imageOne="images/img_image_5.png"
-                className="flex flex-col items-center justify-start w-full"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col items-center justify-center w-full px-14 py-[120px] bg-gray-50_01">
-          <div className="flex flex-col items-center justify-start w-full gap-[150px] max-w-[1200px]">
-            <div className="flex flex-row justify-between items-center w-full">
-              <div className="flex flex-col items-start justify-start w-[47%] gap-[58px]">
-                <div className="flex flex-col items-center justify-start gap-[19px]">
-                  <Heading size="3xl" as="h2" className="tracking-[-0.72px]">
-                    Simple & easy way to find your dream Appointment
-                  </Heading>
-                  <Text size="xs" as="p" className="!text-gray-700">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. In a free hour, when our
-                    power of choice is untrammelled and when nothing prevents our being able to do what we like best,
-                    every pleasure is to be welcomed.
-                  </Text>
-                </div>
-                <Button className="font-semibold min-w-[138px]">Get Started</Button>
-              </div>
-              <div className="flex flex-row justify-start w-[47%] gap-5">
-                <div className="flex flex-col items-center justify-start w-[49%] gap-4">
-                  <Img
-                    src="images/img_rectangle_18.png"
-                    alt="image_two"
-                    className="w-full object-cover rounded-[10px]"
-                  />
-                  <Img
-                    src="images/img_rectangle_21.png"
-                    alt="image_three"
-                    className="w-full object-cover rounded-[10px]"
-                  />
-                </div>
-                <div className="flex flex-col items-center justify-start w-[49%] gap-4">
-                  <Img
-                    src="images/img_rectangle_19.png"
-                    alt="image_four"
-                    className="w-full object-cover rounded-[10px]"
-                  />
-                  <Img
-                    src="images/img_rectangle_20.png"
-                    alt="image_five"
-                    className="w-full object-cover rounded-[10px]"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-row justify-between items-center w-full">
-              <Img
-                src="images/img_rectangle_20_589x521.png"
-                alt="image_six"
-                className="w-[44%] object-cover rounded-[10px]"
-              />
-              <div className="flex flex-col items-start justify-start w-[44%] gap-[60px]">
-                <div className="flex flex-col items-center justify-start w-full gap-[18px]">
-                  <div className="flex flex-col items-center justify-start w-full gap-[19px]">
-                    <Heading size="3xl" as="h3" className="tracking-[-0.72px]">
-                      Best rated host on popular rental sites
-                    </Heading>
-                    <Text size="xs" as="p" className="!text-gray-700">
-                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. In a free hour, when
-                      our power of choice is untrammelled.
-                    </Text>
-                  </div>
-                  <div className="flex flex-col items-center justify-start w-full gap-3">
-                    <div className="flex flex-row justify-start items-center w-full gap-3.5 py-0.5">
-                      <Img src="images/img_icon_check.svg" alt="iconcheck_one" className="h-6 w-6" />
-                      <Heading size="md" as="h4" className="!font-semibold">
-                        Find excellent deals
-                      </Heading>
-                    </div>
-                    <div className="flex flex-row justify-start items-center w-full gap-3.5">
-                      <Img src="images/img_icon_check.svg" alt="iconcheck_three" className="h-6 w-6" />
-                      <Heading size="md" as="h5" className="mt-[5px] !font-semibold">
-                        Friendly host & Fast support
-                      </Heading>
-                    </div>
-                    <div className="flex flex-row justify-start items-center w-full gap-3.5">
-                      <Img src="images/img_icon_check.svg" alt="iconcheck_five" className="h-6 w-6" />
-                      <Heading size="md" as="h6" className="mt-[5px] !font-semibold">
-                        Secure payment system
-                      </Heading>
-                    </div>
-                  </div>
-                </div>
-                <Button className="font-semibold min-w-[134px]">Learn more</Button>
-              </div>
-            </div>
-          </div>
+
         </div>
         <div className="flex flex-col items-center justify-start w-full gap-6">
           <div className="flex flex-row justify-center w-full">
             <div className="flex flex-row justify-center w-full max-w-[1010px]">
               <div className="flex flex-row justify-between w-full">
                 <Img
-                  src="images/img_rectangle_5591.png"
+                  src="images/profile.png"
                   alt="image_seven"
                   className="w-[46%] object-cover rounded-lg"
                 />
@@ -360,35 +230,20 @@ export default function LandingPagePage() {
                     <div className="flex flex-row justify-between items-center w-full">
                       <div className="flex flex-col items-start justify-center gap-[5px]">
                         <Heading size="2xl" as="h2" className="mt-0.5 tracking-[-0.56px]">
-                          Taylor Wilson
+                          Ashutosh Rawat
                         </Heading>
                         <Heading size="md" as="h3" className="!font-semibold">
-                          Product Manager - Static Mania
+                          Web Developer 
                         </Heading>
                       </div>
                       <Img src="images/img_shape.svg" alt="shape_one" className="h-[51px]" />
                     </div>
                     <Heading size="xl" as="h4" className="!text-gray-700 !font-semibold !leading-[165%]">
-                      Eget eu massa et consectetur. Mauris donec. Leo a, id sed duis proin sodales. Turpis viverra diam
-                      porttitor mattis morbi ac amet. Euismod commodo. We get you customer relationships that last.{" "}
+                      Created this website using React, node, Express, Mongo-DB for this website. {" "}
                     </Heading>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="flex flex-row justify-end w-full pl-14 pr-[215px] gap-[270px]">
-            <div className="flex flex-row justify-start items-center w-[10%] gap-2">
-              <Img src="images/img_icon_24px_v_gray_600.svg" alt="icon24pxv_three" className="h-6 w-6" />
-              <Heading size="md" as="h2" className="!text-gray-600">
-                Previews
-              </Heading>
-            </div>
-            <div className="flex flex-row justify-start items-center w-[7%] gap-2">
-              <Heading size="md" as="h3" className="mt-px !text-orange-A700">
-                Next
-              </Heading>
-              <Img src="images/img_icon_24px_v.svg" alt="icon24pxv_five" className="h-6 w-6" />
             </div>
           </div>
         </div>

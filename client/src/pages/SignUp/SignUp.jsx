@@ -3,8 +3,17 @@ import { Link } from 'react-router-dom';
 
 const SignUp = () => {
   const [Username, setUsername] = useState('');
+
+  const [name , setname] = useState('');
+  const [nameError , setnameError] = useState('');
+
   const [password, setPassword] = useState('');
-  const [nameError, setNameError] = useState('');
+  const [phone, setphone] = useState('');
+  const [phoneerror, setphoneer] = useState('');
+  const [description, setdescription] = useState('');
+  const [descerror, setdeserr] = useState('');
+  const [UsernameError, setNUsernameError] = useState('');
+  
   const [passwordError, setPasswordError] = useState('');
 
   const handleSubmit = async (e) => {
@@ -12,17 +21,32 @@ const SignUp = () => {
 
     // Simple validation
     if (!Username) {
-      setNameError('Name is required');
+      setNUsernameError('userName is required');
+      return;
+    }
+    if (!name) {
+      setnameError('Name is required');
       return;
     }
     if (!password) {
       setPasswordError('Password is required');
       return;
     }
+      if (!phone) {
+        setphoneer('phone is required');
+        return;
+      }
+      if (!description) {
+        setdeserr('description is required');
+        return;
+    }
 
     const userData = {
       Username,
       password,
+      name,
+      phone,
+      description,
     };
     console.log(userData);
     const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -47,12 +71,12 @@ const SignUp = () => {
           <div>
             <input
               type="text"
-              placeholder="Your Name"
+              placeholder="Your Username"
               value={Username}
               onChange={(e) => setUsername(e.target.value)}
               className="input-field"
             />
-            <div className="error">{nameError}</div>
+            <div className="error">{UsernameError}</div>
           </div>
           <div>
             <input
@@ -63,6 +87,39 @@ const SignUp = () => {
               className="input-field"
             />
             <div className="error">{passwordError}</div>
+          </div>
+
+          <div>
+            <input
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setname(e.target.value)}
+              className="input-field"
+            />
+            <div className="error">{nameError}</div>
+          </div>
+
+          <div>
+            <input
+              type="number"
+              placeholder="Your phone number"
+              value={phone}
+              onChange={(e) => setphone(e.target.value)}
+              className="input-field"
+            />
+            <div className="error">{phoneerror}</div>
+          </div>
+
+          <div>
+            <textarea
+              type="text"
+              placeholder="Your description"
+              value={description}
+              onChange={(e) => setdescription(e.target.value)}
+              className="input-field"
+            />
+            <div className="error">{descerror}</div>
           </div>
           <button className="btn-primary" type="submit">
             Register

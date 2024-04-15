@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { CloseSVG } from "../../assets/images";
 import { Button, Img, GoogleMap, SelectBox, Input, Heading } from "../../components";
-import LandingPageCard from "../../components/LandingPageCard";
+import LandingPageCard from "../../components/LandingPageCard/LandingPageCard";
 
 const dropDownOptions = [
   { label: "Option1", value: "option1" },

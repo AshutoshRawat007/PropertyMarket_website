@@ -7,14 +7,22 @@ const propertySchema = new mongoose.Schema({
   name: String,
   location: String,
   amenities: [String],
-  images: [String], // Assuming image URLs, you might store them differently based on your needs https://drive.google.com/file/d/1caYqVqBTtvoLuOY35uRBLnj_PazBrxx8/view?usp=sharing
+  images: [String],
   roomDetails: {
     numberOfRooms: Number,
     kitchen: Boolean,
     guestRoom: Boolean,
     hotwater: Boolean,
-    // Add more fields as needed
+    parking:Boolean,
+    wifi:Boolean,
+    privatebathroom:Boolean,
+    couplefriendly:Boolean,
+    familyfrinedly:Boolean,
+
   },
+  roomnumber:Number,
+  bathroomnumber:Number,
+  description: String,
   price: Number,
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });

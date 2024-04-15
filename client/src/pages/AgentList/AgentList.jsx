@@ -1,44 +1,35 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { CloseSVG } from "../../assets/images";
-import { Button, Img, Heading, RatingBar, SelectBox, Input } from "../../components";
-// import Header1 from "../../components/Header1";
-import AgentInfoCard from "../../components/AgentInfoCard";
-const dropDownOptions = [
-  { label: "Option1", value: "option1" },
-  { label: "Option2", value: "option2" },
-  { label: "Option3", value: "option3" },
-];
-
+import { Button, Img, Heading, Input } from "../../components";
+import AgentInfoCard from "../../components/AgentInfoCard/AgentInfoCard";
 export default function AgentListPage() {
   const [searchBarValue3, setSearchBarValue3] = React.useState("");
   const [searchResults, setSearchResults] = React.useState([]);
-  const[data,setData] = React.useState([]);
+  const [data, setData] = React.useState([]);
 
-  
+
   React.useEffect(() => {
     const fetchData = async () => {
       try {
         const baseUrl = process.env.REACT_APP_BASE_URL;
         const response = await fetch(`${baseUrl}/agents`);
-        const jsonData = await response.json();      
+        const jsonData = await response.json();
         setData(jsonData);
       } catch (error) {
         console.error('Error fetching data:', error);
-      }     
+      }
     };
-    fetchData();    
-  },[]);
+    fetchData();
+  }, []);
 
-  React.useEffect(()=>{
-    console.log("data");
+  React.useEffect(() => {
+    // console.log("data");
     const filteredData = data.filter((item) =>
-        item.Username.toLowerCase().includes(searchBarValue3.toLowerCase())
-      );
-      setSearchResults(filteredData);
-    
-
-  },[data , searchBarValue3]);
+      item.Username.toLowerCase().includes(searchBarValue3.toLowerCase())
+    );
+    setSearchResults(filteredData);
+  }, [data, searchBarValue3]);
 
   return (
     <>
@@ -57,7 +48,7 @@ export default function AgentListPage() {
               <div className="flex flex-row justify-start gap-4">
                 <Input
                   name="search"
-                  placeholder="Enter your address"
+                  placeholder="Enter Agent Name"
                   value={searchBarValue3}
                   onChange={(e) => setSearchBarValue3(e)}
                   suffix={
@@ -73,20 +64,6 @@ export default function AgentListPage() {
                   }
                   className="w-[76%] gap-[35px] font-semibold border-blue_gray-100_01 border border-solid"
                 />
-                <SelectBox
-                  indicator={<Img src="images/img_arrowdown_gray_600_02.svg" alt="arrow_down" />}
-                  name="active"
-                  placeholder="Review"
-                  options={dropDownOptions}
-                  className="w-[12%] gap-px !text-gray-600_02 font-bold border-blue_gray-100_01 border border-solid"
-                />
-                <Button
-                  size="4xl"
-                  rightIcon={<Img src="images/img_icon_20px_search.svg" alt="icon / 20px / search" />}
-                  className="gap-2.5 font-bold min-w-[128px]"
-                >
-                  Search
-                </Button>
               </div>
             </div>
           </div>
@@ -95,28 +72,7 @@ export default function AgentListPage() {
             {/* below div is for anegt profile now i have to make it dynamic */}
             <div className="justify-center w-full gap-6 grid-cols-4 grid min-h-[auto] max-w-[1200px]">
 
-{/* the single agent card si below  */}
-              <div className="flex flex-col items-center justify-start w-full">
-                <Img
-                  src="images/img_rectangle_5615.png"
-                  alt="bruno_fernandes"
-                  className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
-                />
-                <div className="flex flex-row justify-center w-full p-[13px] rounded-bl-[10px] rounded-br-[10px] border-blue_gray-100_01 border border-solid bg-white-A700">
-                  <div className="flex flex-col items-start justify-start w-[95%] gap-[7px] mx-1.5">
-                    <Heading size="lg" as="h2" className="tracking-[-0.40px]">
-                      Bruno Fernandes
-                    </Heading>
-                    <div className="flex flex-row justify-start items-center gap-3.5 py-0.5">
-                      <RatingBar value={1} isEditable={true} size={16} className="flex justify-between w-24" />
-                      <Heading as="h3">4.5 review</Heading>
-                    </div>
-                    <Button color="blue_gray_100_01" variant="outline" className="w-full font-semibold">
-                      View Profile
-                    </Button>
-                  </div>
-                </div>
-              </div>
+              {/* the single agent card si below  */}
               {searchResults.map((data) => (
                 <AgentInfoCard
                   key={data._id} // Make sure each card has a unique key
@@ -124,29 +80,15 @@ export default function AgentListPage() {
                   userid={data._id}
                 />
               ))}
-{/* the single agentcard above rest copies of it  */}
-
-
+              {/* the single agentcard above rest copies of it  */}
             </div>
-{/* above div is for anegt profile now i have to make it dynamic */}
+            {/* above div is for anegt profile now i have to make it dynamic */}
 
-{/* below are new page buttons */}
+            {/* below are new page buttons */}
             <div className="flex flex-row justify-between w-full max-w-[1200px]">
               <div className="flex flex-row justify-start gap-[5px]">
                 <Button color="gray_700" variant="outline" className="font-semibold min-w-[48px]">
                   1
-                </Button>
-                <Button color="blue_gray_100_02" variant="outline" className="font-semibold min-w-[48px]">
-                  2
-                </Button>
-                <Button color="blue_gray_100_02" variant="outline" className="font-semibold min-w-[48px]">
-                  3
-                </Button>
-                <Button color="blue_gray_100_02" variant="outline" className="font-semibold min-w-[48px]">
-                  4
-                </Button>
-                <Button color="blue_gray_100_02" variant="outline" className="font-semibold min-w-[48px]">
-                  5
                 </Button>
               </div>
               <Button
@@ -160,7 +102,6 @@ export default function AgentListPage() {
             </div>
           </div>
         </div>
-        {/* <Footer className="flex justify-center items-center w-full pl-[74px] pr-14 gap-[115px] py-[74px] bg-white-A700" /> */}
       </div>
     </>
   );

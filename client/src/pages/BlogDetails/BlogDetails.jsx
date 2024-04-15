@@ -3,8 +3,6 @@ import { Helmet } from "react-helmet";
 import { Heading, Img, Text } from "../../components";
 import BlogPageColumnactive from "../../components/BlogPageColumnactive";
 import { useParams } from "react-router-dom";
-import { createColumnHelper } from "@tanstack/react-table";
-
 
 export default function BlogDetailsPage() {
 

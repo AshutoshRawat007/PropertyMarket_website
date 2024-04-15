@@ -13,16 +13,7 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const multer = require('multer');
 const path = require('path');
-const storage = multer.diskStorage({
-  // destination: function (req, file, cb) {
-  //   cb(null, 'D://REACT PROJECT//PropertyBuySellRent//api//uploads')
-  // },
-  // filename: function (req, file, cb) {
-  //   const uniqueSuffix = Date.now() + '_' + Math.round(Math.random() * 1E9);
-  //   file.originalPath = file.originalname;
-  //   cb(null, file.fieldname + '_' + uniqueSuffix)
-  // }
-});
+const storage = multer.diskStorage({});
 
 const uploadMiddleware = multer({ storage: storage })
 const fs = require('fs');
@@ -41,10 +32,6 @@ app.use(cors({
   credentials: true,
   origin: allowedOrigins
 }));
-
-// app.use(cors({ credentials: true, origin: 'https://property-market-website-sage.vercel.app' }));
-// app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
-
 app.use(express.json());
 app.use(cookieParser());
 // app.use('/uploads', express.static(__dirname + '/uploads'));
@@ -72,13 +59,13 @@ const uploadImage = async (imagePath) => {
     // transformation: [
     //   { width: 1250, height: 1250, crop: "fill" }, // Adjust width and height as needed
     // ],
-    };
+  };
 
   try {
     // Upload the image
-    const result = await cloudinary.uploader.upload(imagePath,  options);
-    console.log(result);
-    console.log(result.secure_url);
+    const result = await cloudinary.uploader.upload(imagePath, options);
+    // console.log(result);
+    // console.log(result.secure_url);
     return result.secure_url;
   } catch (error) {
     console.error(error);
@@ -108,82 +95,22 @@ const uploadImage = async (imagePath) => {
 //   original_filename: 'vlcsnap-2023-09-12-17h02m45s799',
 //   api_key: '882532315875241'
 // }
-const getAssetInfo = async (publicId) => {
-
-  // Return colors in the response
-  const options = {
-    colors: true,
-  };
-
-  try {
-      // Get details about the asset
-      const result = await cloudinary.api.resource(publicId, options);
-      console.log(result);
-      console.log("*************",result.colors);
-      return result.colors;
-      } catch (error) {
-      console.error(error);
-  }
-};
-//////////////////////////////////////////////////////////////
-// Creates an HTML image tag with a transformation that
-// results in a circular thumbnail crop of the image  
-// focused on the faces, applying an outline of the  
-// first color, and setting a background of the second color.
-//////////////////////////////////////////////////////////////
-const createImageTag = (publicId, ...colors) => {
-
-  // Set the effect color and background color
-  const [effectColor, backgroundColor] = colors;
-
-  // Create an image tag with transformations applied to the src URL
-  let imageTag = cloudinary.image(publicId, {
-    transformation: [
-      { width: 250, height: 250, gravity: 'faces', crop: 'thumb' },
-      { radius: 'max' },
-      { effect: 'outline:10', color: effectColor },
-      { background: backgroundColor },
-    ],
-  });
-
-  return imageTag;
-};
-// (async () => {
-
-//   // Set the image to upload
-//   const imagePath = 'https://cloudinary-devs.github.io/cld-docs-assets/assets/images/happy_people.jpg';
-
-//   // Upload the image
-//   const publicId = await uploadImage(imagePath);
-
-//   // Get the colors in the image
-//   const colors = await getAssetInfo(publicId);
-//   console.log(colors[0][0], "####### colourssssssss#########", colors[1][0]);
-//   // Create an image tag, using two of the colors in a transformation
-//   const imageTag = await createImageTag(publicId, colors[0][0], colors[1][0]);
-
-//   // Log the image tag to the console
-//   console.log(imageTag);
-
-// })();
-
-// mongoose.connect(process.env.MONGO_URL);
 app.post('/api/register', async (req, res) => {
   // console.log("reached here");
   mongoose.connect(process.env.MONGO_URL);
-  const { Username, password } = req.body;
+  const { Username, password, name, phone, description } = req.body;
   try {
     const userDoc = await User.create({
       Username,
       password: bcrypt.hashSync(password, salt),
-      role:"agent", 
-      name:"so many names here", 
-      phone:1234567890, 
-      description:"slowly slowly",
+      role: "agent",
+      name: name,
+      phone: phone,
+      description: description,
     });
     res.json(userDoc);
   } catch (e) {
-    // console.log(e);
+    console.log(e);
     res.status(400).json(e);
   }
 });
@@ -233,9 +160,9 @@ app.post('/api/logout', (req, res) => {
 app.post('/api/property', uploadMiddleware.any(), async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   // //console.log("Request Body:", req.body);
-  console.log("Request Files:", req.files);
+  // console.log("Request Files:", req.files);
   const files = req.files;
-  var images_arrray=[];
+  var images_arrray = [];
 
   // Iterate through each file in the array
   for (const file of files) {
@@ -246,16 +173,16 @@ app.post('/api/property', uploadMiddleware.any(), async (req, res) => {
     const size = file.size;
     const path = file.path;
     const originalPath = files[0].originalPath;
-    
+
 
     // Access the properties as needed
     // console.log(`File ${index + 1}:`);
-    console.log('Field Name:', fieldName);
-    console.log('Original Name:', originalName);
-    console.log('File Name:', fileName);
-    console.log('MIME Type:', mimeType);
-    console.log('Size:', originalPath);
-    console.log('path:', path);
+    // console.log('Field Name:', fieldName);
+    // console.log('Original Name:', originalName);
+    // console.log('File Name:', fileName);
+    // console.log('MIME Type:', mimeType);
+    // console.log('Size:', originalPath);
+    // console.log('path:', path);
 
     //     File 1:
     // Field Name: images0
@@ -272,27 +199,29 @@ app.post('/api/property', uploadMiddleware.any(), async (req, res) => {
     // images_arrray.push((fileName + '.' + ext));
 
     const url = await uploadImage(path);
-    
+
     images_arrray.push(url);
     //console.log('new path:', newPath);
   };
   const propertyDataJSON = req.body['propertyData.json'];
   const propertyData = JSON.parse(propertyDataJSON);
-    // //console.log("Property Data:", propertyData);
+  // console.log("Property Data:", propertyData);
 
-  const {token} = req.cookies;
-  jwt.verify(token, secret, {}, async (err,info) => {
+  const { token } = req.cookies;
+  jwt.verify(token, secret, {}, async (err, info) => {
     if (err) throw err;
     // console.log(info.id,"<--------");
-    const {  name, location, amenities, roomDetails, price } = propertyData;
-      const propertyDoc = await Property.create({      
+    const { name, location, amenities, roomDetails, roomnumber, description, price } = propertyData;
+    const propertyDoc = await Property.create({
       name,
       location,
       amenities,
-      images:images_arrray,
+      images: images_arrray,
       roomDetails,
+      roomnumber,
+      description,
       price,
-      userId:info.id,
+      userId: info.id,
     });
 
     await User.findByIdAndUpdate(
@@ -306,19 +235,19 @@ app.post('/api/property', uploadMiddleware.any(), async (req, res) => {
 
 });
 
-app.post('/api/createblog', uploadMiddleware.any(),async (req, res) => {  
+app.post('/api/createblog', uploadMiddleware.any(), async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   const files = req.files;
-  console.log("reached here into files : ", files);
+  // console.log("reached here into files : ", files);
   const { title, content } = req.body;
-  console.log("body is  ", req.body);
-  console.log("title and contest is  ", title, content);
+  // console.log("body is  ", req.body);
+  // console.log("title and contest is  ", title, content);
   const url = await uploadImage(files[0].path);
-  console.log("url: ",url);
+  // console.log("url: ",url);
   try {
     const userDoc = await BlogPost.create({
       title,
-      coverimage:url,
+      coverimage: url,
       content,
     });
     res.json(userDoc);
@@ -353,72 +282,71 @@ app.put('/api/properties/:id', async (req, res) => {
   }
 });
 
-app.get('/api/property',async(req,res)=>{
+app.get('/api/property', async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
-  try{
-    const data = await Property.find().populate('userId' ,['name','phone']); // Retrieve all data from MongoDB
+  try {
+    const data = await Property.find().populate('userId', ['name', 'phone']); // Retrieve all data from MongoDB
     res.json(data);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-
   //  populating methods-------------->]]]
   // const data = await Property.find().populate({
   //   path: 'user',
   //   select: 'username password' // Include the fields you need, even if select: false in schema
   // });
-  
+
 });
 
-app.get('/api/blog',async(req,res)=>{
+app.get('/api/blog', async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
-  try{
+  try {
     const data = await BlogPost.find(); // Retrieve all data from MongoDB
     res.json(data);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
-  } 
+  }
 });
 
-app.get('/api/blog/:id',async(req,res)=>{
+app.get('/api/blog/:id', async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   const { id } = req.params;
-  try{
+  try {
     const data = await BlogPost.find({ _id: id }); // Retrieve all data from MongoDB
     res.json(data);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
-  } 
+  }
 });
 
-app.get('/api/property/:id',async(req,res)=>{
+app.get('/api/property/:id', async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   // console.log("enterd into propertyid");
   const { id } = req.params;
   Property.findById(id)
-  .then(property => {
-    if (!property) {
-      console.log("*******************property*******************",property);
-      return res.status(404).json({ message: 'property not found' });
-    }
-    console.log(property);
-    User.findOne({ properties: id })
-      .then(agent => {
-        console.log("agebnt*******************",agent);
-        res.status(200).json({ property, agent });
-      })
-      .catch(error => {
-        console.error('Error finding agent:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-      });
-  })
-  .catch(error => {
-    console.error('------------The Errotrss----------', error);
-    res.status(500).json({ message: 'Internal Server Error' });
-  });  
+    .then(property => {
+      if (!property) {
+        // console.log("*******************property*******************",property);
+        return res.status(404).json({ message: 'property not found' });
+      }
+      // console.log(property);
+      User.findOne({ properties: id })
+        .then(agent => {
+          // console.log("agebnt*******************",agent);
+          res.status(200).json({ property, agent });
+        })
+        .catch(error => {
+          console.error('Error finding agent:', error);
+          res.status(500).json({ message: 'Internal Server Error' });
+        });
+    })
+    .catch(error => {
+      console.error('------------The Errotrss----------', error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    });
 });
 
 app.get('/api/agents', async (req, res) => {
@@ -433,41 +361,41 @@ app.get('/api/agents', async (req, res) => {
 });
 app.get('/api/agents/:id', async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
-  console.log(" camne to agent id ", req.params);
+  // console.log(" camne to agent id ", req.params);
   const { id } = req.params;
- // Find the user by ID below is the method if user do no contain properties refrence
-User.findById(id)
-.then(user => {
-  if (!user) {
-    // Handle the case where the user is not found
-    return res.status(404).json({ message: 'User not found' });
-  }
-  // Use the user's ID to find all properties associated with the user
-  Property.find({ userId: id })
-    .then(properties => {
-      // 'properties' now contains an array of properties associated with the user
-      //console.log(properties);
-      // You can do further processing with the properties here
-      res.status(200).json({ user, properties });
+  // Find the user by ID below is the method if user do no contain properties refrence
+  User.findById(id)
+    .then(user => {
+      if (!user) {
+        // Handle the case where the user is not found
+        return res.status(404).json({ message: 'User not found' });
+      }
+      // Use the user's ID to find all properties associated with the user
+      Property.find({ userId: id })
+        .then(properties => {
+          // 'properties' now contains an array of properties associated with the user
+          //console.log(properties);
+          // You can do further processing with the properties here
+          res.status(200).json({ user, properties });
+        })
+        .catch(error => {
+          // Handle any errors that occur during the Property.find operation
+          console.error('Error finding properties:', error);
+          res.status(500).json({ message: 'Internal Server Error' });
+        });
     })
     .catch(error => {
-      // Handle any errors that occur during the Property.find operation
-      console.error('Error finding properties:', error);
+      // Handle any errors that occur during the User.findById operation
+      console.error('Error finding user:', error);
       res.status(500).json({ message: 'Internal Server Error' });
     });
-})
-.catch(error => {
-  // Handle any errors that occur during the User.findById operation
-  console.error('Error finding user:', error);
-  res.status(500).json({ message: 'Internal Server Error' });
-});
-//   try {
-//     const agentDetails = await User.findById(id).populate('properties');
-//     res.json(agentDetails);
-//   } catch (error) {
-//     console.error('Error fetching agent details:', error);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
+  //   try {
+  //     const agentDetails = await User.findById(id).populate('properties');
+  //     res.json(agentDetails);
+  //   } catch (error) {
+  //     console.error('Error fetching agent details:', error);
+  //     res.status(500).json({ error: 'Internal server error' });
+  //   }
 });
 
 app.listen(4000);

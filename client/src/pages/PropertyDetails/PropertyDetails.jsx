@@ -1,16 +1,11 @@
 import React,{useEffect,useState} from "react";
 import { Helmet } from "react-helmet";
-import { Img, Heading, Button, Text, RatingBar, GoogleMap } from "../../components";
-import { TextArea } from '../../components/TextArea';  
-import { Radio } from '../../components/Radio';  
-import { RadioGroup } from '../../components/RadioGroup';  
-import { useParams } from "react-router-dom";
-
-import LandingPageCard from "../../components/LandingPageCard";
+import { Img, Heading, Button, Text, RatingBar, GoogleMap} from "../../components"; 
+import { useParams,Link } from "react-router-dom";
 
 export default function PropertyDetailsPage() {
   const { id } = useParams(); 
-  console.log(" id from parameter ", id);
+  // console.log(" id from parameter ", id);
   const[propertydata,setPropertydata] = useState([]);
   const[agent , setAgent] = useState([]);
   const[agnetname , setAgentname] = useState('');
@@ -22,7 +17,11 @@ export default function PropertyDetailsPage() {
   const[PropertyImages , setPropertyImages] = useState([]);
   const[PropertyRoomDetails , setPropertyRoomDetails] = useState();
   const[roomss , setroms] = useState();
+  const[kitchen , setkitchen] = useState(false);
+  const[hotwater , sethotwater] = useState(false);
+  const[guestRoom , setguestRoom] = useState(false);
   const[PropertyAmmenities,setPropertyAmmenities] = useState([]);
+
   useEffect(()=>{
     const fetchData = async () => {
       try {
@@ -31,7 +30,7 @@ export default function PropertyDetailsPage() {
         const { property, agent } = await propertyDetails.json();
         await setPropertydata(property);
         await setAgent(agent);
-        console.log('data is fetched');
+        // console.log('data is fetched');
       } catch (error) {
         console.error('Error fetching data:', error);
       }    
@@ -40,9 +39,9 @@ export default function PropertyDetailsPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   },[id]);
   useEffect(()=>{
-    console.log("gonna print the values now bleopw");
-    console.log(agent);
-    console.log(propertydata);
+    // console.log("gonna print the values now bleopw");
+    // console.log(agent);
+    // console.log(propertydata);
 
     setagentUsername(agent.Username);
     setAgentname(agent.name);
@@ -54,14 +53,48 @@ export default function PropertyDetailsPage() {
     setPropertyLocation(propertydata.location);
     setPropertyRoomDetails(propertydata.roomDetails);
 
-    setroms(22);
-    // const { numberOfRooms, kitchen, guestRoom } = PropertyRoomDetails;
-    // console.log(" below os property room details",numberOfRooms,kitchen,guestRoom);
-    console.log(PropertyRoomDetails);
-    console.log(PropertyAmmenities)
+    // console.log(PropertyRoomDetails);
+    // console.log(PropertyAmmenities)
 
 
-  },[agent,propertydata,PropertyAmmenities,PropertyRoomDetails])
+  },[agent,propertydata,PropertyAmmenities,PropertyRoomDetails,])
+
+  useEffect(() => {
+    setroms(propertydata.roomDetails?.numberOfRooms);
+    setkitchen(propertydata.roomDetails?.kitchen);
+    sethotwater(propertydata.roomDetails?.hotwater);
+    setguestRoom(propertydata.roomDetails?.guestRoom);
+  }, [propertydata]);
+
+  const [formData, setFormData] = useState({
+    fullname: '',
+    emailaddress: '',
+    phonenumber: '',
+    date: '',
+    message: ''
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // You can access formData here and perform actions like sending it to the server
+    // console.log(formData);
+    // Reset form data after submission
+    setFormData({
+      fullname: '',
+      emailaddress: '',
+      phonenumber: '',
+      date: '',
+      message: ''
+    });
+  };
   return (
     <>
       <Helmet>
@@ -71,7 +104,6 @@ export default function PropertyDetailsPage() {
       <div className="flex flex-col items-center justify-start w-full gap-[100px] overflow-auto bg-gray-50_01">
         <div className="flex flex-col items-center justify-start w-full gap-[60px]">
           <div className="flex flex-col items-center justify-start w-full gap-10">
-            {/* <Header className="flex justify-center items-center w-full p-[19px] bg-white-A700" /> */}
 {/*  PROPERTY IMAGES */}
             <div className="flex flex-row justify-center w-full">
               <div className="flex flex-row justify-start w-full gap-6 max-w-[1200px]">
@@ -90,30 +122,33 @@ export default function PropertyDetailsPage() {
                 {PropertyImages && PropertyImages.length > 1 ? (
                   <Img src={PropertyImages[1]} alt="image" className="w-full object-cover rounded-[10px]" />
                       ) : (
+                      // <div className="w-full object-cover rounded-[10px]">no image</div>
                   <Img
-                    src="/images/img_rectangle_5611.png"
-                    alt="image_one"
+                  src="/images/no-image-svgrepo-com.svg"
+                    alt="no image"
                     className="w-full object-cover rounded-[10px]"
                   />
                  )}
-                  <div className="h-[263px] w-full relative">
+                  <div className="h-[200px] w-full relative">
                   {PropertyImages && PropertyImages.length > 2 ? (
                   <Img src={PropertyImages[2]} alt="image" className="w-full object-cover rounded-[10px]" />
                       ) : (
+                      // <div>no image</div>
                   <Img
-                    src="/images/img_rectangle_5611.png"
-                    alt="image_one"
+                    src="/images/no-image-svgrepo-com.svg"
+                    alt="no image"
                     className="justify-center h-[263px] w-full left-0 bottom-0 right-0 top-0 m-auto object-cover absolute rounded-[10px]"
                   />
                  )}
+                 <Link to="/propertyimages">
                     <Button
                       color="white_A700"
                       size="lg"
-                      leftIcon={<Img src="images/img_icon_image.svg" alt="icon - image" />}
+                      leftIcon={<Img src="/images/img_icon_image.svg" alt="icon - image" />}
                       className="gap-1.5 bottom-[6%] right-[4%] m-auto text-gray-900 font-bold min-w-[122px] absolute"
                     >
-                      3 more
-                    </Button>
+                      more images
+                    </Button></Link>
                   </div>
                 </div>
               </div>
@@ -146,14 +181,6 @@ export default function PropertyDetailsPage() {
                             Online / Cash Payment
                           </Heading>
                         </div>
-                        <div className="flex flex-col items-start justify-start gap-1 p-[5px] border-blue_gray-100_01 border border-solid bg-white-A700 rounded-[10px]">
-                          <Heading size="xl" as="h5" className="ml-[17px] tracking-[-0.48px]">
-                            $850 / month
-                          </Heading>
-                          <Heading size="xs" as="h6" className="ml-[17px] !text-gray-600_02">
-                            0% EMI for 6 Months
-                          </Heading>
-                        </div>
                       </div>
                     </div>
                     <div className="flex flex-col items-center justify-start w-full pt-[3px] gap-3">
@@ -171,40 +198,6 @@ export default function PropertyDetailsPage() {
                       </Text>
                     </div>
                     <div className="flex flex-col items-center justify-start w-full gap-6">
-                      <div className="flex flex-col items-start justify-start w-full gap-[22px]">
-                        <Heading size="2xl" as="h3" className="tracking-[-0.56px]">
-                          Local Information
-                        </Heading>
-                        <div className="flex flex-row justify-start gap-3">
-                          <Button
-                            color="blue_gray_100_01"
-                            size="lg"
-                            variant="outline"
-                            className="font-semibold min-w-[119px]"
-                          >
-                            Map
-                          </Button>
-                          <Button size="lg" className="font-semibold min-w-[119px]">
-                            Schools
-                          </Button>
-                          <Button
-                            color="blue_gray_100_01"
-                            size="lg"
-                            variant="outline"
-                            className="font-semibold min-w-[119px]"
-                          >
-                            Crime
-                          </Button>
-                          <Button
-                            color="blue_gray_100_01"
-                            size="lg"
-                            variant="outline"
-                            className="font-semibold min-w-[119px]"
-                          >
-                            Shop & Eat
-                          </Button>
-                        </div>
-                   </div>
                       <GoogleMap showMarker={false} className="h-[400px] w-full" />
                     </div>
                   </div>
@@ -232,16 +225,17 @@ export default function PropertyDetailsPage() {
                           </Heading>
                         </div>
                         <div className="flex flex-row justify-between items-center w-full">
-                          <div className="flex flex-row justify-start items-center w-[42%] gap-2.5 py-0.5">
+                          <div className="flex flex-row justify-start items-center w-[60%] gap-2.5 py-0.5">
                             <div className="h-2 w-2 bg-gray-600_02 rounded-[50%]" />
                             <Text as="p" className="mt-px">
                               Kitchen
                             </Text>
                           </div>
                           <Heading size="md" as="h6" className="text-right">
-                          {/* {PropertyRoomDetails.kitchen?"YES":"NO"}  */}
+                          {kitchen?"YES":"NO"} 
                           </Heading>
                         </div>
+                        
                         <div className="flex flex-row justify-between items-center w-full">
                           <div className="flex flex-row justify-start items-center w-[35%] gap-2.5 py-0.5">
                             <div className="h-2 w-2 bg-gray-600_02 rounded-[50%]" />
@@ -250,7 +244,7 @@ export default function PropertyDetailsPage() {
                             </Text>
                           </div>
                           <Heading size="md" as="h6" className="text-right">
-                          {/* {PropertyRoomDetails.guestRoom ? "Yes":"NO"}  */}
+                          {guestRoom ? "Yes":"NO"} 
                           </Heading>
                         </div>
                         <div className="flex flex-row justify-between items-center w-full">
@@ -261,7 +255,7 @@ export default function PropertyDetailsPage() {
                             </Text>
                           </div>
                           <Heading size="md" as="h6" className="text-right">
-                          {/* {PropertyRoomDetails.hotwater ? "Yes":"NO"}  */}
+                          {hotwater ? "Yes":"NO"} 
                           </Heading>
                         </div>
                       </div>
@@ -285,7 +279,7 @@ export default function PropertyDetailsPage() {
                             </Text>
                           </div>
                           <Heading size="md" as="h6" className="text-right">
-                            $560
+                            N/A
                           </Heading>
                         </div>
                         <div className="flex flex-row justify-between items-center w-full">
@@ -311,11 +305,12 @@ export default function PropertyDetailsPage() {
                       Agent Information
                     </Heading>
                     <div className="flex flex-row justify-start items-center w-full gap-6">
-                      <Img
+                     
+                    <Link to={'/agentprofile/'+agent._id}><Img
                         src="/images/img_rectangle_5599.png"
                         alt="image_three"
                         className="w-[150px] object-cover rounded-[10px]"
-                      />
+                      /></Link>
                       <div className="flex flex-col items-start justify-start w-[26%] gap-0.5">
                         <Heading size="lg" as="h5" className="tracking-[-0.40px]">
                           {agnetname}
@@ -346,50 +341,68 @@ export default function PropertyDetailsPage() {
                 </div>
 
 {/* request visit form */}
-                <div className="flex flex-col items-center justify-start w-[32%] gap-10 p-[23px] border-blue_gray-100_01 border border-solid bg-white-A700 rounded-[10px]">
-                  <div className="flex flex-col items-start justify-start w-full pt-[3px] gap-[19px]">
-                    <Heading size="2xl" as="h3" className="tracking-[-0.56px]">
-                      Request for Visit
-                    </Heading>
-                    <div className="flex flex-col items-center justify-start w-full gap-3">
-                      <RadioGroup name="requestfor" className="flex flex-col">
-                        <Radio
-                          key = "234"
-                          value="fullname"
-                          label="Full Name"
-                          className="pl-3.5 pr-[35px] gap-3.5 py-[17px] text-gray-600_02 font-semibold"
-                        />
-                        <Radio
-                        key = "44"
-                          value="emailaddress"
-                          label="Email Address"
-                          className="mt-3 pl-3.5 pr-[35px] gap-3.5 py-[17px] text-gray-600_02 font-semibold"
-                        />
-                        <Radio
-                        key = "888"
-                          value="phonenumber"
-                          label="Phone Number"
-                          className="mt-3 pl-3.5 pr-[35px] gap-3.5 py-[17px] text-gray-600_02 font-semibold"
-                        />
-                        <Radio
-                        key = "01223"
-                          value="date"
-                          label="Date"
-                          className="mt-3 pl-3.5 pr-[35px] gap-3.5 py-[17px] text-gray-600_02 font-semibold"
-                        />
-                      </RadioGroup>
-                      <TextArea
-                        name="inputbox_one"
-                        placeholder="Message"
-                        className="w-full text-gray-600_02 font-semibold"
-                      />
-                    </div>
-                  </div>
-                  <Button size="2xl" className="w-full font-semibold">
-                    Send Request
-                  </Button>
-                </div>
+<form onSubmit={handleSubmit} className="w-80">
+  <div className="flex flex-col items-center justify-start w-full lg:w-[32%] gap-10 p-[23px] border border-solid border-gray-700 rounded-[10px] bg-white-A700">
+    <div className="flex flex-col items-start justify-start w-full pt-[3px] gap-[19px]">
+      <h3 className="text-2xl font-semibold tracking-[-0.56px]">Request for Visit</h3>
+      <div className="flex flex-col items-center justify-start w-full gap-3">
+        {/* Change input types to 'text' */}
+        <div className=" mb-3 w-full pl-2 py-2 text-gray-600_02 font-semibold rounded border border-gray-700 focus:outline-none focus:ring-blue-gray-500 focus:border-blue-gray-500">  {/* Add margin-bottom for spacing */}
+          <input
+            name="fullname"
+            type="text"
+            placeholder="Full Name"
+            className="w-full "
+            onChange={(e) => handleInputChange(e)}
+          />
+        </div>
+        <div className="mb-3 w-full pl-2 py-2 text-gray-600_02 font-semibold rounded border border-gray-700 focus:outline-none focus:ring-blue-gray-500 focus:border-blue-gray-500">
+          <input
+            name="emailaddress"
+            type="text"
+            placeholder="Email Address"
+            className="w-full "
+            value={formData.emailaddress}
+            onChange={(e) => handleInputChange(e)}
+          />
+        </div>
+        <div className="mb-3 w-full pl-2 py-2 text-gray-600_02 font-semibold rounded border border-gray-700 focus:outline-none focus:ring-blue-gray-500 focus:border-blue-gray-500">
+          <input
+            type="text"
+            name="phonenumber"
+            placeholder="Phone Number"
+            className="w-full "
+            value={formData.phonenumber}
+            onChange={(e) => handleInputChange(e)}
+          />
+        </div>
+        <div className="mb-3 w-full pl-2 py-2 text-gray-600_02 font-semibold rounded border border-gray-700 focus:outline-none focus:ring-blue-gray-500 focus:border-blue-gray-500">
+          <input
+            name="date"
+            type="text"
+            placeholder="Date"
+            className="w-full "
+            value={formData.date}
+            onChange={(e) => handleInputChange(e)}
+          />
+        </div>
+      </div>
+      {/* TextArea remains the same */}
+      <textarea
+        name="message"
+        placeholder="Message"
+        value={formData.message}
+        onChange={(e) => handleInputChange(e)}
+        className="w-full h-32 pl-2 py-[12px] text-gray-600_02 font-semibold rounded border border-solid border-gray-700 focus:outline-none"
+      />
+    </div>
+    <button type="submit" className="w-full py-3 text-white font-semibold bg-blue-gray-900 rounded rounded border border-solid hover:bg-blue-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-gray-500">
+  Send Request
+</button>
+  </div>
+</form>
 {/* request visit form */}
+
 
 
               </div>
@@ -399,28 +412,6 @@ export default function PropertyDetailsPage() {
 {/* Property Recomendations */}
           <div className="flex flex-row justify-center w-full">
             <div className="flex flex-col items-center justify-start w-full gap-[39px] max-w-[1200px]">
-              <div className="flex flex-row justify-between items-start w-full pt-[3px]">
-                <Heading size="2xl" as="h2" className="tracking-[-0.56px]">
-                  Latest Property Listings
-                </Heading>
-                <div className="flex flex-row justify-start items-center mt-[3px] gap-2">
-                  <Heading size="md" as="h3" className="mt-0.5 !text-orange-A700 !font-bold">
-                    Explore All
-                  </Heading>
-                  <Img src="/images/img_icon_24px_v.svg" alt="iconarrow_one" className="h-6 w-6" />
-                </div>
-              </div>
-              <div className="flex flex-row w-full gap-6">
-                <LandingPageCard className="flex flex-col items-center justify-start w-[32%]" />
-                <LandingPageCard
-                  image="/images/img_image_1.png"
-                  className="flex flex-col items-center justify-start w-[32%]"
-                />
-                <LandingPageCard
-                  image="/images/img_image_2.png"
-                  className="flex flex-col items-center justify-start w-[32%]"
-                />
-              </div>
             </div>
           </div>
 {/* Property Recomendations */}

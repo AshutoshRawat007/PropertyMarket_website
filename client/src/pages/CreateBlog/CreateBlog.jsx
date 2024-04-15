@@ -89,3 +89,45 @@ const BlogEditor = () => {
 };
 
 export default BlogEditor;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const filterProperties = () => {
+//   // Create an array to hold the filter options
+  
+//   const filtersArray = [];
+//   if (searchBarValue7) { // Include location search in filters
+//     filtersArray.push(searchBarValue7.toLowerCase()); // Perform case-insensitive search
+//   }
+//   if (bedrooms) filtersArray.push(bedrooms);
+//    const filteredData = data.filter((property) => {
+//     return filtersArray.every((filter) => {
+//       const { location, roomDetails } = property;
+//       if (searchBarValue7 && location && location.toLowerCase().includes(filter)) {
+//         return true;
+//       }
+//       if (roomDetails && roomDetails.numberOfRooms === parseInt(bedrooms)) {
+//         return true; // Match bedroom filter (existing logic)
+//       }
+//       return false;
+//     });
+//   });
+//   // Update state with filtered data
+//   setAppliedFilters(filteredData);
+
+//   console.log(filters)
+// };
