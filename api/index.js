@@ -127,6 +127,7 @@ app.post('/api/login', async (req, res) => {
   try {
     const { Username, password } = req.body;
     const userDoc = await User.findOne({ Username }).select('+password');
+    // console.log(userDoc)
     if (!userDoc) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
@@ -138,7 +139,11 @@ app.post('/api/login', async (req, res) => {
         if (err) throw err;
         res.cookie('token', token).json({
           id: userDoc._id,
+          name: userDoc.name,
+          profileimg:userDoc.profileimg,
           Username,
+          role:userDoc.role,
+          phone:userDoc.phone,          
         });
       });
     } else {
@@ -156,7 +161,7 @@ app.get('/api/profile', (req, res) => {
   jwt.verify(token, secret, {}, (err, info) => {
     if (err) throw err;
     res.json(info);
-    //console.log(info.id, " profile");
+    // console.log(info, " profile");
   });
 });
 

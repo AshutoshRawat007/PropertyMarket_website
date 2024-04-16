@@ -30,6 +30,7 @@ export default function Header({ ...props }) {
   }
 
   const username = userInfo?.Username;
+  console.log(username)
 
 
   return (
@@ -73,12 +74,13 @@ export default function Header({ ...props }) {
                 <button onClick={logout} className="block px-4 py-2 text-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-100">Logout</button>
                 <Link to="/createblog" className="block px-4 py-2 text-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-100">Write Blog</Link>
                 <Link to="/property" className="block px-4 py-2 text-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-100">add property</Link>
+                <Link to="/signup" className="block px-4 py-2 text-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-100">Register</Link>
               </div>
             )}
           </div>
 
           {/* Profile link */}
-          <Link to='/login' className="flex items-center gap-2 py-2 px-4 text-white rounded-full hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+          <Link to={username ? '' : '/login'} className="w-[30%] flex items-center gap-2 py-2 px-4 text-white rounded-full hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
             <div className="overflow-hidden rounded-full">
               <img src="/images/profile-round-1342-svgrepo-com.svg" alt="User" width="24" height="24" />
             </div>

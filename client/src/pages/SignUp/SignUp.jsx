@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState,useContext } from 'react';
+import { Link ,Navigate } from 'react-router-dom';
+import { UserContext } from "../../UserContext";
 
 const SignUp = () => {
   const [Username, setUsername] = useState('');
@@ -13,6 +14,10 @@ const SignUp = () => {
   const [UsernameError, setNUsernameError] = useState('');
   const [image, setImage] = useState(null);
   const [passwordError, setPasswordError] = useState('');
+  const [redirect, setRedirect] = useState(false);
+  const { setUserInfo } = useContext(UserContext);
+  // const navigate = useNavigate();
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,9 +46,6 @@ const SignUp = () => {
 
     const formData = new FormData(); // Create a new FormData object
     formData.append('image', image);
-    
-
-
     const userData = {
       Username,
       password,
@@ -63,10 +65,25 @@ const SignUp = () => {
 
     if (response.status === 200) {
       alert('Registration successful');
+      const response = await fetch(`${baseUrl}/login`, {
+        method: 'POST',
+        body: JSON.stringify({ Username, password }),
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+      });
+  
+      if (response.ok) {
+        const userInfo = await response.json();
+        setUserInfo(userInfo);
+        setRedirect(true);
+      } 
     } else {
       alert('Registration failed');
     }
   };
+  if (redirect) {
+    return <Navigate to={'/'} />;
+  }
 
 
   return (
