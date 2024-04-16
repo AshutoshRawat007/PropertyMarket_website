@@ -78,12 +78,12 @@ export default function Header({ ...props }) {
           </div>
 
           {/* Profile link */}
-          {/* <Link to={username ? '/account' : '/login'} className="flex items-center gap-2 py-2 px-4 text-white rounded-full hover:bg-gray-600 focus:outline-none focus:bg-gray-600"> */}
+          <Link to='/login' className="flex items-center gap-2 py-2 px-4 text-white rounded-full hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
             <div className="overflow-hidden rounded-full">
               <img src="/images/profile-round-1342-svgrepo-com.svg" alt="User" width="24" height="24" />
             </div>
             {!!username && <div>{username}</div>}
-          {/* </Link> */}
+          </Link>
         </div>
 
       </div>
