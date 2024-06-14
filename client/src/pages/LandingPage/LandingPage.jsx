@@ -15,6 +15,14 @@ export default function LandingPagePage() {
   const onSubmit = (data) => {
 
     const formData = { ...data, transactionType: selectedOption };
+    if(selectedOption==="sell")
+      alert('Go to profile and create property there to sell it')
+    else{
+
+      // extract room number and location from the from data and then go to '/listing' and serch properties there with room number and location
+      
+    }
+
     console.log(formData);
     console.log(data);
 
@@ -23,7 +31,7 @@ export default function LandingPagePage() {
     <>
       <Helmet>
         <title>Property Market</title>
-        <meta name="description" content="Web site created using create-react-app" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       </Helmet>
       <div className="flex flex-col items-center justify-start w-full gap-[99px] overflow-auto bg-white-A700">
         <div className="flex flex-col items-center justify-start w-full">
@@ -77,8 +85,8 @@ export default function LandingPagePage() {
                             className="w-full px-4 py-2 font-semibold border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                           />
                           <input
-                            {...register('propertyType')}
-                            placeholder="Property Type"
+                            {...register('RoomsNo')}
+                            placeholder="Number of rooms looking for"
                             className="w-full px-4 py-2 font-semibold border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                           />
                           <input
@@ -113,7 +121,7 @@ export default function LandingPagePage() {
                 Easy way to find the perfect property for you
                 </Heading>
                 <Text size="xs" as="p" className="!text-gray-900">
-                  Choose property which meets your need{" "}
+                  Connecting you to gents and Clients, One Place to find properties for you{" "}
                 </Text>
               </div>
               <Link to="/listing">

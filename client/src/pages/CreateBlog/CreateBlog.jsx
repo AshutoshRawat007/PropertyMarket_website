@@ -28,7 +28,7 @@ const BlogEditor = () => {
 
       const baseUrl = process.env.REACT_APP_BASE_URL;
   
-      const response = await fetch(`${baseUrl}/createblog`, {
+      const response = await fetch(`${baseUrl}/blog/create`, {
         method: 'POST',
         body: formData,
         credentials:'include'
