@@ -1,99 +1,3 @@
-// import React from "react";
-// // import { CloseSVG } from "../../assets/images";
-// import { Img, Heading, Text } from "..";
-// import { Link } from 'react-router-dom';
-// import { useContext, useEffect, useState } from "react";
-// import { UserContext } from "../../UserContext";
-
-// export default function Header({ ...props }) {
-//   // const [searchBarValue1, setSearchBarValue1] = useState("");
-//   const { setUserInfo, userInfo } = useContext(UserContext);
-//   const [menuVisible, setMenuVisible] = useState(false);
-//   const baseUrl = process.env.REACT_APP_BASE_URL;
-//   useEffect(() => {
-//     fetch(`${baseUrl}/auth/profile`, {
-//       credentials: 'include',
-//     }).then(response => {
-//       response.json().then(userInfo => {
-//         setUserInfo(userInfo);
-//         // const col = userInfo.id;
-//         // console.log(userInfo)
-//       });
-//     });
-//   }, [setUserInfo, baseUrl]);
-//   function logout() {
-//     fetch(`${baseUrl}/auth/logout`, {
-//       credentials: 'include',
-//       method: 'POST',
-//     });
-//     setUserInfo(null);
-//   }
-//   useEffect(() => {
-//     if (menuVisible) {
-//       const timeoutId = setTimeout(() => setMenuVisible(false), 3000); // Close menu after 5 seconds
-//       return () => clearTimeout(timeoutId); // Cleanup function to clear timeout on unmount
-//     }
-//   }, [menuVisible]);
-
-//   const username = userInfo?.Username;
-//   console.log(username)
-
-
-//   return (
-//     <header {...props}>
-//       {/* Header container */}
-//       <div className="flex justify-between items-center px-4 py-2 bg-white shadow-md">
-//         {/* Icon and text */}
-//         <div className="flex items-center space-x-2">
-//           <img src="/images/img_real_estate_1.svg" alt="realestateone" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12" />
-//           <p className="text-lg sm:text-xl md:text-2xl font-bold">H&H</p>
-//         </div>
-  
-//         {/* Menu items - horizontal scroll on mobile, consistent on laptop */}
-//         <div className="flex-1 flex justify-center sm:justify-start overflow-x-auto md:overflow-visible space-x-4">
-//           <div className="flex space-x-4">
-//             <Link to="/" className="text-sm sm:text-base md:text-lg"><h6>Home</h6></Link>
-//             <Link to="listing" className="text-sm sm:text-base md:text-lg"><h6>Listing</h6></Link>
-//             <Link to="/agentlist" className="text-sm sm:text-base md:text-lg"><h6>Agents</h6></Link>
-//             <Link to='/blogpage' className="text-sm sm:text-base md:text-lg"><h6>Blog</h6></Link>
-//           </div>
-//         </div>
-  
-//         {/* User icon and menu button - fixed on the right */}
-//         <div className="flex items-center space-x-2 sm:space-x-4">
-//           {/* Menu button */}
-//           <div className="relative">
-//             <button onClick={() => setMenuVisible(!menuVisible)} className="md:hidden">
-//               <img src="/images/menu-burger-horizontal-svgrepo-com.svg" alt="Menu" className="w-6 h-6 sm:w-8 sm:h-8" />
-//             </button>
-//             {menuVisible && (
-//               <div className="absolute right-0 top-full mt-2 w-48 bg-white shadow-lg p-4 rounded-md opacity-75">
-//                 <Link to="/blog/create" className="block py-1">Write Blog</Link>
-//                 <Link to="/property" className="block py-1">Add Property</Link>
-//                 <Link to="/signup" className="block py-1">Register</Link>
-//                 <button onClick={logout} className="block py-1">Logout</button>
-//               </div>
-//             )}
-//           </div>
-  
-//           {/* Profile link */}
-//           <Link to={username ? '' : '/login'} className="flex items-center space-x-2">
-//             {!!username && <div className="text-sm sm:text-base">{username}</div>}
-//             <img src="/images/profile-round-1342-svgrepo-com.svg" alt="User" className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10" />
-//           </Link>
-//         </div>
-//       </div>
-//     </header>
-//   );
-  
-  
-// }
-
-
-
-
-
-
 import React from "react";
 // import { CloseSVG } from "../../assets/images";
 import { Img, Heading, Text } from "..";
@@ -119,7 +23,7 @@ export default function Header({ ...props }) {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch(`${baseUrl}/auth/profile`, {
+        const response = await fetch(`${baseUrl}/profile`, { //await fetch(`${baseUrl}/auth/profile`,
           credentials: 'include',
         });
 
@@ -139,7 +43,7 @@ export default function Header({ ...props }) {
   }, [setUserInfo,baseUrl]);
   
   function logout() {
-    fetch(`${baseUrl}/auth/logout`, {
+    fetch(`${baseUrl}/logout`, {
       credentials: 'include',
       method: 'POST',
     });
