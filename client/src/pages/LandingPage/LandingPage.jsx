@@ -50,7 +50,7 @@ export default function LandingPagePage() {
                 </div>
 
 {/* property find option card and buy sell rent form   */}
-                <div className="flex justify-center w-[100%]  max-w-3xl p-6 bg-white-A700 rounded-lg">
+                <div className="flex justify-center w-[150%] sm:w-[100%] ml-12 mr-2.5 max-w-3xl p-6 bg-white-A700 rounded-lg">
                   <form onSubmit={handleSubmit(onSubmit)} className="w-full">
                     {/* Add the select element for Buy, Sell, Rent option */}
                     <div className="flex justify-center w-full gap-4">
@@ -113,147 +113,64 @@ export default function LandingPagePage() {
         </div>
 
 
-        <div className="flex flex-row justify-center w-full">
-          <div className="flex flex-row justify-start w-full gap-6 max-w-[1200px]">
-            <div className="flex flex-col items-start justify-center w-[49%] gap-[49px] p-[50px] bg-red-100 rounded-[20px]">
+        <div className="w-[95%]">
+          <div className=" justify-start w-full gap-6 max-w-[1500px]">
+            <div className="flex flex-col items-start justify-center w-[100%] gap-[49px] p-[50px] bg-red-100 rounded-[20px]">
               <div className="flex flex-col items-center justify-start mt-[23px] gap-[15px]">
                 <Heading size="3xl" as="h2" className="tracking-[-0.72px]">
                 Easy way to find the perfect property for you
                 </Heading>
                 <Text size="xs" as="p" className="!text-gray-900">
-                  Connecting you to gents and Clients, One Place to find properties for you{" "}
+                  Connecting you to agents and Clients, One Place to find properties for you{" "}
                 </Text>
               </div>
               <Link to="/listing">
               <Button className="mb-[23px] font-semibold min-w-[138px]">Get Started</Button>
               </Link>
             </div>
-            <div className="w-[49%] gap-6 grid-cols-2 grid min-h-[auto]">
-              <div className="flex flex-col items-start justify-center w-full gap-5 p-[30px] bg-deep_orange-50 rounded-[20px]">
-                <Img src="images/img_search_status.svg" alt="image" className="h-[30px] w-[30px] mt-[7px]" />
-                <Heading size="2xl" as="h3" className="mb-[7px] tracking-[-0.56px]">
-                  Search <br />
-                  your location
-                </Heading>
-              </div>
-              <div className="flex flex-col items-start justify-center w-full gap-5 p-[30px] bg-deep_orange-50 rounded-[20px]">
-                <Img src="images/img_eye.svg" alt="eye_one" className="h-[30px] w-[30px] mt-[7px]" />
-                <Heading size="2xl" as="h4" className="mb-[7px] tracking-[-0.56px]">
-                  Visit <br />
-                  Appointment
-                </Heading>
-              </div>
-              <div className="flex flex-col items-start justify-center w-full gap-5 p-[30px] bg-deep_orange-50 rounded-[20px]">
-                <Img src="images/img_wallet.svg" alt="wallet_one" className="h-[30px] w-[30px] mt-[7px]" />
-                <Heading size="2xl" as="h5" className="mb-[7px] tracking-[-0.56px]">
-                  Get your <br />
-                  dream house
-                </Heading>
-              </div>
-              <div className="flex flex-col items-start justify-center w-full gap-5 p-[30px] bg-deep_orange-50 rounded-[20px]">
-                <Img src="images/img_emoji_happy.svg" alt="emojihappy_one" className="h-[30px] w-[30px] mt-[7px]" />
-                <Heading size="2xl" as="h6" className="mb-[7px] tracking-[-0.56px]">
-                  Enjoy your <br />
-                  Appointment
-                </Heading>
-              </div>
-            </div>
           </div>
         </div>
-        <div className="flex flex-row justify-center w-full p-[50px] bg-gray-50">
-          <div className="flex flex-row justify-center w-full mx-[70px] max-w-[1200px]">
-            <div className="flex flex-row w-full gap-[100px]">
-              <div className="flex flex-col items-start justify-start w-[19%] gap-[18px]">
-                <Button color="white_A700" size="3xl" shape="circle" className="w-[60px]">
-                  <Img src="images/img_frame.svg" />
-                </Button>
-                <div className="flex flex-col items-start justify-start w-full gap-[13px]">
-                  <Heading size="4xl" as="h2" className="tracking-[-0.92px]">
-                    $15.4M
-                  </Heading>
-                  <Heading size="lg" as="h3" className="!text-blue_gray-600 tracking-[-0.40px]">
-                    Owned from
-                    <br />
-                    Properties transactions
-                  </Heading>
-                </div>
-              </div>
-              <div className="flex flex-col items-start justify-start w-[19%] gap-[18px]">
-                <Button color="white_A700" size="3xl" shape="circle" className="w-[60px]">
-                  <Img src="images/img_frame_orange_a700.svg" />
-                </Button>
-                <div className="flex flex-col items-start justify-start w-full gap-[13px]">
-                  <Heading size="4xl" as="h4" className="tracking-[-0.92px]">
-                    25K+
-                  </Heading>
-                  <Heading size="lg" as="h5" className="!text-blue_gray-600 tracking-[-0.40px]">
-                    Properties for Buy & sell Successfully
-                  </Heading>
-                </div>
-              </div>
-              <div className="flex flex-col items-start justify-start w-[19%] gap-[18px]">
-                <Button color="white_A700" size="3xl" shape="circle" className="w-[60px]">
-                  <Img src="images/img_icon.svg" />
-                </Button>
-                <div className="flex flex-col items-start justify-start w-full gap-[13px]">
-                  <Heading size="4xl" as="h6" className="tracking-[-0.92px]">
-                    500
-                  </Heading>
-                  <Heading size="lg" as="h5" className="!text-blue_gray-600 tracking-[-0.40px]">
-                    Daily completed <br />
-                    transactions
-                  </Heading>
-                </div>
-              </div>
-              <div className="flex flex-col items-start justify-start w-[19%] mb-[26px] gap-[18px]">
-                <Button color="white_A700" size="3xl" shape="circle" className="w-[60px]">
-                  <Img src="images/img_icon_orange_a700.svg" />
-                </Button>
-                <div className="flex flex-col items-start justify-start w-full gap-4">
-                  <Heading size="4xl" as="h1" className="tracking-[-0.92px]">
-                    600+
-                  </Heading>
-                  <Heading size="lg" as="h5" className="!text-blue_gray-600 tracking-[-0.40px]">
-                    Reagular Clients
-                  </Heading>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-row justify-center w-full">
 
+       <div className="flex flex-row justify-center w-full">
         </div>
+
+
+
+
         <div className="flex flex-col items-center justify-start w-full gap-6">
+         
+         
           <div className="flex flex-row justify-center w-full">
             <div className="flex flex-row justify-center w-full max-w-[1010px]">
-              <div className="flex flex-row justify-between w-full">
+              <div className="flex flex-row">
                 <Img
                   src="images/profile.png"
                   alt="image_seven"
-                  className="w-[46%] object-cover rounded-lg"
+                  className="sm:w-[46%] sm:h-[100%] object-cover rounded-lg w-[30%] h-[50%] m-4 sm:mb-4 sm:m-0"
                 />
-                <div className="flex flex-row justify-center w-[46%]">
+                <div className="flex flex-row justify-center w-[46%] pl-10">
                   <div className="flex flex-col items-center justify-start w-full gap-[30px]">
                     <div className="flex flex-row justify-between items-center w-full">
                       <div className="flex flex-col items-start justify-center gap-[5px]">
-                        <Heading size="2xl" as="h2" className="mt-0.5 tracking-[-0.56px]">
+                        <p size="2xl" as="h2" className="mt-0.5 tracking-[-0.56px] text-xl font-bold  sm:text-3xl ">
                           Ashutosh Rawat
-                        </Heading>
+                        </p>
                         <Heading size="md" as="h3" className="!font-semibold">
                           Web Developer 
                         </Heading>
                       </div>
-                      <Img src="images/img_shape.svg" alt="shape_one" className="h-[51px]" />
+                      <Img src="images/img_shape.svg" alt="shape_one" className="sm:h-[51px] h-5" />
                     </div>
-                    <Heading size="xl" as="h4" className="!text-gray-700 !font-semibold !leading-[165%]">
-                      Created this website using React, node, Express, Mongo-DB for this website. {" "}
-                    </Heading>
+                    <p className="!text-gray-700 !font-semibold !leading-[165%] text-base sm:text-2xl ">
+                      Created this website using React, node, Express, Mongo-DB aka MERN stack. {" "}
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
+
         </div>
 
       </div>

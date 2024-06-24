@@ -1,3 +1,99 @@
+// import React from "react";
+// // import { CloseSVG } from "../../assets/images";
+// import { Img, Heading, Text } from "..";
+// import { Link } from 'react-router-dom';
+// import { useContext, useEffect, useState } from "react";
+// import { UserContext } from "../../UserContext";
+
+// export default function Header({ ...props }) {
+//   // const [searchBarValue1, setSearchBarValue1] = useState("");
+//   const { setUserInfo, userInfo } = useContext(UserContext);
+//   const [menuVisible, setMenuVisible] = useState(false);
+//   const baseUrl = process.env.REACT_APP_BASE_URL;
+//   useEffect(() => {
+//     fetch(`${baseUrl}/auth/profile`, {
+//       credentials: 'include',
+//     }).then(response => {
+//       response.json().then(userInfo => {
+//         setUserInfo(userInfo);
+//         // const col = userInfo.id;
+//         // console.log(userInfo)
+//       });
+//     });
+//   }, [setUserInfo, baseUrl]);
+//   function logout() {
+//     fetch(`${baseUrl}/auth/logout`, {
+//       credentials: 'include',
+//       method: 'POST',
+//     });
+//     setUserInfo(null);
+//   }
+//   useEffect(() => {
+//     if (menuVisible) {
+//       const timeoutId = setTimeout(() => setMenuVisible(false), 3000); // Close menu after 5 seconds
+//       return () => clearTimeout(timeoutId); // Cleanup function to clear timeout on unmount
+//     }
+//   }, [menuVisible]);
+
+//   const username = userInfo?.Username;
+//   console.log(username)
+
+
+//   return (
+//     <header {...props}>
+//       {/* Header container */}
+//       <div className="flex justify-between items-center px-4 py-2 bg-white shadow-md">
+//         {/* Icon and text */}
+//         <div className="flex items-center space-x-2">
+//           <img src="/images/img_real_estate_1.svg" alt="realestateone" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12" />
+//           <p className="text-lg sm:text-xl md:text-2xl font-bold">H&H</p>
+//         </div>
+  
+//         {/* Menu items - horizontal scroll on mobile, consistent on laptop */}
+//         <div className="flex-1 flex justify-center sm:justify-start overflow-x-auto md:overflow-visible space-x-4">
+//           <div className="flex space-x-4">
+//             <Link to="/" className="text-sm sm:text-base md:text-lg"><h6>Home</h6></Link>
+//             <Link to="listing" className="text-sm sm:text-base md:text-lg"><h6>Listing</h6></Link>
+//             <Link to="/agentlist" className="text-sm sm:text-base md:text-lg"><h6>Agents</h6></Link>
+//             <Link to='/blogpage' className="text-sm sm:text-base md:text-lg"><h6>Blog</h6></Link>
+//           </div>
+//         </div>
+  
+//         {/* User icon and menu button - fixed on the right */}
+//         <div className="flex items-center space-x-2 sm:space-x-4">
+//           {/* Menu button */}
+//           <div className="relative">
+//             <button onClick={() => setMenuVisible(!menuVisible)} className="md:hidden">
+//               <img src="/images/menu-burger-horizontal-svgrepo-com.svg" alt="Menu" className="w-6 h-6 sm:w-8 sm:h-8" />
+//             </button>
+//             {menuVisible && (
+//               <div className="absolute right-0 top-full mt-2 w-48 bg-white shadow-lg p-4 rounded-md opacity-75">
+//                 <Link to="/blog/create" className="block py-1">Write Blog</Link>
+//                 <Link to="/property" className="block py-1">Add Property</Link>
+//                 <Link to="/signup" className="block py-1">Register</Link>
+//                 <button onClick={logout} className="block py-1">Logout</button>
+//               </div>
+//             )}
+//           </div>
+  
+//           {/* Profile link */}
+//           <Link to={username ? '' : '/login'} className="flex items-center space-x-2">
+//             {!!username && <div className="text-sm sm:text-base">{username}</div>}
+//             <img src="/images/profile-round-1342-svgrepo-com.svg" alt="User" className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10" />
+//           </Link>
+//         </div>
+//       </div>
+//     </header>
+//   );
+  
+  
+// }
+
+
+
+
+
+
 import React from "react";
 // import { CloseSVG } from "../../assets/images";
 import { Img, Heading, Text } from "..";
@@ -41,146 +137,95 @@ export default function Header({ ...props }) {
 
   return (
     <header {...props}>
-      <div className="flex flex-row justify-between items-center w-full mx-auto h-20 max-w-[1200px]">
-        <div className="flex flex-row justify-start items-start gap-[11px]">
-          <Img src="/images/img_real_estate_1.svg" alt="realestateone" className="h-10 w-10" />
-          <Text as="p" className="mt-[5px]">
-            H&H
-          </Text>
-        </div>
-        <div className="flex flex-row justify-between items-center w-[41%]">
-          <div className="flex flex-row w-[64%] gap-10">
-            <div className="flex flex-row justify-start items-start w-[25%] gap-1.5">
-              <Link to="/"><Heading as="h6">Home</Heading></Link>
-            </div>
-            <div className="flex flex-row justify-start items-start w-[25%] gap-1.5">
-              <Link to="listing"><Heading as="h6">Listing</Heading></Link>
-            </div>
-            <div className="flex flex-row justify-start items-start w-[25%] gap-1.5">
-              <Link to="/agentlist"><Heading as="h6">Agents</Heading></Link>
-            </div>
-          </div>
-          <div className="flex flex-row justify-start items-start w-[25%] gap-1.5"><Link to='/blogpage'>
-            <Heading as="h6">Blog</Heading></Link></div>
-        </div>
+    {/* div contains the header item of my website */}
+    <div className="grid gap-4 m-4 grid-cols-12">
+  {/* contains icon and text  they should be fined in the screen */}
+  <div className="flex flex-row col-span-3">
+    <Link to="/" className="flex flex-row">
+      <Img src="/images/img_real_estate_1.svg" alt="realestateone" className="h-8 w-8" />
+      <Text as="p" className="h-8 w-8">H&H</Text>
+    </Link>
+  </div>
 
-        {/* Header menu with user icon and hamburger menu */}
-        <div className="flex flex-row justify-start items-center gap-2.5 w-48 border border-gray-300 rounded-full">
-          {/* Menu button */}
-          <div className="relative">
-            <button onClick={() => setMenuVisible(!menuVisible)} className="flex items-center gap-2 py-2 px-4 focus:outline-none">
-              <img src="/images/menu-burger-horizontal-svgrepo-com.svg" alt="Menu" width="24" height="24" />
-            </button>
-            {/* Menu options */}
-            {menuVisible && (
-              <div className="absolute bg-yellow-50 top-full mt-1 w-48 text-black-800 border border-gray-300 rounded-md shadow-lg "> {/* Added opacity-75 for translucency */}
-                <Link to="/blog/create" className="block px-4 py-2 text-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-100">Write Blog</Link>
-                <Link to="/property" className="block px-4 py-2 text-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-100">add property</Link>
-                <Link to="/signup" className="block px-4 py-2 text-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-100">Register</Link>
-                <button onClick={logout} className="block px-4 py-2 text-sm text-left w-full hover:bg-gray-100 focus:outline-none focus:bg-gray-100">Logout</button>
-              </div>
-            )}
-          </div>
+  {/* contains the menu items which I want to scroll horizontally in mobile while in laptop stay consistent */}
+  <div className="flex flex-row justify-center px-2 col-span-6">
+    <div className="px-2 sm:px-8">
+      <Link to="listing">
+        <Heading as="h6">Listing</Heading>
+      </Link>
+    </div>
+    <div className="px-2 sm:px-8">
+      <Link to="/agentlist">
+        <Heading as="h6">Agents</Heading>
+      </Link>
+    </div>
+    <div className="px-2 sm:px-8">
+      <Link to='/blogpage'>
+        <Heading as="h6">Blog</Heading>
+      </Link>
+    </div>
+  </div>
 
-          {/* Profile link */}
-          {/* <div classname="w-full"> */}
-          <Link to={username ? '' : '/login'} className="w-[30%] flex items-center gap-2 py-2 px-4 text-white rounded-full hover:bg-gray-100 focus:outline-none focus:bg-gray-300">
-            {!!username && <div>{username}</div>}
+  {/* Header menu with user icon and hamburger menu make it fixed in the right most part of the screen make them a bit smaller in the mobile */}
+  <div className="flex flex-row justify-end pr-0 col-span-3 sm:pr-20">
+    {/* Menu button */}
+    <div className="pr-2">
+      <button onClick={() => setMenuVisible(!menuVisible)} className="">
+        <img src="/images/menu-burger-horizontal-svgrepo-com.svg" alt="Menu" 
+        className="h-4 w-4 sm:h-6 sm:w-6" />
+      </button>
+      {/* Menu options */}
+      {menuVisible && (
+         <div className="absolute right-1 sm:right-3 mt-2 bg-white rounded shadow-lg">
+         {/* Added opacity-75 for translucency */}
+         <div className="p-2">
+           <Link to="/blog/create" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Write Blog</Link>
+           <Link to="/property" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Add Property</Link>
+           <Link to="/signup" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Register</Link>
+           <button onClick={logout} className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</button>
+         </div>
+       </div>
+      )}
+    </div>
 
-            <img src="/images/profile-round-1342-svgrepo-com.svg"
-              className="justify-self-end hover:bg-gray-600 focus:bg-gray-600"
-              alt="User" width="14" height="14" />
+    {/* Profile link */}
+    <Link to={username ? '' : '/login'} 
+    className="flex flex-col-reverse pt-0 mt-0 ">
+      {!!username && <div>{username}</div>}
+      <img src="/images/profile-round-1342-svgrepo-com.svg" 
+      className="h-4 w-4 ml-1 mr-1 mb-0 pb-0" 
+      alt="User"  />
+    </Link>
+  </div>
+</div>
 
-          </Link>
-          {/* </div> */}
-
-        </div>
-      </div>
     </header>
   );
 }
 
 
+//{/*   <p className="text-lg font-bold text-gray-800">Listing</p> */}
+
+// scroll
+
+//  <div className="inline-block px-4 py-2">
+//     <Link to="/" className="block"><Heading as="h6">Home</Heading></Link>
+//   </div>
+//   <div className="inline-block px-4 py-2">
+//     <Link to="/listing" className="block"><Heading as="h6">Listing</Heading></Link>
+//   </div>
+//   <div className="inline-block px-4 py-2">
+//     <Link to="/agentlist" className="block"><Heading as="h6">Agents</Heading></Link>
+//   </div>
+//   <div className="inline-block px-4 py-2">
+//     <Link to="/blogpage" className="block"><Heading as="h6">Blog</Heading></Link>
+//   </div>
+// </div>
 
 
-
-
-
-
-
-
-
-// import { Fragment } from 'react'
-// import { Popover, Transition } from '@headlessui/react'
-// import {
-//   ArrowPathIcon,
-//   ChartPieIcon,
-//   CursorArrowRaysIcon,
-//   FingerPrintIcon,
-//   SquaresPlusIcon,
-// } from '@heroicons/react/24/outline'
-
-// const solutions = [
-//   { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
-//   { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
-//   { name: 'Security', description: "Your customers' data will be safe and secure", href: '#', icon: FingerPrintIcon },
-//   { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: SquaresPlusIcon },
-//   { name: 'Automations', description: 'Build strategic funnels that will convert', href: '#', icon: ArrowPathIcon },
-// ]
-// const callsToAction = [
-//   { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
-//   { name: 'Contact sales', href: '#', icon: PhoneIcon },
-// ]
-
-// export default function Example() {
-//   return (
-//     <Popover className="relative">
-//       <Popover.Button className="inline-flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
-//         <span>Solutions</span>
-//       </Popover.Button>
-
-//       <Transition
-//         as={Fragment}
-//         enter="transition ease-out duration-200"
-//         enterFrom="opacity-0 translate-y-1"
-//         enterTo="opacity-100 translate-y-0"
-//         leave="transition ease-in duration-150"
-//         leaveFrom="opacity-100 translate-y-0"
-//         leaveTo="opacity-0 translate-y-1"
-//       >
-//         <Popover.Panel className="absolute left-1/2 z-10 mt-5 flex w-screen max-w-max -translate-x-1/2 px-4">
-//           <div className="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
-//             <div className="p-4">
-//               {solutions.map((item) => (
-//                 <div key={item.name} className="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50">
-//                   <div className="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-//                     <item.icon className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" aria-hidden="true" />
-//                   </div>
-//                   <div>
-//                     <a href={item.href} className="font-semibold text-gray-900">
-//                       {item.name}
-//                       <span className="absolute inset-0" />
-//                     </a>
-//                     <p className="mt-1 text-gray-600">{item.description}</p>
-//                   </div>
-//                 </div>
-//               ))}
-//             </div>
-//             <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-//               {callsToAction.map((item) => (
-//                 <a
-//                   key={item.name}
-//                   href={item.href}
-//                   className="flex items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-100"
-//                 >
-//                   <item.icon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
-//                   {item.name}
-//                 </a>
-//               ))}
-//             </div>
-//           </div>
-//         </Popover.Panel>
-//       </Transition>
-//     </Popover>
-//   )
-// }
+// <div className="absolute bg-yellow-50 top-full mt-1 w-48 text-black-800 border border-gray-300 rounded-md shadow-lg "> {/* Added opacity-75 for translucency */}
+//                 <Link to="/blog/create" className="block px-4 py-2 text-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-100">Write Blog</Link>
+//                 <Link to="/property" className="block px-4 py-2 text-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-100">add property</Link>
+//                 <Link to="/signup" className="block px-4 py-2 text-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-100">Register</Link>
+//                 <button onClick={logout} className="block px-4 py-2 text-sm text-left w-full hover:bg-gray-100 focus:outline-none focus:bg-gray-100">Logout</button>
+//               </div>
