@@ -18,7 +18,7 @@ export default function LandingPageCard({
 }) {
   return (
     <div {...props}>
-      <Img src={image} alt="image_one" className="w-full rounded-tr-[10px] rounded-tl-[10px] object-cover" />
+      <Img src={image} alt="image_one" className="w-full rounded-tr-[10px] rounded-tl-[10px] object-cover h-60" />
       <div className="flex flex-row justify-center w-full p-[19px] rounded-bl-[10px] rounded-br-[10px] border-red-100_01 border border-solid bg-gray-50_01">
         <div className="flex flex-col items-center justify-start w-full gap-[25px] my-2.5 max-w-[344px]">
           <div className="flex flex-row justify-start items-center w-full gap-3">

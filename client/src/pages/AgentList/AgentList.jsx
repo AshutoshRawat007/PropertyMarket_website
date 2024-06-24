@@ -42,10 +42,10 @@ export default function AgentListPage() {
           {/* <Header1 className="flex justify-center items-center w-full p-[19px] bg-white-A700" /> */}
           <div className="flex flex-row justify-center w-full">
             <div className="flex flex-col items-start justify-start w-full pt-[5px] gap-[18px] max-w-[1200px]">
-              <Heading size="3xl" as="h1" className="tracking-[-0.72px]">
+              <Heading size="3xl" as="h1" className="tracking-[-0.72px]  text-center">
                 Some Nearby Good Agents
               </Heading>
-              <div className="flex flex-row justify-start gap-4">
+              <div className="flex flex-row justify-center gap-2">
                 <Input
                   name="search"
                   placeholder="Enter Agent Name"
@@ -67,10 +67,10 @@ export default function AgentListPage() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-center justify-start w-full gap-[60px]">
+          <div className="flex flex-col items-center justify-center w-full gap-[60px]">
 
             {/* below div is for anegt profile now i have to make it dynamic */}
-            <div className="justify-center w-full gap-6 grid-cols-4 grid min-h-[auto] max-w-[1200px]">
+            <div className="justify-center w-full ml-3 gap-4 sm:grid-cols-4 grid-cols-2 grid min-h-[auto] max-w-[1200px]">
 
               {/* the single agent card si below  */}
               {searchResults.map((data) => (

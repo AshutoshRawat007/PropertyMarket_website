@@ -106,17 +106,38 @@ export default function Header({ ...props }) {
   const { setUserInfo, userInfo } = useContext(UserContext);
   const [menuVisible, setMenuVisible] = useState(false);
   const baseUrl = process.env.REACT_APP_BASE_URL;
+  // useEffect(() => {
+  //   fetch(`${baseUrl}/auth/profile`, {
+  //     credentials: 'include',
+  //   }).then(response => {
+  //     response.json().then(userInfo => {
+  //       setUserInfo(userInfo);
+  //     });
+  //   });
+  // }, [setUserInfo, baseUrl]);
+
   useEffect(() => {
-    fetch(`${baseUrl}/auth/profile`, {
-      credentials: 'include',
-    }).then(response => {
-      response.json().then(userInfo => {
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch(`${baseUrl}/auth/profile`, {
+          credentials: 'include',
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch profile');
+        }
+
+        const userInfo = await response.json();
         setUserInfo(userInfo);
-        // const col = userInfo.id;
-        // console.log(userInfo)
-      });
-    });
-  }, [setUserInfo, baseUrl]);
+      } catch (error) {
+        console.error('Error fetching profile:', error.message);
+        // Handle the error (e.g., redirect to login page)
+      }
+    };
+
+    fetchProfile();
+  }, [setUserInfo,baseUrl]);
+  
   function logout() {
     fetch(`${baseUrl}/auth/logout`, {
       credentials: 'include',
@@ -132,7 +153,7 @@ export default function Header({ ...props }) {
   }, [menuVisible]);
 
   const username = userInfo?.Username;
-  console.log(username)
+  // console.log(username)
 
 
   return (
@@ -191,7 +212,7 @@ export default function Header({ ...props }) {
     {/* Profile link */}
     <Link to={username ? '' : '/login'} 
     className="flex flex-col-reverse pt-0 mt-0 ">
-      {!!username && <div>{username}</div>}
+      {(!!username && <div>{username}</div>) || <div>login</div>} 
       <img src="/images/profile-round-1342-svgrepo-com.svg" 
       className="h-4 w-4 ml-1 mr-1 mb-0 pb-0" 
       alt="User"  />

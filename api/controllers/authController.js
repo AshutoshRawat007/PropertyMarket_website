@@ -60,9 +60,14 @@ exports.login = async (req, res) => {
 
 exports.getProfile = (req, res) => {
     const { token } = req.cookies;
+    if (!token) {
+        return res.json({});
+        // return res.status(401).json({ error: 'JWT token not provided' });
+      }
     jwt.verify(token, secret, {}, (err, info) => {
         if (err) throw err;
         res.json(info);
+        // console.log(info.id, " profile");
     });
 };
 
