@@ -55,30 +55,33 @@ export default function AgentProfilePage() {
                 <Img src="/images/img_cover_image.png" alt="coverimage_one" className="w-full object-cover" />
               </div>
               <div className="flex flex-col items-center justify-start w-full mt-[-46px] gap-[58px]">
-                <div className="flex flex-row justify-start items-center w-full gap-[30px] max-w-[1160px]">
+
+
+
+                <div className="flex flex-col sm:flex-row justify-start items-center w-full gap-[30px] max-w-[1160px]">
                 {agentdata.profileimg ? (
         <Img
           src={agentdata.profileimg}
           alt="image"
-          className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
+          className="w-[30%] sm:w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
         />
       ) : (
         <Img
           src="images/img_icon_24px_user.svg"
           alt="image"
-          className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
+          className="w-[30%] sm:w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
         />
       )}
-                  <div className="flex flex-row justify-between items-center w-[85%]">
+                  <div className="flex flex-col justify-between items-center w-[85%]">
                     <div className="flex flex-row justify-start items-center w-[83%] gap-8">
-                      <div className="flex flex-col items-start justify-start w-[49%] gap-1.5">
+                      <div className="flex flex-col items-start justify-center w-[49%] gap-1.5">
                         <Heading size="xl" as="h1" className="tracking-[-0.48px]">
                           {agentdata.name}
                         </Heading>
-                        <div className="flex flex-row justify-start items-center gap-3.5 py-0.5">
-                          <RatingBar value={1} isEditable={true} size={16} className="flex justify-between w-24" />
+                        <RatingBar value={1} isEditable={true} size={16} className="flex justify-between w-24" />
                           <Heading as="h3">0 review till now</Heading>
-                        </div>
+                        {/* <div className="flex flex-row justify-start items-center gap-3.5 py-0.5">
+                        </div> */}
                       </div>
                       <div className="flex flex-col items-center justify-start w-[49%] gap-2">
                         <div className="flex flex-row justify-start items-center w-full gap-[13px] py-0.5">
@@ -98,14 +101,21 @@ export default function AgentProfilePage() {
                     {/* <Button className="font-semibold min-w-[112px]">Contact</Button> */}
                   </div>
                 </div>
+
+
+                
                 <div className="flex flex-row justify-center w-full">
                   <div className="flex flex-col items-center justify-start w-full gap-12 max-w-[1200px]">
+
+
                     <div className="flex flex-row justify-center w-full gap-3">
                       <Button size="lg" className="font-semibold min-w-[291px]">
                         Agent Properties
                       </Button>
                     </div>
-                    <div className="justify-center w-full gap-6 grid-cols-3 grid min-h-[auto]">
+
+{/* property cards */}
+                    <div className="justify-center w-full gap-6 grid-cols-1 sm:grid-cols-3 grid min-h-[auto]">
                       {propertdata.map((propertdata) => (
                         <LandingPageCard
                           key={propertdata._id} // Make sure each card has a unique key
@@ -115,6 +125,8 @@ export default function AgentProfilePage() {
                         />
                       ))}
                     </div>
+
+
                     <div className="flex flex-row justify-between w-full">
                       <div className="flex flex-row justify-start gap-[5px]">
                         <Button color="gray_700" variant="outline" className="font-semibold min-w-[48px]">
@@ -136,57 +148,50 @@ export default function AgentProfilePage() {
             </div>
           </div>
         </div>
-        <div className="flex mb-5 flex-row justify-between items-start w-full p-[41px] border-blue_gray-100_01 border border-solid bg-white-A700 max-w-[1200px] rounded-[10px]">
-          <div className="flex flex-col items-center justify-start w-[47%] gap-[57px]">
-            <div className="flex flex-col items-center justify-start w-full gap-6">
+
+
+        <div className="flex mb-5 flex-col justify-between items-start w-full p-[41px] border-blue_gray-100_01 border border-solid bg-white-A700 max-w-[1200px] rounded-[10px]">
+          <div className="flex flex-col items-center justify-start w-[95%] gap-[57px]">
+
+
+{/* name image desc details of agent */}
+            <div className="flex items-center justify-start w-full gap-6">
               <div className="flex flex-row justify-start items-center w-full gap-[30px]">
-              {agentdata.profileimg ? (
-        <Img
-          src={agentdata.profileimg}
-          alt="image"
-          className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
-        />
-      ) : (
-        <Img
-          src="images/img_icon_24px_user.svg"
-          alt="image"
-          className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
-        />
-      )}
-                <div className="flex flex-col items-start justify-start w-3/5 gap-1.5">
+                <div className="flex flex-col">
+                  {agentdata.profileimg ? (
+                    <Img
+                      src={agentdata.profileimg}
+                      alt="image"
+                      className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
+                    />
+                  ) : (
+                    <Img
+                      src="images/img_icon_24px_user.svg"
+                      alt="image"
+                      className="w-[282px] rounded-tr-[10px] rounded-tl-[10px] object-cover"
+                    />
+                  )}
+
                   <Heading size="xl" as="h2" className="tracking-[-0.48px]">
                     {agentdata.Username}
                   </Heading>
-                  <div className="flex flex-row justify-start items-center gap-3.5 py-0.5">
-                    <RatingBar value={1} isEditable={true} size={16} className="flex justify-between w-24" />
-                    <Heading as="h3">0 review till now</Heading>
-                  </div>
-                  <div className="flex flex-row justify-start items-center gap-[13px] py-0.5">
-                    <Img src="/images/img_icon_24px_call.svg" alt="icon24pxcall" className="h-6 w-6" />
-                    <Heading size="md" as="h4" className="!font-semibold">
-                      {agentdata.phone}
-                    </Heading>
-                  </div>
-                  <div className="flex flex-row justify-start items-center gap-3 py-0.5">
-                    <Img src="/images/img_icon_24px_email_gray_900.svg" alt="icon24pxemail" className="h-6 w-6" />
-                    <Heading size="md" as="h5" className="mt-0.5 !font-semibold">
-                      {agentdata.Username}
-                    </Heading>
-                  </div>
+                </div>
+
+                <div className="flex flex-row justify-end items-center  py-0">
+                    <Text size="xs" as="p" className="!text-gray-600_02">
+                      description of agent
+                      <br />
+                      {agentdata.description}
+                    </Text>
                 </div>
               </div>
-              <Text size="xs" as="p" className="!text-gray-600_02">
-                description of agent
-                <br />
-                {agentdata.description}
-                </Text>
             </div>
             <Button className="w-full font-semibold">Contact</Button>
           </div>
-          <div className="flex flex-col items-center justify-start w-[47%] gap-6">
-            <div className="flex flex-col items-start justify-center w-full gap-1.5">
-
-            </div>
+          {/* </div> */}
+          {/* <div className="flex mb-5 flex-row justify-between items-start w-full p-[41px] border-blue_gray-100_01 border border-solid bg-white-A700 max-w-[1200px] rounded-[10px]"> */}
+{/* agent details for property and stuff  */}
+          <div className="grid grid-cols-2 sm:flex items-center justify-start w-[90%] gap-6">
             <div className="flex flex-col items-start justify-center w-full gap-1.5">
               <Heading size="lg" as="h4" className="mt-0.5 tracking-[-0.40px]">
                 Property Types
@@ -195,7 +200,7 @@ export default function AgentProfilePage() {
                 Private House, Villa, Townhouse, Apartment
               </Heading>
             </div>
-            <div className="flex flex-col items-start justify-center w-full gap-2">
+            <div className="flex flex-col items-start justify-end w-full gap-2">
               <Heading size="lg" as="h6" className="tracking-[-0.40px]">
                 Area
               </Heading>
@@ -211,8 +216,7 @@ export default function AgentProfilePage() {
                 999 , 245st
               </Heading>
             </div>
-            <div className="flex flex-row justify-between w-full gap-[60px]">
-              <div className="flex flex-col items-start justify-center gap-[7px]">
+              <div className="flex flex-col items-start justify-center w-full gap-2">
                 <Heading size="lg" as="h5" className="tracking-[-0.40px]">
                   License No
                 </Heading>
@@ -220,17 +224,18 @@ export default function AgentProfilePage() {
                   BF-XXXXXX
                 </Heading>
               </div>
-              <div className="flex flex-col items-start justify-center gap-[7px]">
+
+            <div className="flex flex-col justify-between w-full ">
+            <div className="flex flex-col items-start justify-center">
                 <Heading size="lg" as="h5" className="tracking-[-0.40px]">
                   Website
                 </Heading>
                 <a href="https://www.w3schools.com/" className="mb-px">
                   <h3 size="md" as="h6" className="!text-gray-600_02 !font-semibold underline">
-                    checkout website
+                    checkout_website
                   </h3>
                 </a>
               </div>
-            </div>
             <div className="flex flex-col items-start justify-start w-full gap-3">
               <Heading size="lg" as="h5" className="tracking-[-0.40px]">
                 Social
@@ -243,8 +248,12 @@ export default function AgentProfilePage() {
                 <Img src="/images/img_social_icon_rss.svg" alt="socialiconrss" className="h-[30px] w-[30px]" />
               </div>
             </div>
+            </div>
           </div>
         </div>
+
+
+{/* reviews of clients */}
         {/* <div className="flex mb-4 flex-col items-center justify-start w-full gap-[39px] py-[29px] border-blue_gray-100_01 border border-solid bg-white-A700 max-w-[1200px] rounded-[10px]">
           <div className="flex flex-col items-center justify-start w-full gap-[22px]">
             <div className="flex flex-row justify-between items-center w-full px-[42px]">
@@ -382,6 +391,14 @@ export default function AgentProfilePage() {
             </Button>
           </div>
         </div> */}
+
+
+
+
+
+
+
+
       </div>
     </>
   );

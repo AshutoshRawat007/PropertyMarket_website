@@ -187,7 +187,7 @@ export default function ListingPage() {
               {/* <GoogleMap showMarker={false} className="h-[511px] w-[32%]" /> */}
               <div className="flex flex-col items-center justify-start w-[98%] gap-[60px]">
                 <div className="flex flex-col items-center justify-start w-full">
-                  <div className="justify-center w-full gap-6  grid-cols- sm:grid-cols-3 grid min-h-[auto]">
+                  <div className="justify-center w-full gap-6  grid-cols-1 sm:grid-cols-3 grid min-h-[auto]">
                     <LandingPageCard
                       key={"1258"}
                       image={"images/img_image_260x384.png"}

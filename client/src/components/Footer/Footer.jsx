@@ -5,8 +5,8 @@ import {Link} from "react-router-dom";
 export default function Footer({ ...props }) {
   return (
     <footer {...props}>
-      <div className="flex flex-row justify-start items-center w-full mt-[5px] gap-px mx-auto max-w-[1200px]">
-        <div className="flex flex-col items-center justify-start w-[29%] gap-[43px]">
+      <div className="flex flex-row justify-start items-center w-full mt-[5px] gap-[34px] sm:gap-px mx-3 sm:mx-auto max-w-[1200px]">
+        <div className="flex flex-col items-center justify-start w-[25%] gap-[43px]">
           <div className="flex flex-row justify-start items-start w-full gap-[11px]">
             <Img src="/images/img_real_estate_1.svg" alt="realestateone" className="h-10 w-10" />
             <Text as="p" className="mt-[5px]">
@@ -33,38 +33,36 @@ export default function Footer({ ...props }) {
             </div>
           </div>
         </div>
-        <div className="flex flex-row justify-between items-center w-[72%]">
-          <div className="flex flex-col items-start justify-start w-[19%] gap-[15px]">
+        <div className="grid grid-cols-2 sm:flex sm:flex-row justify-between items-center w-[70%]">
+          <div className="flex flex-col items-start justify-start w-[19%] sm:gap-[15px]">
             <Heading size="md" as="h6">
-              Features
-            </Heading>
-            <div className="flex flex-col items-start justify-start w-full gap-[15px]">
-              <Link to="/home"><Heading as="h6">Home</Heading></Link>
+              Features</Heading>
+            <Link to="/home"><Heading as="h6">Home</Heading></Link>
               <Heading as="h6">Contact</Heading>
-            </div>
+            {/* <div className="flex flex-col items-start justify-start w-full gap-[15px]">
+            </div> */}
           </div>
-          <div className="flex flex-col items-start justify-start w-[19%] gap-[15px]">
+          <div className="flex flex-col items-start justify-start w-[19%] sm:gap-[15px]">
             <Heading size="md" as="h6">
-              Information
-            </Heading>
-            <div className="flex flex-col items-start justify-start w-full pt-[3px] gap-[15px]">
-             <Link to="/listing"><Heading as="h6">Listing</Heading></Link> 
+              Info</Heading>
+            <Link to="/listing"><Heading as="h6">Listing</Heading></Link> 
               <Link to="/agentlist"><Heading as="h6"> Agent List  </Heading></Link>
-            </div>
+            
+            {/* <div className="flex flex-col items-start justify-start w-full pt-[3px] gap-[15px]">
+             </div> */}
           </div>
-          <div className="flex flex-col items-start justify-start w-[19%] gap-[15px]">
+          <div className="flex flex-col items-start justify-start w-[19%] sm:gap-[15px]">
             <Heading size="md" as="h6">
-              Documentation{" "}
-            </Heading>
-            <div className="flex flex-col items-start justify-center w-full gap-[15px]">
-             <Link to="/blogpage"> <Heading as="h6" className="mt-0.5">   Blog </Heading></Link>
-            </div>
+              BLOGS{" "} </Heading>
+              <Link to="/blogpage"> <Heading as="h6" className="mt-0.5">   Blog </Heading></Link>
+            {/* <div className="flex flex-col items-start justify-center w-full gap-[15px]">
+            </div> */}
           </div>
-          <div className="flex flex-col items-start justify-start w-[19%] gap-[15px]">
+          <div className="flex flex-col items-start justify-start w-[19%] sm:gap-[15px]">
             <Heading size="md" as="h6">
               Others
             </Heading>
-            <div className="flex flex-col items-start justify-center w-full gap-[15px]">
+            <div className="flex flex-col items-start justify-center w-full sm:gap-[15px]">
              <Link to="/login"> <Heading as="h6" className="mt-0.5">Log in</Heading></Link>
               <Heading as="h6">Create Account</Heading>
             </div>
@@ -72,7 +70,7 @@ export default function Footer({ ...props }) {
         </div>
       </div>
       <Heading as="h6" className="ml-[45px]">
-        ©All rights reserved.
+        ©All rights reservedlolo.
       </Heading>
     </footer>
   );

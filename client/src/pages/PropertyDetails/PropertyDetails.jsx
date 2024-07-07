@@ -159,9 +159,12 @@ export default function PropertyDetailsPage() {
 
 
             <div className="flex flex-col items-center justify-start w-full">
-              <div className="flex flex-row justify-start items-start w-full gap-6 max-w-[1200px]">
-                <div className="flex flex-col items-center justify-start w-[66%] gap-6">
-{/* PROPERTY DETAILS */}
+              <div className="flex flex-col sm:flex-row justify-start items-start w-full gap-6 max-w-[1200px]">
+
+
+                
+                <div className="flex flex-col items-center justify-start w-[98%] sm:w-[66%] gap-6">
+                  {/* PROPERTY DETAILS */}
                   <div className="flex flex-col items-center justify-start w-full gap-11 p-[39px] border-blue_gray-100_01 border border-solid bg-white-A700 rounded-[10px]">
                     <div className="flex flex-col items-start justify-start w-full gap-[22px]">
                       <div className="flex flex-col items-start justify-start w-full gap-[17px]">
@@ -201,68 +204,65 @@ export default function PropertyDetailsPage() {
                       <GoogleMap showMarker={false} className="h-[400px] w-full" />
                     </div>
                   </div>
-{/*  PROPERTY DETAILS */}
+                  {/*  PROPERTY DETAILS */}
 
 
 
 
- {/* AMMENITIES AND ROOM DETAILS , HOME HIGHLIGHTS */}
-                  <div className="flex flex-col items-start justify-center w-full gap-[19px] p-[39px] border-blue_gray-100_01 border border-solid bg-white-A700 rounded-[10px]">
+                  {/* AMMENITIES AND ROOM DETAILS , HOME HIGHLIGHTS */}
+                  <div className="flex flex-col items-start justify-center w-full gap-[19px] p-[10px] sm:p-[39px] border-blue_gray-100_01 border border-solid bg-white-A700 rounded-[10px]">
                     <Heading size="2xl" as="h3" className="mt-[3px] tracking-[-0.56px]">
                       Home Highlights
                     </Heading>
-                    <div className="flex flex-row w-full gap-[150px]">
-                      <div className="flex flex-col items-center justify-start w-2/5 gap-2.5">
-                        <div className="flex flex-row justify-between items-center w-full">
-                          <div className="flex flex-row justify-start items-center w-[41%] gap-2.5">
-                            <div className="h-2 w-2 bg-gray-600_02 rounded-[50%]" />
-                            <Text as="p" className="mt-[5px]">
-                              Rooms
-                            </Text>
+                    <div className="flex flex-row w-full gap-[1px] sm:gap-[150px]">
+                      <div className="flex flex-col items-center justify-start gap-2.5">
+                        <div className="flex flex-row justify-start items-center w-[100%] sm:w-full">
+                          <div className="flex flex-row justify-start items-center w-auto gap-2.5 sm:gap-2.5">
+                            {/* /} */}
+                            <Text as="p" className="mt-[5px]">Rooms</Text>
+                            
                           </div>
                           <Heading size="md" as="h6" className="text-right">
-                           {roomss} rooms
+                            {roomss} rooms
                           </Heading>
+                          
                         </div>
-                        <div className="flex flex-row justify-between items-center w-full">
-                          <div className="flex flex-row justify-start items-center w-[60%] gap-2.5 py-0.5">
-                            <div className="h-2 w-2 bg-gray-600_02 rounded-[50%]" />
+                        <div className="flex flex-row justify-start items-center w-[100%] sm:w-full">
+                          <div className="flex flex-row justify-start items-center w-auto gap-2.5 py-0.5">
+                            {/**/}
                             <Text as="p" className="mt-px">
                               Kitchen
                             </Text>
                           </div>
                           <Heading size="md" as="h6" className="text-right">
-                          {kitchen?"YES":"NO"} 
+                            {kitchen ? "YES" : "NO"}
                           </Heading>
                         </div>
-                        
-                        <div className="flex flex-row justify-between items-center w-full">
-                          <div className="flex flex-row justify-start items-center w-[35%] gap-2.5 py-0.5">
-                            <div className="h-2 w-2 bg-gray-600_02 rounded-[50%]" />
-                            <Text as="p" className="mt-px">
-                              GuestRoom
-                            </Text>
+
+                        <div className="flex flex-row justify-start items-center w-[100%] sm:w-full">
+                          <div className="flex flex-row justify-start mr-1 w-auto">
+                            <Text as="p" className="mt-px"> GuestRoom</Text>
                           </div>
-                          <Heading size="md" as="h6" className="text-right">
-                          {guestRoom ? "Yes":"NO"} 
-                          </Heading>
+                          <div className="flex flex-row justify-end ml-1 w-auto">
+                          <Heading size="md" as="h6" className="text-right">{guestRoom ? "Yes" : "NO"}</Heading>
+                          </div>
                         </div>
-                        <div className="flex flex-row justify-between items-center w-full">
+                        <div className="flex flex-row justify-start items-center w-[100%] sm:w-full">
                           <div className="flex flex-row justify-start items-center w-[43%] gap-2.5 py-0.5">
-                            <div className="h-2 w-2 bg-gray-600_02 rounded-[50%]" />
+                            {/**/}
                             <Text as="p" className="mt-px">
                               Hot water
                             </Text>
                           </div>
                           <Heading size="md" as="h6" className="text-right">
-                          {hotwater ? "Yes":"NO"} 
+                            {hotwater ? "Yes" : "NO"}
                           </Heading>
                         </div>
                       </div>
                       <div className="flex flex-col items-center justify-start w-2/5 mb-[42px] gap-2.5">
-                        <div className="flex flex-row justify-between items-center w-full">
+                        <div className="flex flex-row justify-between items-center w-[80%] sm:w-full">
                           <div className="flex flex-row justify-start items-center w-[36%] gap-2.5 py-0.5">
-                            <div className="h-2 w-2 bg-gray-600_02 rounded-[50%]" />
+                            {/**/}
                             <Text as="p" className="mt-px">
                               HOA
                             </Text>
@@ -271,9 +271,9 @@ export default function PropertyDetailsPage() {
                             None
                           </Heading>
                         </div>
-                        <div className="flex flex-row justify-between items-center w-full">
-                          <div className="flex flex-row justify-start items-center w-[45%] gap-2.5">
-                            <div className="h-2 w-2 bg-gray-600_02 rounded-[50%]" />
+                        <div className="flex flex-row justify-between items-center w-[80%] sm:w-full">
+                          <div className="flex flex-row justify-start items-center w-auto gap-2.5">
+                            {/**/}
                             <Text as="p" className="mt-[5px]">
                               Price/Sqft
                             </Text>
@@ -282,9 +282,9 @@ export default function PropertyDetailsPage() {
                             N/A
                           </Heading>
                         </div>
-                        <div className="flex flex-row justify-between items-center w-full">
-                          <div className="flex flex-row justify-start items-center w-[39%] gap-2.5 py-0.5">
-                            <div className="h-2 w-2 bg-gray-600_02 rounded-[50%]" />
+                        <div className="flex flex-row justify-between items-center w-[80%] sm:w-full">
+                          <div className="flex flex-row justify-start items-center w-auto gap-2.5 py-0.5">
+                            {/**/}
                             <Text as="p" className="mt-px">
                               Listed
                             </Text>
@@ -296,17 +296,17 @@ export default function PropertyDetailsPage() {
                       </div>
                     </div>
                   </div>
- {/* AMMENITIES AND ROOM DETAILS , HOME HIGHLIGHTS */}
+                  {/* AMMENITIES AND ROOM DETAILS , HOME HIGHLIGHTS */}
 
 
-{/* Agent Informantion */}
+                  {/* Agent Informantion */}
                   <div className="flex flex-col items-start justify-center w-full gap-[21px] p-[39px] border-blue_gray-100_01 border border-solid bg-white-A700 rounded-[10px]">
                     <Heading size="2xl" as="h3" className="mt-[3px] tracking-[-0.56px]">
                       Agent Information
                     </Heading>
                     <div className="flex flex-row justify-start items-center w-full gap-6">
-                     
-                    <Link to={'/agentprofile/'+agent._id}><Img
+
+                      <Link to={'/agentprofile/' + agent._id}><Img
                         src="/images/img_rectangle_5599.png"
                         alt="image_three"
                         className="w-[150px] object-cover rounded-[10px]"
@@ -324,83 +324,83 @@ export default function PropertyDetailsPage() {
                         <div className="flex flex-row justify-start items-center gap-2.5 py-0.5">
                           <Img src="/images/img_icon_20px_email.svg" alt="icon20pxemail" className="h-5 w-5" />
                           <Text size="xs" as="p" className="mt-0.5">
-                          {agentUsername}
+                            {agentUsername}
                           </Text>
                         </div>
                         <div className="flex flex-row justify-start items-center gap-2.5 py-0.5">
                           <Img src="/images/img_icon_20px_call.svg" alt="icon20pxcall" className="h-5 w-5" />
                           <Text size="xs" as="p">
-                          {agentnumber}
+                            {agentnumber}
                           </Text>
                         </div>
                       </div>
                     </div>
                   </div>
-{/* Agent Informantion */}
+                  {/* Agent Informantion */}
 
                 </div>
 
 {/* request visit form */}
-<form onSubmit={handleSubmit} className="w-80">
-  <div className="flex flex-col items-center justify-start w-full lg:w-[32%] gap-10 p-[23px] border border-solid border-gray-700 rounded-[10px] bg-white-A700">
-    <div className="flex flex-col items-start justify-start w-full pt-[3px] gap-[19px]">
-      <h3 className="text-2xl font-semibold tracking-[-0.56px]">Request for Visit</h3>
-      <div className="flex flex-col items-center justify-start w-full gap-3">
-        {/* Change input types to 'text' */}
-        <div className=" mb-3 w-full pl-2 py-2 text-gray-600_02 font-semibold rounded border border-gray-700 focus:outline-none focus:ring-blue-gray-500 focus:border-blue-gray-500">  {/* Add margin-bottom for spacing */}
-          <input
-            name="fullname"
-            type="text"
-            placeholder="Full Name"
-            className="w-full "
-            onChange={(e) => handleInputChange(e)}
-          />
-        </div>
-        <div className="mb-3 w-full pl-2 py-2 text-gray-600_02 font-semibold rounded border border-gray-700 focus:outline-none focus:ring-blue-gray-500 focus:border-blue-gray-500">
-          <input
-            name="emailaddress"
-            type="text"
-            placeholder="Email Address"
-            className="w-full "
-            value={formData.emailaddress}
-            onChange={(e) => handleInputChange(e)}
-          />
-        </div>
-        <div className="mb-3 w-full pl-2 py-2 text-gray-600_02 font-semibold rounded border border-gray-700 focus:outline-none focus:ring-blue-gray-500 focus:border-blue-gray-500">
-          <input
-            type="text"
-            name="phonenumber"
-            placeholder="Phone Number"
-            className="w-full "
-            value={formData.phonenumber}
-            onChange={(e) => handleInputChange(e)}
-          />
-        </div>
-        <div className="mb-3 w-full pl-2 py-2 text-gray-600_02 font-semibold rounded border border-gray-700 focus:outline-none focus:ring-blue-gray-500 focus:border-blue-gray-500">
-          <input
-            name="date"
-            type="text"
-            placeholder="Date"
-            className="w-full "
-            value={formData.date}
-            onChange={(e) => handleInputChange(e)}
-          />
-        </div>
-      </div>
-      {/* TextArea remains the same */}
-      <textarea
-        name="message"
-        placeholder="Message"
-        value={formData.message}
-        onChange={(e) => handleInputChange(e)}
-        className="w-full h-32 pl-2 py-[12px] text-gray-600_02 font-semibold rounded border border-solid border-gray-700 focus:outline-none"
-      />
-    </div>
-    <button type="submit" className="w-full py-3 text-white font-semibold bg-blue-gray-900 rounded rounded border border-solid hover:bg-blue-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-gray-500">
-  Send Request
-</button>
-  </div>
-</form>
+                <form onSubmit={handleSubmit} className="w-80">
+                  <div className="flex flex-col items-center justify-start w-full lg:w-[32%] gap-10 p-[23px] border border-solid border-gray-700 rounded-[10px] bg-white-A700">
+                    <div className="flex flex-col items-start justify-start w-full pt-[3px] gap-[19px]">
+                      <h3 className="text-2xl font-semibold tracking-[-0.56px]">Request for Visit</h3>
+                      <div className="flex flex-col items-center justify-start w-full gap-3">
+                        {/* Change input types to 'text' */}
+                        <div className=" mb-3 w-full pl-2 py-2 text-gray-600_02 font-semibold rounded border border-gray-700 focus:outline-none focus:ring-blue-gray-500 focus:border-blue-gray-500">  {/* Add margin-bottom for spacing */}
+                          <input
+                            name="fullname"
+                            type="text"
+                            placeholder="Full Name"
+                            className="w-full "
+                            onChange={(e) => handleInputChange(e)}
+                          />
+                        </div>
+                        <div className="mb-3 w-full pl-2 py-2 text-gray-600_02 font-semibold rounded border border-gray-700 focus:outline-none focus:ring-blue-gray-500 focus:border-blue-gray-500">
+                          <input
+                            name="emailaddress"
+                            type="text"
+                            placeholder="Email Address"
+                            className="w-full "
+                            value={formData.emailaddress}
+                            onChange={(e) => handleInputChange(e)}
+                          />
+                        </div>
+                        <div className="mb-3 w-full pl-2 py-2 text-gray-600_02 font-semibold rounded border border-gray-700 focus:outline-none focus:ring-blue-gray-500 focus:border-blue-gray-500">
+                          <input
+                            type="text"
+                            name="phonenumber"
+                            placeholder="Phone Number"
+                            className="w-full "
+                            value={formData.phonenumber}
+                            onChange={(e) => handleInputChange(e)}
+                          />
+                        </div>
+                        <div className="mb-3 w-full pl-2 py-2 text-gray-600_02 font-semibold rounded border border-gray-700 focus:outline-none focus:ring-blue-gray-500 focus:border-blue-gray-500">
+                          <input
+                            name="date"
+                            type="text"
+                            placeholder="Date"
+                            className="w-full "
+                            value={formData.date}
+                            onChange={(e) => handleInputChange(e)}
+                          />
+                        </div>
+                      </div>
+                      {/* TextArea remains the same */}
+                      <textarea
+                        name="message"
+                        placeholder="Message"
+                        value={formData.message}
+                        onChange={(e) => handleInputChange(e)}
+                        className="w-full h-32 pl-2 py-[12px] text-gray-600_02 font-semibold rounded border border-solid border-gray-700 focus:outline-none"
+                      />
+                    </div>
+                    <button type="submit" className="w-full py-3 text-white font-semibold bg-blue-gray-900 rounded rounded border border-solid hover:bg-blue-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-gray-500">
+                      Send Request
+                    </button>
+                  </div>
+                </form>
 {/* request visit form */}
 
 
